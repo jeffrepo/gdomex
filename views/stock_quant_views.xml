@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="domex_view_stock_quant_tree" model="ir.ui.view">
+            <field name="name">domex.stock.quant.tree</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.view_stock_quant_tree"/>
+            <field name="arch" type="xml">
+                <field name="lot_id" position="after">
+                    <field name="largo"/>
+                    <field name="cantidad_en_metros"/>
+                    <field name="costo_total_en_metros"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>
