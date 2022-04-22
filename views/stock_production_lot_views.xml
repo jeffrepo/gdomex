@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="domex_view_production_lot_form" model="ir.ui.view">
+            <field name="name">domex.stock.production.lot.form</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_form"/>
+            <field name="arch" type="xml">
+                <group name="main_group" position="replace">
+                    
+                    <group name="main_group_one">
+                        <group>
+                            <field name="product_id"/>
+                            <label for="product_qty"/>
+                            <div class="o_row">
+                                <field name="product_qty"/>
+                                <field name="product_uom_id" />
+                            </div>
+                            <field name="ref"/>
+                            <field name="company_id"/>
+                        </group>
+                        <group>
+                            <field name="largo"/>
+                            <field name="ancho"/>
+                            <field name="color_id"/>
+                            <field name="calibre"/>
+                            <field name="aislante"/>
+                            <field name="cantidad_planchas"/>
+                        </group>
+                    </group>
+                </group>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>
+
+
