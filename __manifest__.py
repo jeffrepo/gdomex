@@ -14,7 +14,7 @@
     'category': 'Uncategorized',
     'version': '0.1',
 
-    'depends': ['stock','proyect'],
+    'depends': ['stock','project'],
 
     'data': [
         'views/stock_quant_views.xml',
