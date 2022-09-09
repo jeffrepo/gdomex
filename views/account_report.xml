@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="paperformat_inter_continuo_sheet" model="report.paperformat">
+              <field name="name">Formato para inter continuo</field>
+              <field name="default" eval="True" />
+              <field name="format">custom</field>
+              <field name="page_height">140</field>
+              <field name="page_width">210</field>
+              <field name="orientation">Portrait</field>
+              <field name="margin_top">0</field>
+              <field name="margin_bottom">0</field>
+              <field name="margin_left">0</field>
+              <field name="margin_right">0</field>
+              <field name="disable_shrinking" eval="True"/>
+              <field name="header_spacing">0</field>
+              <field name="dpi">90</field>
+        </record>
+
+        <record id="paperformat_voucher_sheet" model="report.paperformat">
+              <field name="name">Formato para varios vaucher</field>
+              <field name="default" eval="True" />
+              <field name="format">Letter</field>
+              <field name="page_height">0</field>
+              <field name="page_width">0</field>
+              <field name="orientation">Portrait</field>
+              <field name="margin_top">0</field>
+              <field name="margin_bottom">0</field>
+              <field name="margin_left">0</field>
+              <field name="margin_right">0</field>
+              <field name="disable_shrinking" eval="True"/>
+              <field name="dpi">90</field>
+        </record>
+
+
+        <record id="action_axir_g_t_q" model="ir.actions.report">
+            <field name="name">AXIR G&amp;T Q.</field>
+            <field name="model">account.payment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gdomex.design_axir_g_t</field>
+            <field name="report_file">gdomex.design_axir_g_t</field>
+            <field name="paperformat_id" ref="gdomex.paperformat_voucher_sheet"/>
+            <field name="binding_model_id" ref="account.model_account_payment"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_voucher_aplytek" model="ir.actions.report">
+            <field name="name">VOUCHER APLYTEK</field>
+            <field name="model">account.payment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gdomex.design_voucher_aplytek</field>
+            <field name="report_file">gdomex.design_voucher_aplytek</field>
+            <field name="paperformat_id" ref="gdomex.paperformat_voucher_sheet"/>
+            <field name="binding_model_id" ref="account.model_account_payment"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_inter_continuo" model="ir.actions.report">
+            <field name="name">INTER CONTINUO</field>
+            <field name="model">account.payment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gdomex.design_inter_continuo</field>
+            <field name="report_file">gdomex.design_inter_continuo</field>
+            <field name="paperformat_id" ref="gdomex.paperformat_inter_continuo_sheet"/>
+            <field name="binding_model_id" ref="account.model_account_payment"/>
+            <field name="binding_type">report</field>
+        </record>
+
+
+    </data>
+</odoo>

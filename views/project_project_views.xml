@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="gdomex_project_project_view_form" model="ir.ui.view">
+        <field name="name">gdomex.project.project.form.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='description']" position="after">
+                <page name="salida_inventario" string="Salida inventario">
+                  <field name="transferencias_ids" context="{'proyecto': id}"/>
+                </page>
+            </xpath>
+
+            <!-- <header position="inside">
+                <button name="activar_envio" string="Activar envio" type="action" class="oe_highlight"/>
+                 groups="project.group_project_manager" context="{'default_access_mode': 'read'}"
+            </header> -->
+        </field>
+    </record>
+
+</odoo>
