@@ -30,8 +30,15 @@ class Picking(models.Model):
         res = super()._action_done()
         self.env.context.get('active_ids')
         project = None
+        logging.warning('Haciendo clic en alguna parte :::')
+        logging.warning(self.env.context)
+        # logging.warning(self.env.context['proyecto'])
         if 'proyecto' in self.env.context and self.env.context['proyecto']:
             project = self.env['project.project'].search([('id', '=', self.env.context['proyecto'])])
+        else:
+            transferencia = self.env['stock.picking'].search([('id', '=', self.env.context['active_id'])])
+            project = transferencia.project_id
+
         if self.state == 'done':
             if project:
                 if self.move_ids_without_package:
@@ -49,7 +56,7 @@ class Picking(models.Model):
 
         doc_origin = ''
         if self.project_id and self.origin:
-
+            logging.warning('Tenemos projecto /////////////')
             doc_origin = self.origin.split(" ")[-1]
 
             if doc_origin:
