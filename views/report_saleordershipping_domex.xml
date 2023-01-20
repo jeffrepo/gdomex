@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="report_saleordershipping_document_domex">
+    <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />
+            <t t-foreach="docs" t-as="o">
+                <div class="header">
+                    <table>
+                        <tr>
+                            <td><h3><span t-field="o.company_id.name"/></h3></td>
+                        </tr>
+                        <tr>
+                            <td><span t-field="o.company_id.street"/></td>
+                        </tr>
+                        <tr>
+                            <td><span t-field="o.company_id.street2"/></td>
+                        </tr>
+                        <tr>
+                            <td><span t-field="o.company_id.country_id.name"/>, <span t-field="o.company_id.state_id.name"/> <span t-field="o.company_id.zip"/></td>
+                        </tr>
+                        <tr>
+                            <td>email: <span t-field="o.company_id.website"/></td>
+                        </tr>
+                        <tr>
+                            <td>Tel: <span t-field="o.company_id.phone"/> Fax:
+                              <!-- <span t-field="o.company_id.fax"/> -->
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.internal_layout">
+                    <div class="page">
+                        <table>
+                            <tr>
+                                <td style="width:150px;text-align: right;font-weight: bold;">CUSTOMER P.O.#: </td>
+                                <td style="width:24px;"></td>
+                                <td style="padding-left:5px"><span t-field="o.client_order_ref"/></td>
+                                <td style="width:50px;"></td>
+                                <td style="width:150px;text-align: right;font-weight: bold;">OUR ORDER No.# </td>
+                                <td style="width:25px;"></td>
+                                <td style="padding-left:5px"><span t-field="o.name"/></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;font-weight: bold;">CUSTOMER ID#:</td>
+                                <td></td>
+                                <td style="padding-left:5px"><span t-field="o.partner_id.barcode"/></td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <td style="width:155px;height:75px;text-align: right;​​"><b>CUSTOMER: </b></td>
+                                <td style="width:25px;"></td>
+                                <td style="width:700px;padding-left:5px">
+                                    <span t-field="o.partner_id.name"/><br/>
+                                    <span t-field="o.partner_id.street"/><br/>
+                                    <span t-field="o.partner_id.street2"/><br/>
+                                    <span t-field="o.partner_id.country_id.name"/>,<span t-field="o.partner_id.state_id.name"/><br/>
+                                    NIT: <span t-field="o.partner_id.vat"/><br/>
+                                    Tel: <span t-field="o.partner_id.phone"/>  Fax:
+                                    <!-- <span t-field="o.partner_id.fax"/> -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:75px;text-align: right;font-weight: bold;">SUPPLIER: </td>
+                                <td style="width:25px;"></td>
+                                <td style="width:375px;padding-left:5px">
+                                    <span t-field="o.supplier.name"/><br/>
+                                    <span t-field="o.supplier.street"/><br/>
+                                    <span t-field="o.supplier.street2"/><br/>
+                                    <span t-field="o.supplier.country_id.name"/>,<span t-field="o.supplier.state_id.name"/><br/>
+                                    Tel: <span t-field="o.supplier.phone"/>  Fax:
+                                    <!-- <span t-field="o.supplier.fax"/> -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:75px;text-align: right;font-weight: bold;">SHIP TO: </td>
+                                <td style="width:25px;"></td>
+                                <td style="width:700px;padding-left:5px">
+                                    <span t-field="o.partner_id.name"/><br/>
+                                    <span t-field="o.partner_id.street"/><br/>
+                                    <span t-field="o.partner_id.street2"/><br/>
+                                    <span t-field="o.partner_id.country_id.name"/>,<span t-field="o.partner_id.state_id.name"/><br/>
+                                    NIT: <span t-field="o.partner_id.vat"/><br/>
+                                    Tel: <span t-field="o.partner_id.phone"/>
+                                    Fax:
+                                    <!-- <span t-field="o.partner_id.fax"/> -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:75px;text-align: right;font-weight: bold;">BILL TO: </td>
+                                <td style="width:25px;"></td>
+                                <td style="width:375px;padding-left:5px">
+                                    <span t-field="o.bill_to.name"/><br/>
+                                    <span t-field="o.bill_to.street"/><br/>
+                                    <span t-field="o.bill_to.street2"/><br/>
+                                    <span t-field="o.bill_to.country_id.name"/>,<span t-field="o.bill_to.state_id.name"/><br/>
+                                    NIT: <span t-field="o.bill_to.vat"/><br/>
+                                    Tel: <span t-field="o.bill_to.phone"/>
+                                    Fax:
+                                    <!-- <span t-field="o.bill_to.fax"/> -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:75px;text-align: right;font-weight: bold;">CONSIGNED TO: </td>
+                                <td style="width:25px;"></td>
+                                <td style="width:375px;padding-left:5px">
+                                    <span t-field="o.consigned_to.name"/><br/>
+                                    <span t-field="o.consigned_to.street"/><br/>
+                                    <span t-field="o.consigned_to.street2"/><br/>
+                                    <span t-field="o.consigned_to.country_id.name"/>,<span t-field="o.consigned_to.state_id.name"/><br/>
+                                    NIT: <span t-field="o.consigned_to.vat"/><br/>
+                                    Tel: <span t-field="o.consigned_to.phone"/>
+                                    Fax:
+                                    <!-- <span t-field="o.consigned_to.fax"/> -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height:75px;text-align: right;font-weight: bold;">SEND DOCS TO: </td>
+                                <td style="width:25px;"></td>
+                                <td style="width:375px;padding-left:5px">
+                                    <span t-field="o.send_docs_to.name"/><br/>
+                                    <span t-field="o.send_docs_to.street"/><br/>
+                                    <span t-field="o.send_docs_to.street2"/><br/>
+                                    <span t-field="o.send_docs_to.country_id.name"/>,<span t-field="o.send_docs_to.state_id.name"/><br/>
+                                    NIT: <span t-field="o.send_docs_to.vat"/><br/>
+                                    Tel: <span t-field="o.send_docs_to.phone"/>
+                                    Fax:
+                                    <!-- <span t-field="o.send_docs_to.fax"/> -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;font-weight: bold;">PAYMENT TERMS: </td>
+                                <td style="width:25px;"></td>
+                                <td style="padding-left:5px"><span t-field="o.payment_term_id"/></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;font-weight: bold;">INSURANCE: </td>
+                                <td style="width:25px;"></td>
+                                <td style="padding-left:5px"><span t-field="o.insurance"/></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;font-weight: bold;">DELIVERY: </td>
+                                <td style="width:25px;"></td>
+                                <td style="padding-left:5px"><span t-field="o.delivery"/></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;font-weight: bold;">INCOTERMS: </td>
+                                <td style="width:25px;"></td>
+                                <td style="padding-left:5px">
+                                  <span t-field="o.incoterm"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <table class="table table-condensed">
+                            <tr style="border: 1px solid black;">
+                                <b><th style="border: 1px solid black;">PRODUDCT</th>
+                                <th style="border: 1px solid black;">DESCRIPTION</th>
+                                <th style="border: 1px solid black;">PACKAGE</th>
+                                <th style="border: 1px solid black;">QUANTITY</th>
+                                <th style="border: 1px solid black;"></th>
+                                <th class="text-right" style="border: 1px solid black;">PRICE US$</th>
+                                <th style="border: 1px solid black;"></th>
+                                <th class="text-right" style="border: 1px solid black;">SUBTOTAL</th></b>
+                            </tr>
+                            <tbody class="sale_tbody">
+                                <t t-foreach="o.order_line" t-as="l">
+                                    <tr>
+                                        <td><span t-esc="l.product_id.barcode"/></td>
+                                        <td><span t-esc="l.product_id.name"/></td>
+                                        <td>
+                                          <span t-esc="l.product_packaging_id.qty"/>
+                                          <span t-esc="l.product_uom.name"/>
+                                          <span t-esc="l.product_packaging_id.name"/>
+                                        </td>
+                                        <td style="text-align: right;"><span t-esc="l.product_uom_qty"/></td>
+                                        <td><span t-esc="l.product_uom.name"/></td>
+                                        <td style="text-align: right;"><span t-esc="l.price_unit"/></td>
+                                        <td>/<span t-esc="l.product_uom.name"/></td>
+                                        <td style="text-align: right;"><span t-esc="l.price_total"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <table>
+                            <tr>
+                                <td style="text-align: right;font-weight: bold;height:75px;width:155px;">MARKS:</td>
+                                <td style="width:25px;"></td>
+                                <td style="width:375px;padding-left:5px"><span t-field="o.marks"/></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;font-weight: bold;height:75px;width:155px;">NOTES:</td>
+                                <td style="width:25px;"></td>
+                                <td style="width:700px;padding-left:5px">
+                                    <span t-field="o.note"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+</template>
+
+<template id="report_saleordershipping_domex">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="gdomex.report_saleordershipping_document_domex" t-lang="doc.partner_id.lang"/>
+        </t>
+    </t>
+</template>
+</odoo>
