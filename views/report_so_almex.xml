@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="report_so_document_almex">
+    <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />
+            <t t-foreach="docs" t-as="o">
+
+                <div class="header">
+                    <img src='/domex/static/src/img/almex_logo_reporte.png' style="max-width: 837px;"/>
+
+                    <table class="table table-condensed">
+                        <tr>
+                            <td style="border-left: 2px solid grey;">
+                                <h3>ALMEX S.A.</h3>
+                                7 calle OFIBODEGA 20 3-24 zona 18
+                                <br/>Guatemala, Guatemala
+                                <br/>PBX 2304-7750
+                                <br/>NIT 1188846-6
+                            </td>
+                            <td style="border-left: 2px solid grey;">
+                                <br/>
+                                <h4>PRESUPUESTO
+                                <br/><b><span t-field="o.name"/></b></h4>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+
+                <t t-call="web.internal_layout">
+                    <div class="page">
+                        <br/><br/><br/><br/>
+                        <table  class="table table-condensed" style="border-style: none;">
+                            <tr style="vertical-align: bottom;">
+                                <td style="width:100px;border-top: none;">ATENCIÓN A:</td>
+                                <td style="border-bottom: 1px solid grey;border-top: none">
+                                  <span t-field="o.atencion"/>
+                                </td>
+                                <td style="width:80px;border-top: none">CLIENTE:</td>
+                                <td style="border-bottom: 1px solid grey;border-top: none"><span t-field="o.partner_id"/></td>
+                                <td style="border-bottom: 1px solid grey;border-top: none"></td>
+                                <td style="border-bottom: 1px solid grey;border-top: none"></td>
+                            </tr>
+                            <tr style="vertical-align: bottom;">
+                                <td style="width:97px;border-top: none;">DIRECCIÓN:</td>
+                                <td style="border-bottom: 1px solid grey;">
+                                  <span t-field="o.lugar_entrega"/>
+                                </td>
+                                <td style="width:50px;border-top: none">TEL:</td>
+                                <td style="border-bottom: 1px solid grey;"><span t-field="o.partner_id.phone"/></td>
+                                <td style="width:70px;">EMAIL:</td>
+                                <td style="border-bottom: 1px solid grey;"><span t-field="o.partner_id.email"/></td>
+                            </tr>
+                        </table>
+                        <br/>
+
+                        <table class="table table-condensed" style="border-collapse: collapse;">
+                            <tr style="border: 1px solid grey;height:35px;vertical-align: middle;">
+                                <b><th style="border: 1px solid grey;vertical-align: middle;text-align: center;">CÓDIGO</th>
+                                <th style="border: 1px solid grey;vertical-align: middle;text-align: center;width:150px;">DESCRIPCIÓN</th>
+                                <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">U.M.</th>
+                                <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">CANTIDAD</th>
+                                <th class="text-right" style="border: 1px solid grey;vertical-align: middle;text-align: center;">PRECIO</th>
+                                <th class="text-right" style="border: 1px solid grey;vertical-align: middle;text-align: center;">SUBTOTAL</th></b>
+                            </tr>
+                            <tbody>
+                                <t t-foreach="o.order_line" t-as="l">
+                                    <tr style="border-bottom: 1px solid grey;vertical-align: middle;height:35px;">
+                                        <td style="border-left: 1px solid grey;"><span t-esc="l.product_id.code"/></td>
+                                        <td><span t-esc="l.product_id.name"/></td>
+                                        <td><span t-esc="l.product_uom.name"/></td>
+                                        <td style="text-align: center;"><span t-esc="l.product_uom_qty"/></td>
+                                        <td style="text-align: right;"><span t-esc="l.price_unit"  t-options='{"widget":"float","precision":2}'/></td>
+                                        <td style="border-right: 1px solid grey;text-align: right;"><span t-esc="l.price_total"  t-options='{"widget":"float","precision":2}'/></td>
+                                    </tr>
+                                </t>
+                                <tr style="border-bottom: 1px solid grey;vertical-align: middle;height:25px;">
+                                    <td colspan="4" style="border-top: 1px solid grey;border-left: 1px solid grey;"></td>
+                                    <td style="border-top: 1px solid grey;text-align: right;"><b>TOTAL BASE</b></td>
+                                    <td style="border-top: 1px solid grey;border-right: 1px solid grey;text-align: right;"><span t-esc="o.amount_untaxed" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/></td>
+                                </tr>
+                                <tr style="vertical-align: middle;">
+                                    <td colspan="4" style="border-left: 1px solid grey; border-top: 1px solid white;"></td>
+                                    <td style="text-align: right;border-top: 1px solid white;"><b>IMPUESTOS</b></td>
+                                    <td style="border-right: 1px solid grey;border-right: 1px solid grey;text-align: right;border-top: 1px solid white;"><span t-esc="o.amount_tax"  t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid grey;vertical-align: middle;height:20px;">
+                                    <td colspan="4" style="border-left: 1px solid grey;border-top: 1px solid white;"></td>
+                                    <td style="text-align: right;border-top: 1px solid white;"><b>TOTAL</b></td>
+                                    <td style="border-right: 1px solid grey;border-right: 1px solid grey;text-align: right;border-top: 1px solid white;"><span t-esc="o.amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+
+                    <div class="footer text-center">
+                        Notas
+
+                        <table class="table table-condensed" style="border-collapse: collapse;">
+                            <tr style="vertical-align: middle;">
+                                <td style="border-top: none; width:80px;"></td>
+                                <td style="text-align:center;width:200px;border-top: none;">1. Validez de la oferta:</td>
+                                <td style="padding-left:5px; border-bottom: 1px solid grey;border-top: none;"><span t-field="o.validity_date"/></td>
+                                <td style="border-top: none;width:80px;"></td>
+                            </tr>
+                            <tr style="vertical-align: middle;">
+                                <td style="border-top: none;"></td>
+                                <td style="text-align:center;width:100px;border-top: none;">2. Forma de pago:</td>
+                                <td style="padding-left:5px; border-bottom: 1px solid grey;"><span t-field="o.payment_term_id"/></td>
+                                <td style="border-top: none;"></td>
+                            </tr>
+                            <tr style="vertical-align: middle;">
+                                <td style="border-top: none;"></td>
+                                <td style="text-align:center;width:200px;border-top: none;">3. Condiciones:</td>
+                                <td style="padding-left:5px; border-bottom: 1px solid grey;"><span t-field="o.note"/></td>
+                                <td style="border-top: none;"></td>
+                            </tr>
+                            <tr style="vertical-align: middle;">
+                                <td style="border-top: none;"></td>
+                                <td style="text-align:center;width:200px;border-top: none;">4. Precios incluyen:</td>
+                                <td style="padding-left:5px; border-bottom: 1px solid grey;"></td>
+                                <td style="border-top: none;"></td>
+                            </tr>
+                            <tr style="vertical-align: middle;">
+                                <td style="border-top: none;"></td>
+                                <td style="text-align:center;width:200px;border-top: none;">5. Tiempo de Entrega:</td>
+                                <td style="padding-left:5px; border-bottom: 1px solid grey;">
+                                  <span t-field="o.delivery"/>
+                                </td>
+                                <td style="border-top: none;"></td>
+                            </tr>
+                        </table>
+
+                        <p style="page-break-after:always;">   </p>
+                        <table class="table table-condensed" style="border-collapse: collapse;">
+                            <tr style="vertical-align: middle;">
+                                <td style="border-top: 1px solid grey; border-left: 1px solid grey;width:430px;"></td>
+                                <td style="text-align:center;border: 1px solid grey;">Aceptado Cliente</td>
+                            </tr>
+                            <tr style="height: 60px">
+                                <td style="vertical-align: middle;border-top: none;text-align:center;border-left: 1px solid grey;border-bottom: 1px solid grey;font-size: 11px;"> <span t-field="o.user_id.name"/><br/><span t-field="o.user_id.phone"/> <br/><span t-field="o.user_id.email"/></td>
+                                <td style="border: 1px solid grey;"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="font-size: 11px;text-align:center;">(firma y sello)</td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+                </t>
+            </t>
+</template>
+<template id="report_so_almex">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="gdomex.report_so_document_almex" t-lang="doc.partner_id.lang"/>
+        </t>
+    </t>
+</template>
+</odoo>

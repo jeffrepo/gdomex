@@ -12,6 +12,35 @@
       </field>
   </record>
 
+
+  <record id="gdomex_view_inherit_sale_order" model="ir.ui.view">
+      <field name="name">gdomex.view.inherit.sale.order</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="arch" type="xml">
+          <field name="require_payment" position="after">
+              <field name="proyecto"/>
+              <field name="atencion"/>
+              <field name="supplier"/>
+              <field name="bill_to"/>
+              <field name="consigned_to"/>
+              <field name="send_docs_to"/>
+              <field name="marks"/>
+              <field name="insurance"/>
+              <field name="delivery"/>
+              <field name="comision"/>
+              <field name="lugar_entrega"/>
+              <field name="tiempo_estimado_entrega"/>
+              <field name="medidas"/>
+              <field name="oferta_por"/>
+              <field name="no_incluyen"/>
+              <field name="incluyen"/>
+              <field name="tiempo_instalacion"/>
+
+          </field>
+      </field>
+  </record>
+
   <record id="gdomex_sale_order_tree_inherit" model="ir.ui.view">
       <field name="name">gdomex.sale.order.tree.inherit</field>
       <field name="model">sale.order</field>
@@ -22,5 +51,8 @@
           </xpath>
       </field>
   </record>
+
+
+
 
 </odoo>

@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- <report
+            id="domex_account_invoice1"
+            string="Factura Aplitek"
+            model="account.invoice"
+            report_type="qweb-pdf"
+            file="domex.reporte_invoice1"
+            name="domex.reporte_invoice1"
+        />
+
+        <report
+            id="domex_account_invoice2"
+            string="Factura Aplitek 2"
+            model="account.invoice"
+            report_type="qweb-pdf"
+            file="domex.reporte_invoice2"
+            name="domex.reporte_invoice2"
+        />
+
+        <report
+            id="domex_account_invoice3"
+            string="Factura Aplitek 3"
+            model="account.invoice"
+            report_type="qweb-pdf"
+            file="domex.reporte_invoice3"
+            name="domex.reporte_invoice3"
+        />
+
+        <report
+            id="domex_account_invoice4"
+            string="Factura Aplitek 4"
+            model="account.invoice"
+            report_type="qweb-pdf"
+            file="domex.reporte_invoice4"
+            name="domex.reporte_invoice4"
+        />
+
+        <report
+            id="domex_account_voucher1"
+            string="Domex y Almex Q"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="domex.reporte_voucher1"
+            name="domex.reporte_voucher1"
+        />
+
+        <report
+            id="domex_account_voucher2"
+            string="Banrural Q"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="domex.reporte_voucher2"
+            name="domex.reporte_voucher2"
+        />
+
+        <report
+            id="domex_account_voucher3"
+            string="G&amp;T Q"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="domex.reporte_voucher3"
+            name="domex.reporte_voucher3"
+        />
+
+        <report
+            id="domex_account_voucher4"
+            string="Industrial Q"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="domex.reporte_voucher4"
+            name="domex.reporte_voucher4"
+        />
+
+        <report
+            id="domex_account_voucher5"
+            string="Industrial $"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="domex.reporte_voucher5"
+            name="domex.reporte_voucher5"
+        />
+
+        <report
+            id="domex_account_voucher6"
+            string="G&amp;T $"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="domex.reporte_voucher6"
+            name="domex.reporte_voucher6"
+        />
+
+        <report
+            id="domex_account_voucher7"
+            string="BAC $"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="domex.reporte_voucher7"
+            name="domex.reporte_voucher7"
+        />
+
+        <report
+            id="domex_account_voucher8"
+            string="GT$"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="domex.reporte_voucher8"
+            name="domex.reporte_voucher8"
+        />
+
+        <report
+            id="domex_account_voucher9"
+            string="Nuevo 1"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="domex.reporte_voucher9"
+            name="domex.reporte_voucher9"
+        />
+
+        <report
+            id="domex_account_voucher10"
+            string="Nuevo 2"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="domex.reporte_voucher10"
+            name="domex.reporte_voucher10"
+        />
+
+        <report
+            id="domex_account_voucher11"
+            string="Nuevo 3"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="domex.reporte_voucher11"
+            name="domex.reporte_voucher11"
+        />
+
+        <report
+            id="domex_account_voucher12"
+            string="Nuevo 4"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="domex.reporte_voucher12"
+            name="domex.reporte_voucher12"
+        />
+
+        <report
+            id="domex_account_voucher13"
+            string="Nuevo 5"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="domex.reporte_voucher13"
+            name="domex.reporte_voucher13"
+        /> -->
+
+        <!-- <report
+            id="domex_account_voucher14"
+            string="Nuevo 6"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="domex.reporte_voucher14"
+            name="domex.reporte_voucher14"
+        />
+
+        <report
+            id="domex_account_voucher15"
+            string="Nuevo 7"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="domex.reporte_voucher15"
+            name="domex.reporte_voucher15"
+        />
+
+        <report
+            id="domex_account_voucher16"
+            string="Nuevo 8"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="domex.reporte_voucher16"
+            name="domex.reporte_voucher16"
+        />
+
+        <report
+            id="domex_account_voucher17"
+            string="Nuevo 9"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="domex.reporte_voucher17"
+            name="domex.reporte_voucher17"
+        />
+
+        <report
+            id="domex_account_voucher18"
+            string="Nuevo 10"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="domex.reporte_voucher18"
+            name="domex.reporte_voucher18"
+        />
+
+        <report
+            id="domex_account_voucher19"
+            string="Nuevo 11"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="domex.reporte_voucher19"
+            name="domex.reporte_voucher19"
+        />
+
+        <report
+            id="domex_account_voucher20"
+            string="Nuevo 12"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="domex.reporte_voucher20"
+            name="domex.reporte_voucher20"
+        />
+
+        <report
+            id="domex_account_voucher21"
+            string="Nuevo 13"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="domex.reporte_voucher21"
+            name="domex.reporte_voucher21"
+        />
+
+        <report
+            id="domex_account_voucher22"
+            string="Nuevo 14"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="domex.reporte_voucher22"
+            name="domex.reporte_voucher22"
+        />
+
+        <report
+            id="domex_account_voucher23"
+            string="Nuevo 15"
+            model="account.payment"
+            report_type="qweb-pdf"
+            file="domex.reporte_voucher23"
+            name="domex.reporte_voucher23"
+        />
+
+        <report
+            id="report_sale_order_domex"
+            string="Cotizacion Domex"
+            model="sale.order"
+            report_type="qweb-pdf"
+            file="domex.report_saleorder_domex"
+            name="domex.report_saleorder_domex"
+        />
+
+        <report
+            id="report_stock_picking_domex"
+            string="Envios Domex"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            file="domex.report_stockpicking_domex"
+            name="domex.report_stockpicking_domex"
+        /> -->
+
+        <!-- Bueno -->
+        <report
+            id="report_sale_order_shipping_domex"
+            string="Envios de ventas Domex"
+            model="sale.order"
+            report_type="qweb-pdf"
+            file="gdomex.report_saleordershipping_domex"
+            name="gdomex.report_saleordershipping_domex"
+        />
+
+        <!-- <report
+            id="report_purchase_order_shipping_domex"
+            string="Recepciones de compras Domex"
+            model="purchase.order"
+            report_type="qweb-pdf"
+            file="domex.report_purchaseordershipping_domex"
+            name="domex.report_purchaseordershipping_domex"
+        /> -->
+
+
+        <!-- <report
+            id="report_contrasenias_pago"
+            string="Contraseña de pago"
+            model="account.invoice"
+            report_type="qweb-pdf"
+            file="domex.contrasenias_pago"
+            name="domex.contrasenias_pago"
+            menu="False"
+            paperformat="domex.paperformat_contrasenias"
+        /> -->
+
+        <!-- <report
+            id="report_cuentas_pagar_cobrar"
+            model="report.domex.cuentas_pagar_cobrar"
+            string="Cuentas por Pagar y Cobrar"
+            report_type="qweb-pdf"
+            name="domex.cuentas_pagar_cobrar"
+            file="domex.cuentas_pagar_cobrar"
+        />
+
+        <report
+            id="report_libro_mayor_compras"
+            model="report.domex.libro_mayor_compras"
+            string="Libro Mayor de Compras"
+            report_type="qweb-pdf"
+            name="domex.libro_mayor_compras"
+            file="domex.libro_mayor_compras"
+        />
+
+        <report
+            id="report_purchase_orders"
+            string="Ordenes de Compra"
+            model="purchase.order"
+            report_type="qweb-pdf"
+            file="domex.purchase_orders"
+            name="domex.purchase_orders"
+            menu="False"
+            paperformat="domex.paperformat_margin_top_5"
+        /> -->
+
+        <!-- <report
+            id="report_purchase_order_importacion_almex"
+            string="O.C. Importaciones ALMEX"
+            model="purchase.order"
+            report_type="qweb-pdf"
+            file="domex.report_oc_importaciones_almex"
+            name="domex.report_oc_importaciones_almex"
+        />
+
+        <report
+            id="report_purchase_order_importacion_domex"
+            string="O.C. Importaciones DOMEX"
+            model="purchase.order"
+            report_type="qweb-pdf"
+            file="domex.report_oc_importaciones_domex"
+            name="domex.report_oc_importaciones_domex"
+        />
+
+        <report
+            id="report_purchase_order_importacion_aplytek"
+            string="O.C. Importaciones APLYTEK"
+            model="purchase.order"
+            report_type="qweb-pdf"
+            file="domex.report_oc_importaciones_aplytek"
+            name="domex.report_oc_importaciones_aplytek"
+        /> -->
+
+        <!-- Bueno -->
+        <report
+            id="report_sale_order_almex"
+            string="Cotización Almex"
+            model="sale.order"
+            report_type="qweb-pdf"
+            file="gdomex.report_so_almex"
+            name="gdomex.report_so_almex"
+            paperformat="paperformat_aplytek_so"
+        />
+        <!-- Bueno -->
+        <report
+            id="report_sale_order_domex"
+            string="Cotización Domex"
+            model="sale.order"
+            report_type="qweb-pdf"
+            file="gdomex.report_so_domex"
+            name="gdomex.report_so_domex"
+            paperformat="paperformat_margin_top_5"
+        />
+        <!-- Bueno -->
+        <report
+            id="report_sale_order_aplytek"
+            string="Cotización Aplytek"
+            model="sale.order"
+            report_type="qweb-pdf"
+            file="gdomex.report_so_aplytek"
+            name="gdomex.report_so_aplytek"
+            paperformat="paperformat_margin_top_5"
+        />
+
+        <!-- <report
+            id="report_stock_picking_envio_almex"
+            string="Envio Almex"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            file="domex.report_envio_almex"
+            name="domex.report_envio_almex"
+            paperformat="domex.paperformat_margin_top_5"
+        />
+
+        <report
+            id="report_stock_picking_envio_domex"
+            string="Envio Domex"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            file="domex.report_envio_domex"
+            name="domex.report_envio_domex"
+            paperformat="domex.paperformat_margin_top_5"
+        />
+
+        <report
+            id="report_stock_picking_envio_aplytek"
+            string="Envio Aplytek"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            file="domex.report_envio_aplytek"
+            name="domex.report_envio_aplytek"
+            paperformat="domex.paperformat_margin_top_5"
+        />
+
+        <report
+            id="report_orden_trabajo_domex"
+            string="Orden de Trabajo"
+            model="orden.trabajo"
+            report_type="qweb-pdf"
+            file="domex.report_orden_trabajo"
+            name="domex.report_orden_trabajo"
+            paperformat="domex.paperformat_margin_top_5"
+        /> -->
+
+        <record id="asistente_costos_reporte" model="ir.ui.view">
+            <field name="name">domex.asistente_reporte_costo_metros</field>
+            <field name="model">domex.asistente_reporte_costo_metros</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Seleccione productos">
+                    <group>
+                        <separator colspan="4" string="Productos"/>
+                        <field name="producto_ids" nolabel="1"/>
+                    </group>
+                    <group>
+                        <field name="name" invisible="1"/>
+                        <field name="archivo" readonly="1" filename="name"/>
+                    </group>
+                    <footer>
+                        <button name="reporte_excel" string="Reporte excel" type="object" class="oe_highlight"/>
+                        o
+                        <button special="cancel" string="Cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="window_reporte_costos" name="Costo de inventario en metros" res_model="domex.asistente_reporte_costo_metros" view_mode="form" target="new"/>
+        <menuitem action="window_reporte_costos" id="menu_asistente_reporte_costos" parent="stock.menu_warehouse_report"/>
+
+    </data>
+</openerp>

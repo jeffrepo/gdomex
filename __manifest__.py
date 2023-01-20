@@ -17,6 +17,7 @@
     'depends': ['stock','project', 'sale'],
 
     'data': [
+        'data/report_paperformat_data.xml',
         'views/stock_quant_views.xml',
         'views/stock_production_lot_views.xml',
         'views/account_report.xml',
@@ -28,6 +29,11 @@
         'views/project_project_views.xml',
         'views/stock_picking_views.xml',
         'views/sale_views.xml',
-        'views/account_analytic_view.xml'
+        'views/account_analytic_view.xml',
+        'views/report.xml',
+        'views/report_saleordershipping_domex.xml',
+        'views/report_so_almex.xml',
+        'views/report_so_domex.xml',
+        'views/report_so_aplytek.xml'
     ],
 }
