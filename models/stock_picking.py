@@ -1,28 +1,95 @@
+# -*- coding: utf-8 -*-
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+
+import json
+import time
+from ast import literal_eval
+from datetime import date, timedelta
+from itertools import groupby
+from operator import attrgetter, itemgetter
 from collections import defaultdict
 
-from odoo import api, fields, models, _
-from odoo.tools.sql import column_exists, create_column
+from odoo import SUPERUSER_ID, _, api, fields, models
+from odoo.addons.stock.models.stock_move import PROCUREMENT_PRIORITIES
+from odoo.exceptions import UserError
 
-class StockPicking(models.Model):
-    _inherit = 'stock.picking'
+from odoo.osv import expression
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, format_datetime
+from odoo.tools.float_utils import float_compare, float_is_zero, float_round
+from odoo.tools.misc import format_date
+import logging
+import datetime
+
+class Picking(models.Model):
+    _inherit = "stock.picking"
 
     project_id = fields.Many2one('project.project')
     encargado_entrega = fields.Many2one('res.users', string='Encargado de la entrega')
-    recibe = fields.Char(string='Recibe')
-    dpi = fields.Char(string='DPI')
-    placas = fields.Char(string='Placas')
-    entrega = fields.Char(string='Entrega')
 
-    def obtener_medidas(self, quant_ids):
-        res = []
-        medidas_agrupadas = {}
-        for quant in quant_ids:
-            if quant.lot_id.largo not in medidas_agrupadas:
-                medidas_agrupadas[quant.lot_id.largo] = {'medida': quant.lot_id.largo, 'cantidad': 0}
-            medidas_agrupadas[quant.lot_id.largo]['cantidad'] += quant.qty
-        res = medidas_agrupadas.values()
-        return res
+    def action_confirm(self):
+        res = super().action_confirm()
+        for picking in self:
+            project = None
 
+            if 'proyecto' in self.env.context and self.env.context['proyecto']:
+                 project = self.env['project.project'].search([('id', '=', self.env.context['proyecto'])])
+            else:
+                transferencia = self.env['stock.picking'].search([('id', '=', self.env.context['active_id'])])
+                project = transferencia.project_id
+
+            dic_envio = {}
+            dic_productos_limite = []
+            productos_presupuesto = []
+            if project:
+
+                if len(project.presupuesto_producto_ids) > 0 and len(project.transferencias_ids) > 0 and picking.move_ids_without_package:
+                    for pick in project.transferencias_ids:
+                        if pick.state in ["done","draft"]:
+                            for l in pick.move_ids_without_package:
+                                if l.product_id.id not in dic_envio:
+                                    dic_envio[l.product_id.id] = 0
+                                dic_envio[l.product_id.id] += l.product_uom_qty
+                                
+                    for actual_pick_l in picking.move_ids_without_package:
+                        if actual_pick_l.product_id.id not in productos_presupuesto:
+                            dic_envio[actual_pick_l.product_id.id] = 0
+                        dic_envio[actual_pick_l.product_id.id] += actual_pick_l.product_uom_qty
+                    
+                    if len(dic_envio) > 0:
+                        for linea_p in project.presupuesto_producto_ids:
+                            if linea_p.producto_id.id in dic_envio:
+                                productos_presupuesto.append(linea_p.producto_id.id)
+                                
+                                if dic_envio[linea_p.producto_id.id] > linea_p.cantidad:
+                                    logging.warning("no presupuesto")
+                                    logging.warning(dic_envio[linea_p.producto_id.id])
+                                    logging.warning(linea_p.cantidad)
+                                    dic_productos_limite.append(linea_p.producto_id.name)
+                                    
+                    if len(productos_presupuesto) > 0 and len(project.transferencias_ids) > 0:
+                        for pick in project.transferencias_ids:
+                            logging.warning(picking.name)
+                            logging.warning('el pick')
+                            logging.warning(pick.name)
+                            if pick.state in ["done","draft","assigned"]:
+                                for l in pick.move_ids_without_package:
+                                    if l.product_id.id not in productos_presupuesto:
+                                        logging.warning(pick.name)
+                                        logging.warning(l.product_id)
+                                        dic_productos_limite.append(l.product_id.name)
+                                        
+                        for actual_pick_l in picking.move_ids_without_package:
+                            if actual_pick_l.product_id.id not in productos_presupuesto:
+                                dic_productos_limite.append(actual_pick_l.product_id.name)
+                                    
+                if len(dic_productos_limite) > 0:                
+                    raise UserError(_("Productos sin presupuesto: " + str(dic_productos_limite)))
+                else:
+                    return res
+                
+            else:
+                return res
+    
     def _action_done(self):
         res = super()._action_done()
         self.env.context.get('active_ids')
@@ -84,3 +151,13 @@ class StockPicking(models.Model):
                                 linea_cuenta_analitica.unlink()
 
         return True
+
+    def obtener_medidas(self, quant_ids):
+        res = []
+        medidas_agrupadas = {}
+        for quant in quant_ids:
+            if quant.lot_id.largo not in medidas_agrupadas:
+                medidas_agrupadas[quant.lot_id.largo] = {'medida': quant.lot_id.largo, 'cantidad': 0}
+            medidas_agrupadas[quant.lot_id.largo]['cantidad'] += quant.qty
+        res = medidas_agrupadas.values()
+        return res
