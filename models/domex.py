@@ -7,7 +7,14 @@ class Color(models.Model):
     _name = 'domex.color'
 
     name = fields.Char("Nombre")
-
+    
+class DomexPresupuestoProductoLinea(models.Model):
+    _name = 'domex.presupuesto_producto_linea'
+    
+    project_id = fields.Many2one('project.project', string='Proyecto')
+    producto_id = fields.Many2one('product.product', string='Producto')
+    cantidad = fields.Float('Cantidad')
+    
 class ProductionLot(models.Model):
     _inherit = 'stock.production.lot'
 
