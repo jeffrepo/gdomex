@@ -25,6 +25,11 @@ class Picking(models.Model):
 
     project_id = fields.Many2one('project.project')
     encargado_entrega = fields.Many2one('res.users', string='Encargado de la entrega')
+    recibe = fields.Char(string='Recibe')
+    dpi = fields.Char(string='DPI')
+    placas = fields.Char(string='Placas')
+    entrega = fields.Char(string='Entrega')
+    encargado_entrega = fields.Many2one('res.users', string='Encargado de la entrega')
 
     def action_confirm(self):
         res = super().action_confirm()
