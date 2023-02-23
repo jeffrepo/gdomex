@@ -29,11 +29,17 @@
         'views/project_project_views.xml',
         'views/stock_picking_views.xml',
         'views/sale_views.xml',
+        'views/product_views.xml',
         'views/account_analytic_view.xml',
         'views/report.xml',
         'views/report_saleordershipping_domex.xml',
         'views/report_so_almex.xml',
         'views/report_so_domex.xml',
-        'views/report_so_aplytek.xml'
+        'views/report_so_aplytek.xml',
+        'report/report_envio_domex.xml',
+        'report/report_envio_aplytek.xml',
+        'report/report_stockpicking_domex.xml',
+        'report/report_envio_almex.xml',
+        'report/report_orden_trabajo.xml'
     ],
 }

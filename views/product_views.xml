@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+      <record model="ir.ui.view" id="product_form_view_gdomex_inherit">
+          <field name="name">product.product.gdomex.inherit</field>
+          <field name="model">product.product</field>
+          <field name="inherit_id" ref="product.product_normal_form_view"/>
+          <field name="arch" type="xml">
+
+            <field name="taxes_id" position="after">
+              <field name="tipo_gdomex"/>
+            </field>
+
+          </field>
+      </record>
+
+    </data>
+</odoo>

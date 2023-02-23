@@ -1,14 +1,14 @@
 # -*- encoding: utf-8 -*-
 
 from openerp import models, fields, api, _
-from openerp.exceptions import UserError, ValidationError
+# from openerp.exceptions import UserError, ValidationError
 import xlwt
 import base64
 try:
     import StringIO
 except ImportError:
     from io import StringIO
-    
+
 import logging
 
 class AsistenteReporteCostoInventarioMetros(models.TransientModel):

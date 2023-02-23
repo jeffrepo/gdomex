@@ -86,20 +86,20 @@ class PurchaseOrder(models.Model):
     lugar_entrega = fields.Char('Lugar de entrega')
 
 
-class StockPicking(models.Model):
-    _inherit = "stock.picking"
-
-    encargado_entrega = fields.Many2one('res.users', string='Encargado de la entrega')
-
-    def obtener_medidas(self, quant_ids):
-        res = []
-        medidas_agrupadas = {}
-        for quant in quant_ids:
-            if quant.lot_id.largo not in medidas_agrupadas:
-                medidas_agrupadas[quant.lot_id.largo] = {'medida': quant.lot_id.largo, 'cantidad': 0}
-            medidas_agrupadas[quant.lot_id.largo]['cantidad'] += quant.qty
-        res = medidas_agrupadas.values()
-        return res
+# class StockPicking(models.Model):
+#     _inherit = "stock.picking"
+#
+#     encargado_entrega = fields.Many2one('res.users', string='Encargado de la entrega')
+#
+#     def obtener_medidas(self, quant_ids):
+#         res = []
+#         medidas_agrupadas = {}
+#         for quant in quant_ids:
+#             if quant.lot_id.largo not in medidas_agrupadas:
+#                 medidas_agrupadas[quant.lot_id.largo] = {'medida': quant.lot_id.largo, 'cantidad': 0}
+#             medidas_agrupadas[quant.lot_id.largo]['cantidad'] += quant.qty
+#         res = medidas_agrupadas.values()
+#         return res
 
 
 # class OrdenTrabajo(models.Model):

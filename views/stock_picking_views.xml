@@ -6,6 +6,7 @@
         <field name="model">stock.picking</field>
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="arch" type="xml">
+
             <xpath expr="//button[@name='action_confirm']" position="replace">
                 <button name="action_confirm"
                   attrs="{'invisible': [('state', 'in', ['done', 'cancel', 'assigned', 'confirmed'])]}"
@@ -16,6 +17,22 @@
                   data-hotkey="x"
                   />
             </xpath>
+
+            <field name="user_id" position="after">
+              <field name="recibe"/>
+              <field name="dpi"/>
+              <field name="placas"/>
+              <field name="entrega"/>
+            </field>
+
+            <field name="quantity_done" position="after">
+              <field name="largo_gdomex"/>
+              <field name="ancho_gdomex"/>
+              <field name="color_gdomex"/>
+              <field name="calibre_gdomex"/>
+              <field name="desarrollo_gdomex"/>
+            </field>
+
         </field>
     </record>
 
