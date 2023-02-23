@@ -253,17 +253,18 @@
             file="domex.report_saleorder_domex"
             name="domex.report_saleorder_domex"
         />
+         -->
 
-        <report
-            id="report_stock_picking_domex"
-            string="Envios Domex"
-            model="stock.picking"
-            report_type="qweb-pdf"
-            file="domex.report_stockpicking_domex"
-            name="domex.report_stockpicking_domex"
-        /> -->
+        <record id="report_stock_picking_domex" model="ir.actions.report">
+          <field name="name">Envíos Domex</field>
+          <field name="model">stock.picking</field>
+          <field name="report_type">qweb-pdf</field>
+          <field name="report_name">gdomex.report_stockpicking_domex</field>
+          <field name="report_file">gdomex.report_stockpicking_domex</field>
+          <field name="binding_model_id" ref="model_stock_picking"/>
+          <field name="binding_type">report</field>
+        </record>
 
-        <!-- Bueno -->
         <report
             id="report_sale_order_shipping_domex"
             string="Envios de ventas Domex"
@@ -381,36 +382,47 @@
             paperformat="paperformat_margin_top_5"
         />
 
-        <!-- <report
-            id="report_stock_picking_envio_almex"
-            string="Envio Almex"
-            model="stock.picking"
-            report_type="qweb-pdf"
-            file="domex.report_envio_almex"
-            name="domex.report_envio_almex"
-            paperformat="domex.paperformat_margin_top_5"
-        />
+        <record id="report_stock_picking_envio_almex" model="ir.actions.report">
+            <field name="name">Envío Almex</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gdomex.report_envio_almex</field>
+            <field name="report_file">gdomex.report_envio_almex</field>
+            <field name="binding_model_id" ref="model_stock_picking"/>
+            <field name="binding_type">report</field>
+        </record>
 
-        <report
-            id="report_stock_picking_envio_domex"
-            string="Envio Domex"
-            model="stock.picking"
-            report_type="qweb-pdf"
-            file="domex.report_envio_domex"
-            name="domex.report_envio_domex"
-            paperformat="domex.paperformat_margin_top_5"
-        />
+        <record id="report_stock_picking_envio_domex" model="ir.actions.report">
+            <field name="name">Envío Domex</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gdomex.report_envio_domex</field>
+            <field name="report_file">gdomex.report_envio_domex</field>
+            <field name="binding_model_id" ref="model_stock_picking"/>
+            <field name="binding_type">report</field>
+        </record>
 
-        <report
-            id="report_stock_picking_envio_aplytek"
-            string="Envio Aplytek"
-            model="stock.picking"
-            report_type="qweb-pdf"
-            file="domex.report_envio_aplytek"
-            name="domex.report_envio_aplytek"
-            paperformat="domex.paperformat_margin_top_5"
-        />
+        <record id="report_stock_picking_envio_aplytek" model="ir.actions.report">
+            <field name="name">Envío Aplytek</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gdomex.report_envio_aplytek</field>
+            <field name="report_file">gdomex.report_envio_aplytek</field>
+            <field name="binding_model_id" ref="model_stock_picking"/>
+            <field name="binding_type">report</field>
+        </record>
 
+        <record id="gdomex_report_orden_trabajo_project" model="ir.actions.report">
+            <field name="name">Orden de trabajo</field>
+            <field name="model">project.project</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gdomex.report_orden_trabajo</field>
+            <field name="report_file">gdomex.report_orden_trabajo</field>
+            <field name="binding_model_id" ref="model_project_project"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!-- //Comentar
         <report
             id="report_orden_trabajo_domex"
             string="Orden de Trabajo"

@@ -1,30 +1,27 @@
-# -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-
-import json
-import time
-from ast import literal_eval
-from datetime import date, timedelta
-from itertools import groupby
-from operator import attrgetter, itemgetter
 from collections import defaultdict
 
-from odoo import SUPERUSER_ID, _, api, fields, models
-from odoo.addons.stock.models.stock_move import PROCUREMENT_PRIORITIES
-from odoo.exceptions import UserError
-from odoo.osv import expression
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, format_datetime
-from odoo.tools.float_utils import float_compare, float_is_zero, float_round
-from odoo.tools.misc import format_date
-import logging
-import datetime
+from odoo import api, fields, models, _
+from odoo.tools.sql import column_exists, create_column
 
-
-
-class Picking(models.Model):
-    _inherit = "stock.picking"
+class StockPicking(models.Model):
+    _inherit = 'stock.picking'
 
     project_id = fields.Many2one('project.project')
+    encargado_entrega = fields.Many2one('res.users', string='Encargado de la entrega')
+    recibe = fields.Char(string='Recibe')
+    dpi = fields.Char(string='DPI')
+    placas = fields.Char(string='Placas')
+    entrega = fields.Char(string='Entrega')
+
+    def obtener_medidas(self, quant_ids):
+        res = []
+        medidas_agrupadas = {}
+        for quant in quant_ids:
+            if quant.lot_id.largo not in medidas_agrupadas:
+                medidas_agrupadas[quant.lot_id.largo] = {'medida': quant.lot_id.largo, 'cantidad': 0}
+            medidas_agrupadas[quant.lot_id.largo]['cantidad'] += quant.qty
+        res = medidas_agrupadas.values()
+        return res
 
     def _action_done(self):
         res = super()._action_done()

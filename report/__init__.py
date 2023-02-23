@@ -5,3 +5,4 @@ from . import reporte_cheque_axir_g_t
 from . import reporte_inter_continuo
 from . import reporte_voucher_aplytek
 from . import asistente_reporte_costos
+from . import report_orden_trabajo

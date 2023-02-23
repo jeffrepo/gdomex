@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="report_envio_almex">
+      <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <div class="article">
+              <div class="page">
+                  <div style="width:100%; height:100px">
+                    <img src='/gdomex/static/src/img/almex_logo_reporte.png' style="max-width:99%"/>
+                  </div>
+
+                  <table class="table table-condensed">
+                      <tr>
+                          <td style="border-left: 2px solid grey;">
+                              <h3>ALMEX S.A.</h3>
+                              7 calle OFIBODEGA 20 3-24 zona 18
+                              <br/>Guatemala, Guatemala
+                              <br/>PBX 2304-7750
+                              <br/>NIT 1188846-6
+                          </td>
+                          <td style="border-left: 2px solid grey;">
+                              <br/>
+                              <h4>ENVIO: <span t-esc="o.name"/>
+                              <br/>ORDEN DE COMPRA: <span t-esc="o.purchase_id.name"/>
+                              <br/>LOTE: <span t-esc="o.origin"/> </h4>
+                          </td>
+                      </tr>
+                  </table>
+                  <br/>
+                  <div>
+                      <b>FECHA:</b> <span t-field="o.scheduled_date" t-field-options='{"format": "d/m/Y"}'/>
+                      <br/><b>PARA:</b> <span t-esc="o.partner_id.name"/>
+                  </div>
+                  <br/>
+
+                  <table class="table table-condensed" style="border-collapse: collapse;">
+                      <tr style="border: 1px solid grey;height:35px;vertical-align: middle;">
+                          <b><th style="border: 1px solid grey;vertical-align: middle;text-align: center;">NO.</th>
+                          <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">U.M.</th>
+                          <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">CANTIDAD</th>
+                          <th class="text-right" style="border: 1px solid grey;vertical-align: middle;text-align: center;">DESCRIPCION</th></b>
+                      </tr>
+                      <tbody>
+                          <t t-set="numero" t-value="1"/>
+                          <t t-foreach="o.move_ids_without_package" t-as="l">
+                              <tr style="border-bottom: 1px solid grey;vertical-align: middle;height:35px;">
+                                  <td style="border-left: 1px solid grey;"><span t-esc="numero"/></td>
+                                  <td style="text-align: center;"><span t-esc="l.product_id.name"/></td>
+                                  <td style="text-align: center;"><span t-esc="l.product_qty"/></td>
+                                  <td style="border-right: 1px solid grey;text-align: center;"><span t-esc="l.product_id.name"/></td>
+                              </tr>
+                              <t t-set="numero" t-value="numero + 1"/>
+                          </t>
+                      </tbody>
+                  </table>
+                  <br/><br/>
+                  <table class="table table-condensed" style="border-collapse: collapse;">
+                      <tr style="vertical-align: middle;">
+                          <td colspan="2" style="border: 1px solid grey;">FECHA:</td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid grey;">OBSERVACIONES:</td>
+                          <td style="border: 1px solid grey;">FIRMA DE RECIBIDO:<br/><br/><br/><br/>SELLO:<br/><br/><br/></td>
+                      </tr>
+                  </table>
+              </div>
+
+            </div>
+
+        </t>
+      </t>
+  </template>
+
+</odoo>
