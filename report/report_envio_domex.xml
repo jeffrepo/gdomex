@@ -54,7 +54,7 @@
                     <br/>
                     <b>ENVIO:</b> <span t-esc="o.name"/><br/>
                     <br/>
-                    <b>COTIZACIÓN:</b> <span t-esc="o.origin"/><br/>
+                    <b>COTIZACIÓN:</b> <span t-esc="o.project_id.sale_order_id.name"/><br/>
                     <br/>
 
                   </p>
@@ -66,7 +66,7 @@
                   <b>FECHA:</b> <span t-field="o.scheduled_date" t-field-options='{"format": "d/m/Y"}'/>
                   <br/><b>DE:</b> <span t-if="o.picking_type_id.warehouse_id" t-esc="o.picking_type_id.warehouse_id.name"/>
                   <br/><b>PARA:</b> <span t-esc="o.partner_id.name"/>
-                  <br/><b>PROYETO:</b> <span t-esc="o.name"/>
+                  <br/><b>PROYETO:</b> <span t-esc="o.project_id.sale_order_id.name"/>
                   <br/>
                   <!-- <span t-esc="o.sale_id.proyecto"/> -->
               </div>
@@ -110,7 +110,7 @@
                       </t>
                   </tbody>
               </table>
-              <div style="width:100%; height:100px;max-height:200px;border:1px solid #EB984E;">
+              <div style="width:100%; height:auto;border:1px solid #99A3A4;word-break:break-all;">
                 <br/>
                 <p>
                   <b>OBSERVACIONES:</b> <span t-esc="o.note"/>
@@ -118,11 +118,12 @@
               </div>
               <table class="table table-condensed" style="border-collapse: collapse;border:1px solid #FAE5D3;">
                   <tr style="background:#FAE5D3;">
-                      <td style="border: 1px solid #EB984E;">RECIBE: <span t-field="o.recibe"/> <br/>DPI: <br/>PLACAS: <span t-field="o.placas"/> </td>
+                      <td style="border: 1px solid #EB984E;">RECIBE: <span t-field="o.recibe"/> <br/>DPI: <span t-if="o.dpi" t-esc="o.dpi"/>
+                          <br/>PLACAS: <span t-field="o.placas"/> </td>
                       <td style="border: 1px solid #EB984E;">FIRMA:</td>
                   </tr>
                   <tr>
-                     <td style="border: 1px solid #EB984E;">ENTREGA: <span t-field="o.encargado_entrega.name"/><br/>FECHA: <span t-field="o.date_done" t-options="{'widget': 'date', 'format': 'dd/MM/yyyy'}"/> <br/>HORA: <span t-field="o.date_done"  t-options="{'format': 'HH:mm:ss '}"/> </td>
+                     <td style="border: 1px solid #EB984E;">ENTREGA: <span t-field="o.entrega"/><br/>FECHA: <span t-field="o.date_done" t-options="{'widget': 'date', 'format': 'dd/MM/yyyy'}"/> <br/>HORA: <span t-field="o.date_done"  t-options="{'format': 'HH:mm:ss '}"/> </td>
                      <td style="border: 1px solid #EB984E;">FIRMA:</td>
                   </tr>
               </table>
