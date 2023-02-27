@@ -5,64 +5,95 @@
         <t t-foreach="docs" t-as="o">
             <div class="article">
               <div class="page">
-                  <div style="width:100%; height:100px">
-                    <img src='/gdomex/static/src/img/almex_logo_reporte.png' style="max-width:99%"/>
+
+                <div style="height:130px;width:100%">
+
+                  <div style="height:130px;width:30%;float:left">
+                    <img src="/gdomex/static/src/img/logo_almex.jpg" style="width:90%;max-height:99px"/>
                   </div>
 
-                  <table class="table table-condensed">
-                      <tr>
-                          <td style="border-left: 2px solid grey;">
-                              <h3>ALMEX S.A.</h3>
-                              7 calle OFIBODEGA 20 3-24 zona 18
-                              <br/>Guatemala, Guatemala
-                              <br/>PBX 2304-7750
-                              <br/>NIT 1188846-6
-                          </td>
-                          <td style="border-left: 2px solid grey;">
-                              <br/>
-                              <h4>ENVIO: <span t-esc="o.name"/>
-                              <br/>ORDEN DE COMPRA: <span t-esc="o.purchase_id.name"/>
-                              <br/>LOTE: <span t-esc="o.origin"/> </h4>
-                          </td>
-                      </tr>
-                  </table>
-                  <br/>
-                  <div>
-                      <b>FECHA:</b> <span t-field="o.scheduled_date" t-field-options='{"format": "d/m/Y"}'/>
-                      <br/><b>PARA:</b> <span t-esc="o.partner_id.name"/>
+                  <div style="height:130px;width:70%;float:right">
+                    <div style="background:#16A085; width:95%;height:15px;float:right"></div>
                   </div>
-                  <br/>
 
-                  <table class="table table-condensed" style="border-collapse: collapse;">
-                      <tr style="border: 1px solid grey;height:35px;vertical-align: middle;">
-                          <b><th style="border: 1px solid grey;vertical-align: middle;text-align: center;">NO.</th>
-                          <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">U.M.</th>
-                          <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">CANTIDAD</th>
-                          <th class="text-right" style="border: 1px solid grey;vertical-align: middle;text-align: center;">DESCRIPCION</th></b>
-                      </tr>
-                      <tbody>
-                          <t t-set="numero" t-value="1"/>
-                          <t t-foreach="o.move_ids_without_package" t-as="l">
-                              <tr style="border-bottom: 1px solid grey;vertical-align: middle;height:35px;">
-                                  <td style="border-left: 1px solid grey;"><span t-esc="numero"/></td>
-                                  <td style="text-align: center;"><span t-esc="l.product_id.name"/></td>
-                                  <td style="text-align: center;"><span t-esc="l.product_qty"/></td>
-                                  <td style="border-right: 1px solid grey;text-align: center;"><span t-esc="l.product_id.name"/></td>
-                              </tr>
-                              <t t-set="numero" t-value="numero + 1"/>
-                          </t>
-                      </tbody>
-                  </table>
-                  <br/><br/>
-                  <table class="table table-condensed" style="border-collapse: collapse;">
-                      <tr style="vertical-align: middle;">
-                          <td colspan="2" style="border: 1px solid grey;">FECHA:</td>
-                      </tr>
-                      <tr>
-                          <td style="border: 1px solid grey;">OBSERVACIONES:</td>
-                          <td style="border: 1px solid grey;">FIRMA DE RECIBIDO:<br/><br/><br/><br/>SELLO:<br/><br/><br/></td>
-                      </tr>
-                  </table>
+                </div>
+
+                <div style="width:100%; height:160px; border-bottom: 4px solid #E5E7E9;">
+                  <div style="width:50%;height:150px;float:left;border-right: 4px solid #E5E7E9;">
+                    <p style="font-family: 'Poppins'">
+                      <b>GRUPO DOMEX, S.A.</b><br/>
+                      Planta Amatitlán<br/>
+                      Km. 30.5, Carretera al Pacífico, Urbanización del Sur, Bodega #36<br/>
+                      Amatitlán, Guatemala<br/>
+                      <b>PBX: </b>2304-7777<br/>
+                      <b>NIT: </b>
+                    </p>
+                  </div>
+                  <div style="width:50%;height:150px;float:right;">
+                    <p style="font-family: 'Poppins'">
+                      <br/>
+                      <b>ENVIO:</b> <span t-esc="o.name"/><br/>
+                      <br/>
+                      <b>COTIZACIÓN:</b> <span t-esc="o.origin"/><br/>
+                      <br/>
+
+                    </p>
+                  </div>
+                </div>
+
+                <br/>
+
+                <div style="width:100%; height:120px; border-bottom: 4px solid #E5E7E9;">
+                    <b>FECHA:</b> <span t-field="o.scheduled_date" t-field-options='{"format": "d/m/Y"}'/>
+                    <br/><b>DE:</b> <span t-if="o.picking_type_id.warehouse_id" t-esc="o.picking_type_id.warehouse_id.name"/>
+                    <br/><b>PARA:</b> <span t-esc="o.partner_id.name"/>
+                    <br/><b>PROYETO:</b> <span t-esc="o.name"/>
+                    <br/>
+                    <!-- <span t-esc="o.sale_id.proyecto"/> -->
+                </div>
+                <br/>
+                Por este medio se hace constar la entrega de los materiales descritos a continuación en perfecto estado y se exime a <b>Domex S.A.</b> de cualquier reclamo posterior
+                <br/><br/>
+
+                <table style="border: 1px solid #99A3A4; width:100%;margin-bottom:0px">
+                    <tr style="border: 1px solid #99A3A4;height:35px;vertical-align: middle;background:#909497">
+                        <b><th style="border: 1px solid white;vertical-align: middle;text-align: center;"><FONT color="white">NO.</FONT></th>
+                        <th style="border: 1px solid white;vertical-align: middle;text-align: center;"><FONT color="white">CANTIDAD</FONT></th>
+                        <th style="border: 1px solid white;vertical-align: middle;text-align: center;"><FONT color="white">UNIDAD DE MEDIDA</FONT></th>
+                        <th style="border: 1px solid white;vertical-align: middle;text-align: center;"><FONT color="white">DESCRIPCION</FONT></th></b>
+                    </tr>
+                    <tbody style="border: 1px solid #99A3A4;background:#E5E7E9">
+                        <t t-set="numero" t-value="1"/>
+                        <t t-foreach="o.move_ids_without_package" t-as="l">
+                            <tr style="border: 1px solid #99A3A4; vertical-align: middle;height:35px;">
+                                <td style="border-left: 1px solid grey; text-align:right"><span t-esc="numero"/></td>
+                                <td style="text-align: center;"><span t-esc="l.product_uom_qty"/></td>
+                                <td style="text-align: center;">
+                                  <span t-if="l.product_uom" t-esc="l.product_uom.name"/>
+                                </td>
+                                <td style="border-right: 1px solid grey;text-align: center;"><span t-esc="l.product_id.name"/></td>
+                            </tr>
+                            <t t-set="numero" t-value="numero + 1"/>
+                        </t>
+                    </tbody>
+                </table>
+                <div style="width:100%; height:100px;max-height:200px;border:1px solid #99A3A4;">
+                  <br/>
+                  <p>
+                    <b>OBSERVACIONES:</b> <span t-esc="o.note"/>
+                  </p>
+                </div>
+                <table class="table table-condensed" style="border-collapse: collapse;border:1px solid #99A3A4;">
+                    <tr style="background:#E5E7E9;">
+                        <td style="border: 1px solid #99A3A4;">RECIBE: <span t-field="o.recibe"/> <br/>DPI: <br/>PLACAS: <span t-field="o.placas"/> </td>
+                        <td style="border: 1px solid #99A3A4;">FIRMA:</td>
+                    </tr>
+                    <tr>
+                       <td style="border: 1px solid #99A3A4;">ENTREGA: <span t-field="o.encargado_entrega.name"/><br/>FECHA: <span t-field="o.date_done" t-options="{'widget': 'date', 'format': 'dd/MM/yyyy'}"/> <br/>HORA: <span t-field="o.date_done"  t-options="{'format': 'HH:mm:ss '}"/> </td>
+                       <td style="border: 1px solid #99A3A4;">FIRMA:</td>
+                    </tr>
+                </table>
+                <br/><br/>
               </div>
 
             </div>
