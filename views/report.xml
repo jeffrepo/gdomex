@@ -351,26 +351,28 @@
             name="domex.report_oc_importaciones_aplytek"
         /> -->
 
+        <record id="report_sale_order_almex" model="ir.actions.report">
+            <field name="name">Cotización Almex</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gdomex.report_so_almex</field>
+            <field name="report_file">gdomex.report_so_almex</field>
+            <field name="binding_model_id" ref="model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
         <!-- Bueno -->
-        <report
-            id="report_sale_order_almex"
-            string="Cotización Almex"
-            model="sale.order"
-            report_type="qweb-pdf"
-            file="gdomex.report_so_almex"
-            name="gdomex.report_so_almex"
-            paperformat="paperformat_aplytek_so"
-        />
-        <!-- Bueno -->
-        <report
-            id="report_sale_order_domex"
-            string="Cotización Domex"
-            model="sale.order"
-            report_type="qweb-pdf"
-            file="gdomex.report_so_domex"
-            name="gdomex.report_so_domex"
-            paperformat="paperformat_margin_top_5"
-        />
+
+        <record id="report_sale_order_domex" model="ir.actions.report">
+            <field name="name">Cotización Domex</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gdomex.report_so_domex</field>
+            <field name="report_file">gdomex.report_so_domex</field>
+            <field name="binding_model_id" ref="model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
         <!-- Bueno -->
         <report
             id="report_sale_order_aplytek"
