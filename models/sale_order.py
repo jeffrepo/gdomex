@@ -48,3 +48,37 @@ class SaleOrder(models.Model):
             for line in order.order_line:
                 line.price_unit = line.price_unit * line.largo
         return True
+
+    def create_mrp_order(self):
+        for sale in self:
+            if sale.state in ['done','sale']:
+                if sale.order_line:
+                    for line in sale.order_line:
+                        if line.product_id.bom_ids:
+                            mrp_order_exist = self.env['mrp.production'].search([('sale_order_line_id','=', line.id)])
+                            if len(mrp_order_exist) == 0:
+                                mrp_order = {
+                                    'product_id': line.product_id.id,
+                                    'product_uom_id': line.product_uom.id,
+                                    'product_qty': line.product_uom_qty,
+                                    'bom_id': line.product_id.bom_ids.id,
+                                    'origin': line.order_id.name,
+                                    'sale_order_line_id': line.id,
+                                    'unidad': line.unidad,
+                                    'largo': line.largo,
+                                }
+                                mrp_order_id = self.env['mrp.production'].create(mrp_order)
+                                mrp_order_id._onchange_product_id()
+                                mrp_order_id._onchange_bom_id()
+                                mrp_order_id._onchange_move_raw()
+
+class SaleOrderLine(models.Model):
+    _inherit = 'sale.order.line'
+
+    unidad = fields.Float('Unidad')
+    largo = fields.Float('Largo')
+
+    @api.onchange('unidad','largo','product_id')
+    def _onchange_domex_largo(self):
+        if self.unidad > 0 or self.largo > 0:
+            self.product_uom_qty = self.unidad * self.largo

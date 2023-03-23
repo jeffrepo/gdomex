@@ -8,6 +8,6 @@ from datetime import date
 
 
 class ProductTemplate(models.Model):
-    _inherit = 'product.product'
+    _inherit = 'product.template'
 
-    tipo_gdomex = fields.Selection([('1', 'Accesorios'),('2', 'Molduras'), ('3', 'Otros')], string="Tipo gdomex")
+    tipo_gdomex = fields.Selection([('1', 'Accesorios'),('2', 'Molduras'),('4','Paneles'),('3', 'Otros')], string="Tipo")

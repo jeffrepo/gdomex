@@ -17,7 +17,16 @@
                   data-hotkey="x"
                   />
             </xpath>
-
+            <xpath expr="//button[@name='action_confirm']" position="after">
+                <button name="create_mrp_order"
+                  attrs="{'invisible': [('state', 'in', ['cancel', 'draft'])]}"
+                  string="Crear orden fabricación"
+                  type="object"
+                  class="oe_highlight"
+                  groups="base.group_user"
+                  data-hotkey="x"
+                  />
+            </xpath>
             <field name="user_id" position="after">
               <field name="recibe"/>
               <field name="dpi"/>

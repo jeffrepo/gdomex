@@ -35,10 +35,19 @@
                     </tr>
                     <tr style="vertical-align: bottom;">
                         <td>CLIENTE:</td>
-                        <td style="border-bottom: 1px solid grey;border-top: none"><span t-field="o.partner_id"/></td>
+                        <td style="border-bottom: 1px solid grey;border-top: none">
+                          <t t-if="len(o.partner_id.parent_id) == 0">
+                              <span t-field="o.partner_id.name"/>
+                          </t>
+                          <t t-if="len(o.partner_id.parent_id) > 0">
+                            <span t-field="o.partner_id.parent_id.name"/>
+                          </t>
+                        </td>
                         <td>ATENCIÓN A:</td>
                         <td style="border-bottom: 1px solid grey;border-top: none">
-                          <span t-field="o.atencion.name"/>
+                          <t t-if="o.partner_id.parent_id">
+                            <span t-field="o.partner_id.name"/>
+                          </t>
                         </td>
                     </tr>
                     <tr style="vertical-align: bottom;">
@@ -48,11 +57,11 @@
                         </td>
                         <td>TEL:</td>
                         <td style="border-bottom: 1px solid grey;border-top: none;">
-                          <span t-field="o.atencion.phone"/>
+                          <span t-field="o.partner_id.phone"/>
                         </td>
                         <td>EMAIL:</td>
                         <td style="border-bottom: 1px solid grey; width:220px">
-                          <span t-field="o.atencion.email"/>
+                          <span t-field="o.partner_id.email"/>
                         </td>
                     </tr>
                 </table>

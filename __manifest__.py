@@ -14,7 +14,7 @@
     'category': 'Uncategorized',
     'version': '0.1',
 
-    'depends': ['stock','project', 'sale'],
+    'depends': ['stock','project', 'sale','mrp'],
 
     'data': [
         'data/report_paperformat_data.xml',
@@ -40,6 +40,7 @@
         'report/report_envio_aplytek.xml',
         'report/report_stockpicking_domex.xml',
         'report/report_envio_almex.xml',
-        'report/report_orden_trabajo.xml'
+        'report/report_orden_trabajo.xml',
+        'views/mrp_production_views.xml',
     ],
 }

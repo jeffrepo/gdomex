@@ -18,6 +18,14 @@
       <field name="model">sale.order</field>
       <field name="inherit_id" ref="sale.view_order_form"/>
       <field name="arch" type="xml">
+          <button name="action_quotation_send" position="after">
+            <button name="create_mrp_order" type="object" string="Crear orden fabricación" attrs="{'invisible': ['|', ('state', 'not in', ['sale']), ('id', '=', False)]}" data-hotkey="g"/>
+
+          </button>
+          <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="before">
+              <field name="unidad"/>
+              <field name="largo"/>
+          </xpath>
           <field name="require_payment" position="after">
               <field name="proyecto"/>
               <field name="atencion"/>

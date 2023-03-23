@@ -39,8 +39,9 @@ class Picking(models.Model):
             if 'proyecto' in self.env.context and self.env.context['proyecto']:
                  project = self.env['project.project'].search([('id', '=', self.env.context['proyecto'])])
             else:
-                transferencia = self.env['stock.picking'].search([('id', '=', self.env.context['active_id'])])
-                project = transferencia.project_id
+                if 'active_id' in self.env.context:
+                    transferencia = self.env['stock.picking'].search([('id', '=', self.env.context['active_id'])])
+                    project = transferencia.project_id
 
             dic_envio = {}
             dic_productos_limite = []
@@ -54,23 +55,23 @@ class Picking(models.Model):
                                 if l.product_id.id not in dic_envio:
                                     dic_envio[l.product_id.id] = 0
                                 dic_envio[l.product_id.id] += l.product_uom_qty
-                                
+
                     for actual_pick_l in picking.move_ids_without_package:
                         if actual_pick_l.product_id.id not in productos_presupuesto:
                             dic_envio[actual_pick_l.product_id.id] = 0
                         dic_envio[actual_pick_l.product_id.id] += actual_pick_l.product_uom_qty
-                    
+
                     if len(dic_envio) > 0:
                         for linea_p in project.presupuesto_producto_ids:
                             if linea_p.producto_id.id in dic_envio:
                                 productos_presupuesto.append(linea_p.producto_id.id)
-                                
+
                                 if dic_envio[linea_p.producto_id.id] > linea_p.cantidad:
                                     logging.warning("no presupuesto")
                                     logging.warning(dic_envio[linea_p.producto_id.id])
                                     logging.warning(linea_p.cantidad)
                                     dic_productos_limite.append(linea_p.producto_id.name)
-                                    
+
                     if len(productos_presupuesto) > 0 and len(project.transferencias_ids) > 0:
                         for pick in project.transferencias_ids:
                             logging.warning(picking.name)
@@ -82,19 +83,19 @@ class Picking(models.Model):
                                         logging.warning(pick.name)
                                         logging.warning(l.product_id)
                                         dic_productos_limite.append(l.product_id.name)
-                                        
+
                         for actual_pick_l in picking.move_ids_without_package:
                             if actual_pick_l.product_id.id not in productos_presupuesto:
                                 dic_productos_limite.append(actual_pick_l.product_id.name)
-                                    
-                if len(dic_productos_limite) > 0:                
+
+                if len(dic_productos_limite) > 0:
                     raise UserError(_("Productos sin presupuesto: " + str(dic_productos_limite)))
                 else:
                     return res
-                
+
             else:
                 return res
-    
+
     def _action_done(self):
         res = super()._action_done()
         self.env.context.get('active_ids')
@@ -105,8 +106,9 @@ class Picking(models.Model):
         if 'proyecto' in self.env.context and self.env.context['proyecto']:
             project = self.env['project.project'].search([('id', '=', self.env.context['proyecto'])])
         else:
-            transferencia = self.env['stock.picking'].search([('id', '=', self.env.context['active_id'])])
-            project = transferencia.project_id
+            if 'active_id' in self.env.context:
+                transferencia = self.env['stock.picking'].search([('id', '=', self.env.context['active_id'])])
+                project = transferencia.project_id
 
         if self.state == 'done':
             if project:
@@ -166,3 +168,24 @@ class Picking(models.Model):
             medidas_agrupadas[quant.lot_id.largo]['cantidad'] += quant.qty
         res = medidas_agrupadas.values()
         return res
+
+    def create_mrp_order(self):
+        for picking in self:
+            if picking.state in ['waiting','confirmed']:
+                if picking.move_ids_without_package:
+                    for line in picking.move_ids_without_package:
+                        if line.product_id.bom_ids:
+                            mrp_order_exist = self.env['mrp.production'].search([('move_line_id','=', line.id)])
+                            if len(mrp_order_exist) == 0:
+                                mrp_order = {
+                                    'product_id': line.product_id.id,
+                                    'product_uom_id': line.product_uom.id,
+                                    'product_qty': line.product_uom_qty,
+                                    'bom_id': line.product_id.bom_ids.id,
+                                    'origin': line.picking_id.name,
+                                    'move_line_id': line.id,
+                                }
+                                mrp_order_id = self.env['mrp.production'].create(mrp_order)
+                                mrp_order_id._onchange_product_id()
+                                mrp_order_id._onchange_bom_id()
+                                mrp_order_id._onchange_move_raw()
