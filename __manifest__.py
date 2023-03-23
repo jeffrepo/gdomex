@@ -18,6 +18,7 @@
 
     'data': [
         'data/report_paperformat_data.xml',
+        'wizard/purchase_order_wizard_views.xml',
         'views/stock_quant_views.xml',
         'views/stock_production_lot_views.xml',
         'views/account_report.xml',
@@ -36,11 +37,15 @@
         'views/report_so_almex.xml',
         'views/report_so_domex.xml',
         'views/report_so_aplytek.xml',
+        'views/purchase_views.xml',
         'report/report_envio_domex.xml',
         'report/report_envio_aplytek.xml',
         'report/report_stockpicking_domex.xml',
         'report/report_envio_almex.xml',
         'report/report_orden_trabajo.xml',
         'views/mrp_production_views.xml',
+        'report/report_oc_importaciones_almex.xml',
+        'report/report_oc_importaciones_aplytek.xml',
+        'report/report_purchase_orders.xml'
     ],
 }

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <template id="report_oc_importaciones_almex">
+
+    <t t-foreach="docs" t-as="o">
+
+      <div class="header">
+          <img src='/gdomex/static/src/img/almex_logo_reporte.png' style="max-width: 837px;"/>
+
+          <table class="table table-condensed" style="width:100%">
+              <tr>
+                  <td style="border-left: 2px solid grey;">
+                      <h3>ALMEX S.A.</h3>
+                      7 calle OFIBODEGA 20 3-24 zona 18
+                      <br/>Guatemala, Guatemala
+                      <br/>PBX 2304-7750
+                      <br/>NIT 1188846-6
+                  </td>
+                  <td style="border-left: 2px solid grey;">
+                      <br/>
+                      <h4>PURCHASE ORDER
+                      <br/>OUR ORDER <u>#<span t-field="o.name"/></u></h4>
+                      DATE <span t-field="o.date_order"/>
+                  </td>
+              </tr>
+          </table>
+      </div>
+
+      <t t-call="web.html_container">
+          <div class="page" style="padding-top:100px">
+              <table class="table table-condensed" style="width:100%;border-collapse: collapse; padding-bottom:50px">
+                  <tr style="border: 1px solid grey;height:37px;vertical-align: middle;">
+                      <td style="border: 1px solid grey;width:180px;">NAME OF THE PROJECT</td>
+                      <td style="border: 1px solid grey;"><span t-field="o.proyecto"/></td>
+                  </tr>
+                  <tr style="border: 1px solid grey;height:37px;vertical-align: middle;">
+                      <td style="border: 1px solid grey;width:180px;">CUSTOMER P.O.#</td>
+                      <td style="border: 1px solid grey;">#<span t-field="o.name"/></td>
+                  </tr>
+                  <tr style="border: 1px solid grey;height:37px;vertical-align: middle;">
+                      <td style="border: 1px solid grey;width:180px;">CUSTOMER ID.#</td>
+                      <td style="border: 1px solid grey;"><span t-field="o.partner_ref"/></td>
+                  </tr>
+                  <tr style="border: 1px solid grey;height:37px;vertical-align: middle;">
+                      <td style="border: 1px solid grey;width:180px;">CUSTOMER</td>
+                      <td style="border: 1px solid grey;"><span t-field="o.company_id"/>.   <span t-field="o.company_id.street"/>, <span t-field="o.company_id.city"/>, <span t-field="o.company_id.state_id"/><br/>Nit#: <span t-field="o.company_id.vat"/> </td>
+                  </tr>
+                  <tr style="border: 1px solid grey;height:37px;vertical-align: middle;">
+                      <td style="border: 1px solid grey;width:180px;">SUPPLIER</td>
+                      <td style="border: 1px solid grey;"><span t-field="o.partner_id"/>.   <span t-field="o.partner_id.street"/>, <span t-field="o.partner_id.city"/>, <span t-field="o.partner_id.state_id"/> <br/> Tel: <span t-field="o.partner_id.phone"/>  </td>
+                  </tr>
+                  <tr style="border: 1px solid grey;height:37px;vertical-align: middle;">
+                      <td style="border: 1px solid grey;width:180px;">SHIP TO</td>
+                      <td style="border: 1px solid grey;"><span t-field="o.picking_type_id"/>, <span t-field="o.picking_type_id.warehouse_id.partner_id.street"/>, <span t-field="o.picking_type_id.warehouse_id.partner_id.city"/> </td>
+                  </tr>
+                  <tr style="border: 1px solid grey;height:37px;vertical-align: middle;">
+                      <td style="border: 1px solid grey;width:180px;">BILL TO</td>
+                      <td style="border: 1px solid grey;"><span t-field="o.bill_to"/>, <span t-field="o.bill_to.street"/>, <span t-field="o.bill_to.city"/> <br/> Nit#: <span t-field="o.bill_to.vat"/></td>
+                  </tr>
+                  <tr style="border: 1px solid grey;height:37px;vertical-align: middle;">
+                      <td style="border: 1px solid grey;width:180px;">CONSIGNED TO</td>
+                      <td style="border: 1px solid grey;"><span t-field="o.consigned_to"/>, <span t-field="o.consigned_to.street"/>, <span t-field="o.consigned_to.city"/> <br/> Nit#: <span t-field="o.consigned_to.vat"/></td>
+                  </tr>
+                  <tr style="border: 1px solid grey;height:75px;vertical-align: middle;">
+                      <td style="border: 1px solid grey;width:180px;">SEND DOCS TO</td>
+                      <td style="border: 1px solid grey;"><span t-field="o.send_docs_to"/>, <span t-field="o.send_docs_to.street"/>, <span t-field="o.send_docs_to.city"/></td>
+                  </tr>
+                  <tr style="border: 1px solid grey;height:37px;vertical-align: middle;">
+                      <td style="border: 1px solid grey;width:180px;">PAYMENT TERMS</td>
+                      <td style="border: 1px solid grey;"><span t-field="o.payment_term_id"/></td>
+                  </tr>
+                  <tr style="border: 1px solid grey;height:37px;vertical-align: middle;">
+                      <td style="border: 1px solid grey;width:180px;">DELIVERY</td>
+                      <td style="border: 1px solid grey;"><span t-field="o.delivery"/></td>
+                  </tr>
+                  <tr style="border: 1px solid grey;height:37px;vertical-align: middle;">
+                      <td style="border: 1px solid grey;width:180px;">INCOTERMS</td>
+                      <td style="border: 1px solid grey;"><span t-field="o.supplier_order_ref"/></td>
+                  </tr>
+              </table>
+              <br/><br/>
+              <table class="table table-condensed" style="width:100%;border-collapse: collapse; padding-top:15px">
+                  <tr style="border: 1px solid grey;height:50px;vertical-align: middle;">
+                      <b><th style="border: 1px solid grey;vertical-align: middle;text-align: center;">CODE</th>
+                      <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">DESCRIPTION</th>
+                      <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">PACKAGE</th>
+                      <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">QUANTITY</th>
+                      <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">U.M.</th>
+                      <th class="text-right" style="border: 1px solid grey;vertical-align: middle;text-align: center;">PRICE</th>
+                      <th class="text-right" style="border: 1px solid grey;vertical-align: middle;text-align: center;">CURRENCY</th>
+                      <th class="text-right" style="border: 1px solid grey;vertical-align: middle;text-align: center;">SUBTOTAL</th></b>
+                  </tr>
+                  <tbody>
+                      <t t-foreach="o.order_line" t-as="l">
+                          <tr style="border-bottom: 1px solid grey;vertical-align: middle;height:35px;">
+                              <td style="border-bottom: 1px solid grey;"><span t-esc="l.product_id.code"/></td>
+                              <td style="border-bottom: 1px solid grey;"><span t-esc="l.product_id.name"/></td>
+                              <td style="border-bottom: 1px solid grey;"></td>
+                              <td style="border-bottom: 1px solid grey;text-align: center;"><span t-esc="l.product_qty"/></td>
+                              <td style="border-bottom: 1px solid grey;"><span t-esc="l.product_uom.name"/></td>
+                              <td style="text-align: right;border-bottom: 1px solid grey;"><span t-esc="l.price_unit"  t-options='{"widget":"float","precision":5}'/></td>
+                              <td style="border-bottom: 1px solid grey;text-align: center;"><span t-esc="l.currency_id.name"/></td>
+                              <td style="text-align: right;border-bottom: 1px solid grey;"><span t-esc="l.price_total"  t-options='{"widget":"float","precision":5}'/></td>
+                          </tr>
+                      </t>
+                      <tr style="border-bottom: 1px solid grey;vertical-align: middle;height:37px;">
+                          <td style="border-bottom: 1px solid grey;"></td>
+                          <td style="border-bottom: 1px solid grey;"></td>
+                          <td style="border-bottom: 1px solid grey;"></td>
+                          <td style="border-bottom: 1px solid grey;"></td>
+                          <td style="border-bottom: 1px solid grey;"></td>
+                          <td style="border-bottom: 1px solid grey;"></td>
+                          <td style="border: 1px solid grey;text-align: right;"><b>TOTAL</b></td>
+                          <td style="border: 1px solid grey;text-align: right;"><span t-esc="o.amount_total" /></td>
+                      </tr>
+                  </tbody>
+              </table>
+
+
+          </div>
+          <div class="footer text-center" style="padding-bottom:50px">
+              <table class="table table-condensed" style="border-collapse: collapse;padding-bottom:50px">
+                  <tr style="vertical-align: middle;">
+                      <td style="text-align: left; font-weight: bold;height:40px;width:85px; border: 1px solid grey;">MARKS:</td>
+                      <td style="padding-left:5px; border: 1px solid grey;"><span t-field="o.marks"/></td>
+                  </tr>
+                  <tr>
+                      <td style="text-align: left;font-weight: bold;height:70px;width:85px; border: 1px solid grey;">NOTES:</td>
+                      <td style="padding-left:5px; border: 1px solid grey;"><span t-field="o.notes"/></td>
+                  </tr>
+              </table>
+          </div>
+
+      </t>
+    </t>
+
+  </template>
+
+</odoo>

@@ -7,14 +7,14 @@ class Color(models.Model):
     _name = 'domex.color'
 
     name = fields.Char("Nombre")
-    
+
 class DomexPresupuestoProductoLinea(models.Model):
     _name = 'domex.presupuesto_producto_linea'
-    
+
     project_id = fields.Many2one('project.project', string='Proyecto')
     producto_id = fields.Many2one('product.product', string='Producto')
     cantidad = fields.Float('Cantidad')
-    
+
 class ProductionLot(models.Model):
     _inherit = 'stock.production.lot'
 
@@ -77,21 +77,6 @@ class MrpProduction(models.Model):
     #         for line in order.order_line:
     #             line.price_unit = line.price_unit * line.largo
     #     return True
-
-class PurchaseOrder(models.Model):
-    _inherit = "purchase.order"
-
-    supplier_order_ref = fields.Char(string='Referencia proveedor')
-    bill_to = fields.Many2one('res.partner', string='Bill to')
-    consigned_to = fields.Many2one('res.partner', string='Consigned to')
-    send_docs_to = fields.Many2one('res.partner', string='Send Docs to')
-    marks = fields.Text(string="Marks")
-    insurance = fields.Char('Insurance')
-    delivery = fields.Char('Delivery')
-    proyecto = fields.Char('Proyecto')
-    solicitante = fields.Many2one('res.partner', string='Solicitante')
-    lugar_entrega = fields.Char('Lugar de entrega')
-
 
 # class StockPicking(models.Model):
 #     _inherit = "stock.picking"
