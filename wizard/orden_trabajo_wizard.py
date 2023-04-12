@@ -25,5 +25,3 @@ class OrdenTrabajoWizard(models.TransientModel):
 
     def print_report_excel(self):
         logging.warning('Estamos funcionando bien :D')
-
-        

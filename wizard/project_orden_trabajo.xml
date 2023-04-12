@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="view_gdomex_orden_trabajo" model="ir.ui.view">
+              <field name="name">Orden trabajo</field>
+              <field name="model">gdomex.report_orden_trabajo</field>
+              <field name="arch" type="xml">
+                <form string="Trabajo">
+                    <group string="Ordenes / Salidas">
+                        <field name="transferencias_ids" widget="many2many_tags"/>
+                    </group>
+                    <footer>
+                        <button name="print_report" string="Print"  type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+
+     <record id="action_project_orden_trabajo" model="ir.actions.report">
+        <field name="name">Orden de trabajo</field>
+        <field name="model">gdomex.report_orden_trabajo</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gdomex.report_orden_trabajo</field>
+        <field name="report_file">gdomex.report_orden_trabajo</field>
+        <field name="binding_model_id" ref="model_project_project"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_gdomex_orden_trabajo" model="ir.actions.act_window">
+        <field name="name">Orden de trabajo</field>
+        <field name="res_model">gdomex.report_orden_trabajo</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_gdomex_orden_trabajo"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_project_project"/>
+    </record>
+</odoo>
