@@ -9,7 +9,7 @@
 
                 <div class="page">
 
-                    <t t-if="o.picking_type_id.warehouse_id.name == 'ALMEX'">
+                    <t t-if="o.picking_type_id.warehouse_id.name == 'Almex'">
                         <img src='/gdomex/static/src/img/almex_logo_reporte.png' style="max-width: 837px;"/>
                     </t>
                     <t t-elif="company.name == 'APLYTEK, S.A.'">
@@ -22,7 +22,7 @@
                     <t t-elif="company.name == 'CAPEX, S.A.'">
                         <img src='/gdomex/static/src/img/capex_logo.png' style="max-width: 837px;"/>
                     </t>
-                    <t t-elif="o.picking_type_id.warehouse_id.name == 'DOMEX'">
+                    <t t-elif="o.picking_type_id.warehouse_id.name == 'Grupo Domex'">
                         <!-- entregar a  -->
                         <img src='/gdomex/static/src/img/domex_logo_reporte.png' style="max-width: 837px;"/>
                     </t>
