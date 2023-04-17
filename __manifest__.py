@@ -46,7 +46,7 @@
         'views/mrp_production_views.xml',
         'report/report_oc_importaciones_almex.xml',
         'report/report_oc_importaciones_aplytek.xml',
-        'report/report_purchase_orders.xml'
+        'report/report_purchase_orders.xml',
         'security/groups.xml',
         'wizard/project_orden_trabajo.xml'
     ],
