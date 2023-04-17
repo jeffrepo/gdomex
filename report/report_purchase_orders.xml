@@ -37,7 +37,7 @@
                         <tr>
                             <td style="border-left: 2px solid grey;">
                                 <h3><span t-esc="o.company_id.name"/></h3>
-                                <span t-esc="company.street"/>
+                                <span t-esc="o.company_id.street"/>
                                 <br/>Guatemala, Guatemala
                                 <br/>PBX <span t-esc="o.company_id.phone"/>
                                 <br/>NIT <span t-esc="o.company_id.vat"/>
@@ -135,7 +135,7 @@
                <div class="footer text-center">
                     <br/>
                     <div style="padding-left:620px">
-                        <span t-esc="company.name"/>
+                        <span t-esc="o.company_id.name"/>
                     </div>
                     <br/>
                     Coloque el número de este pedido en todos los bultos, listas de empaques, facturas, documentos de embarque, recibos y correspondencias.
