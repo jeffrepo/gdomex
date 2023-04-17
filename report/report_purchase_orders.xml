@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="purchase_orders_report">
+      <t t-call="web.html_container">
+
+        <t t-foreach="docs" t-as="o">
+
+           <div class="article">
+
+                <div class="page">
+
+                    <t t-if="o.picking_type_id.warehouse_id.name == 'ALMEX'">
+                        <img src='/gdomex/static/src/img/almex_logo_reporte.png' style="max-width: 837px;"/>
+                    </t>
+                    <t t-elif="company.name == 'APLYTEK, S.A.'">
+                        <img src='/gdomex/static/src/img/aplytek_logo_reporte.png' style="max-width: 837px;"/>
+                    </t>
+
+                    <t t-elif="company.name == 'AXIR, S.A.'">
+                        <img src='/gdomex/static/src/img/axir_logo.png' style="max-width: 837px;"/>
+                    </t>
+                    <t t-elif="company.name == 'CAPEX, S.A.'">
+                        <img src='/gdomex/static/src/img/capex_logo.png' style="max-width: 837px;"/>
+                    </t>
+                    <t t-elif="o.picking_type_id.warehouse_id.name == 'DOMEX'">
+                        <!-- entregar a  -->
+                        <img src='/gdomex/static/src/img/domex_logo_reporte.png' style="max-width: 837px;"/>
+                    </t>
+                    <t t-elif="company.name == 'KINETICS, S.A.'">
+                        <img src='/gdomex/static/src/img/kinetics_logo.png' style="max-width: 837px;"/>
+                    </t>
+                    <t t-elif="company.name == 'LEJAIM, S.A.'">
+                        <img src='/gdomex/static/src/img/lejaim_logo.png' style="max-width: 837px;"/>
+                    </t>
+
+                    <table style="width:100%;border-collapse: collapse;">
+                        <tr>
+                            <td style="border-left: 2px solid grey;">
+                                <h3><span t-esc="company.name"/></h3>
+                                <span t-esc="company.street"/>
+                                <br/>Guatemala, Guatemala
+                                <br/>PBX <span t-esc="company.phone"/>
+                                <br/>NIT <span t-esc="company.vat"/>
+                            </td>
+                            <td style="border-left: 2px solid grey;">
+                                <br/><br/>
+                                <h4>SOLICITUD DE PRESUPUESTO</h4>
+                                <br/>PO: <span t-field="o.name"/>
+                                <br/>FECHA:
+                                <span t-esc="fecha_impresion()" t-options='{"widget": "date"}'/>
+                                <br/>SOLICITANTE: <span t-field="o.solicitante"/>
+                                <br/>CONDICIÓN DE PAGO: <span t-field="o.payment_term_id"/>
+                                <br/>TIPO DE MONEDA: <span t-field="o.currency_id"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table style="border-collapse: collapse; width:100%">
+                        <tr style="border: 1px solid grey;height:35px;vertical-align: middle;">
+                            <b><th style="border: 1px solid grey;vertical-align: middle;text-align: center;">PROVEEDOR</th>
+                            <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">PEDIDO</th></b>
+
+                        </tr>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid grey;vertical-align: middle;">
+                                <td style="border-left: 1px solid grey;">
+                                    PROVEEDOR: <span t-field="o.partner_id"/>
+                                    <br/>DIRECCIÓN: <span t-field="o.partner_id.street"/>, <span t-field="o.partner_id.city"/>
+                                    <br/>TELÉFONO:<span t-field="o.partner_id.phone"/>
+                                    <br/>EMAIL: <span t-field="o.partner_id.email"/>
+
+                                </td>
+                                <td style="border-right: 1px solid grey;border-left: 1px solid grey;">
+                                    PROYECTO: <span t-field="o.proyecto"/>
+                                    <br/>FECHA DE ENTREGA: <span t-field="o.date_planned" t-options='{"widget": "date"}'/>
+                                    <br/>LUGAR DE ENTREGA: <span t-field="o.lugar_entrega"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br/>
+                    <b>SIRVASE SUMINISTRAR LOS ARTICULOS QUE SE DESCRIBEN A CONTINUACIÓN DE ACUERDO CON NUESTRAS INSTRUCCIONES.</b>
+                    <br/><br/>
+
+                    <table style="border-collapse: collapse;width:100%">
+                        <tr style="border: 1px solid grey;height:35px;vertical-align: middle;">
+                            <b><th style="border: 1px solid grey;vertical-align: middle;text-align: center;">CANTIDAD</th>
+                            <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">U.M.</th>
+                            <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">DESCRIPCIÓN</th>
+                            <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">PRECIO UNITARIO</th>
+                            <th class="text-right" style="border: 1px solid grey;vertical-align: middle;text-align: center;">SUBTOTAL</th></b>
+
+                        </tr>
+                        <tbody>
+                            <t t-foreach="o.order_line" t-as="l">
+                                <tr style="border-bottom: 1px solid grey;vertical-align: middle;height:35px;">
+                                    <td style="border-left: 1px solid grey;"> <span t-esc="l.product_qty"/></td>
+                                    <td> <span t-esc="l.product_uom.name"/></td>
+                                    <td> <span t-esc="l.name"/></td>
+                                    <td style="text-align: center;"><span t-esc="l.price_unit"  t-options='{"widget":"float","precision":5}'/></td>
+                                    <td style="border-right: 1px solid grey;text-align: center;"><span t-esc="l.price_total"  t-options='{"widget":"float","precision":5}'/></td>
+                                </tr>
+                            </t>
+                            <tr style="border-bottom: 1px solid grey;vertical-align: middle;height:35px;">
+                                <td style="border-left: 1px solid grey;"></td>
+                                <td></td>
+                                <td>OBLIGATORIO ENTREGAR CON NOTA DE ENTREGA Y FACTURA</td>
+                                <td style="text-align: center;"></td>
+                                <td style="border-right: 1px solid grey;text-align: center;"></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid grey;vertical-align: middle;height:20px;">
+                                <td colspan="2" style="border-left: 1px solid grey;border-top: 1px solid grey;"></td>
+                                <td style="text-align: right;border-top: 1px solid grey;">
+                                    IVA<br/><b>TOTAL(GTQ):</b>
+                                </td>
+                                <td style="text-align: right;border-top: 1px solid grey;">
+                                    <span t-esc="o.amount_tax" t-options="{'widget': 'monetary', 'display_currency': user.company_id.currency_id}"/>
+                                    <br/><span t-esc="o.amount_total" t-options="{'widget': 'monetary', 'display_currency': user.company_id.currency_id}"/>
+                                </td>
+                                <td style="border-right: 1px solid grey;border-top: 1px solid grey;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <br/>
+                    <table class="table table-condensed" style="border-collapse: collapse;">
+                        <tr style="border: 1px solid grey;height:50px;vertical-align: middle;">
+                            <b><th style="border: 1px solid grey;vertical-align: middle;text-align: left;width:410px">OBSERVACIONES</th></b>
+                            <th class="text-right" style="border: 1px solid grey;vertical-align: middle;text-align: center;"> <span t-field="o.notes"/></th>
+
+                        </tr>
+                    </table>
+                </div>
+
+               <div class="footer text-center">
+                    <br/>
+                    <div style="padding-left:620px">
+                        <span t-esc="company.name"/>
+                    </div>
+                    <br/>
+                    Coloque el número de este pedido en todos los bultos, listas de empaques, facturas, documentos de embarque, recibos y correspondencias.
+               </div>
+
+
+            </div>
+        </t>
+
+      </t>
+  </template>
+</odoo>

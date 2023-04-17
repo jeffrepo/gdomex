@@ -265,14 +265,15 @@
           <field name="binding_type">report</field>
         </record>
 
-        <report
-            id="report_sale_order_shipping_domex"
-            string="Envios de ventas Domex"
-            model="sale.order"
-            report_type="qweb-pdf"
-            file="gdomex.report_saleordershipping_domex"
-            name="gdomex.report_saleordershipping_domex"
-        />
+        <record id="report_sale_order_shipping_domex" model="ir.actions.report">
+          <field name="name">Envios de ventas Domex</field>
+          <field name="model">sale.order</field>
+          <field name="report_type">qweb-pdf</field>
+          <field name="report_name">gdomex.report_saleordershipping_domex</field>
+          <field name="report_file">gdomex.report_saleordershipping_domex</field>
+          <field name="binding_model_id" ref="model_sale_order"/>
+          <field name="binding_type">report</field>
+        </record>
 
         <!-- <report
             id="report_purchase_order_shipping_domex"
@@ -312,44 +313,46 @@
             name="domex.libro_mayor_compras"
             file="domex.libro_mayor_compras"
         />
+        -->
 
-        <report
-            id="report_purchase_orders"
-            string="Ordenes de Compra"
-            model="purchase.order"
-            report_type="qweb-pdf"
-            file="domex.purchase_orders"
-            name="domex.purchase_orders"
-            menu="False"
-            paperformat="domex.paperformat_margin_top_5"
-        /> -->
-
-        <!-- <report
-            id="report_purchase_order_importacion_almex"
-            string="O.C. Importaciones ALMEX"
-            model="purchase.order"
-            report_type="qweb-pdf"
-            file="domex.report_oc_importaciones_almex"
-            name="domex.report_oc_importaciones_almex"
-        />
-
-        <report
+        <!--<report
             id="report_purchase_order_importacion_domex"
             string="O.C. Importaciones DOMEX"
             model="purchase.order"
             report_type="qweb-pdf"
             file="domex.report_oc_importaciones_domex"
             name="domex.report_oc_importaciones_domex"
-        />
+        />-->
 
-        <report
-            id="report_purchase_order_importacion_aplytek"
-            string="O.C. Importaciones APLYTEK"
-            model="purchase.order"
-            report_type="qweb-pdf"
-            file="domex.report_oc_importaciones_aplytek"
-            name="domex.report_oc_importaciones_aplytek"
-        /> -->
+        <record id="report_purchase_orders" model="ir.actions.report">
+            <field name="name">Ordenes de Compra</field>
+            <field name="model">gdomex.wizard_po</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gdomex.purchase_orders_report</field>
+            <field name="report_file">gdomex.purchase_orders_report</field>
+            <field name="binding_model_id" ref="model_purchase_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="report_purchase_order_importacion_almex" model="ir.actions.report">
+            <field name="name">O.C. Importaciones ALMEX</field>
+            <field name="model">purchase.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gdomex.report_oc_importaciones_almex</field>
+            <field name="report_file">gdomex.report_oc_importaciones_almex</field>
+            <field name="binding_model_id" ref="model_purchase_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="report_purchase_order_importacion_aplytek" model="ir.actions.report">
+            <field name="name">O.C. Importaciones APLYTEK</field>
+            <field name="model">purchase.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gdomex.report_oc_importaciones_aplytek</field>
+            <field name="report_file">gdomex.report_oc_importaciones_aplytek</field>
+            <field name="binding_model_id" ref="model_purchase_order"/>
+            <field name="binding_type">report</field>
+        </record>
 
         <record id="report_sale_order_almex" model="ir.actions.report">
             <field name="name">Cotización Almex</field>
@@ -374,15 +377,15 @@
         </record>
 
         <!-- Bueno -->
-        <report
-            id="report_sale_order_aplytek"
-            string="Cotización Aplytek"
-            model="sale.order"
-            report_type="qweb-pdf"
-            file="gdomex.report_so_aplytek"
-            name="gdomex.report_so_aplytek"
-            paperformat="paperformat_margin_top_5"
-        />
+        <record id="report_sale_order_aplytek" model="ir.actions.report">
+            <field name="name">Cotización Aplytek</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gdomex.report_so_aplytek</field>
+            <field name="report_file">gdomex.report_so_aplytek</field>
+            <field name="binding_model_id" ref="model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
 
         <record id="report_stock_picking_envio_almex" model="ir.actions.report">
             <field name="name">Envío Almex</field>
@@ -423,17 +426,6 @@
             <field name="binding_model_id" ref="model_project_project"/>
             <field name="binding_type">report</field>
         </record>
-
-        <!-- //Comentar
-        <report
-            id="report_orden_trabajo_domex"
-            string="Orden de Trabajo"
-            model="orden.trabajo"
-            report_type="qweb-pdf"
-            file="domex.report_orden_trabajo"
-            name="domex.report_orden_trabajo"
-            paperformat="domex.paperformat_margin_top_5"
-        /> -->
 
         <record id="asistente_costos_reporte" model="ir.ui.view">
             <field name="name">domex.asistente_reporte_costo_metros</field>

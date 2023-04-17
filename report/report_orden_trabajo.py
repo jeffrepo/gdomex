@@ -44,11 +44,37 @@ class ReportOrdenTrabajo(models.AbstractModel):
     @api.model
     def _get_report_values(self, docids, data=None):
         docs = self.env['project.project'].browse(docids)
-        total_metros_lineales = self.calculo_otros(docs)
+        docs = data.get('ids', data.get('active_ids'))
+        logging.warning('update ')
+        logging.warning(data)
+        logging.warning(docs)
+        trans_ids = data['form']['transferencias_ids']
+
+        if 'form' in data and 'transferencias_ids' in data['form']:
+            transferencias = self.env['stock.picking'].search([('id', 'in', trans_ids)])
+
+        logging.warning('Transferencias ......')
+        logging.warning(transferencias)
+
+        logging.warning('')
+        logging.warning('')
+        # total_metros_lineales = self.calculo_otros(docs)
+        # transferencias = data.get('form', {}).get('transferencias_ids', False)
+        # proyecto = data.get('form', {}).get('proyecto', False)
+        # logging.warning('reporte')
+        # logging.warning(docids)
+        # logging.warning(docs)
+        # logging.warning(data)
+        # logging.warning(proyecto)
+        proyecto = self.env['project.project'].search([('id','=', docs[0])])
+        logging.warning('el proyecto en report')
+        logging.warning(proyecto)
         return {
             'doc_ids': docids,
-            'doc_model': 'project.project',
+            'doc_model': 'gdomex.report_orden_trabajo',
             'docs': docs,
-            'total_metros_lineales': total_metros_lineales,
+            #'total_metros_lineales': total_metros_lineales,
             'total_metros_lineales_paneles': self.total_metros_lineales_paneles,
+            'transferencias_ids': transferencias,
+            'proyecto': [proyecto],
         }
