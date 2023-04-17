@@ -18,7 +18,7 @@
 
     'data': [
         'data/report_paperformat_data.xml',
-        'wizard/purchase_order_wizard_views.xml',
+        #'wizard/purchase_order_wizard_views.xml',
         'views/stock_quant_views.xml',
         'views/stock_production_lot_views.xml',
         'views/account_report.xml',
