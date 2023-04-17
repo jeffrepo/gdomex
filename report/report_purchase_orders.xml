@@ -12,35 +12,35 @@
                     <t t-if="o.picking_type_id.warehouse_id.name == 'Almex'">
                         <img src='/gdomex/static/src/img/almex_logo_reporte.png' style="max-width: 837px;"/>
                     </t>
-                    <t t-elif="company.name == 'APLYTEK, S.A.'">
+                    <t t-elif="o.company_id.name == 'APLYTEK, S.A.'">
                         <img src='/gdomex/static/src/img/aplytek_logo_reporte.png' style="max-width: 837px;"/>
                     </t>
 
-                    <t t-elif="company.name == 'AXIR, S.A.'">
+                    <t t-elif="o.company_id.name == 'AXIR, S.A.'">
                         <img src='/gdomex/static/src/img/axir_logo.png' style="max-width: 837px;"/>
                     </t>
-                    <t t-elif="company.name == 'CAPEX, S.A.'">
+                    <t t-elif="o.company_id.name == 'CAPEX, S.A.'">
                         <img src='/gdomex/static/src/img/capex_logo.png' style="max-width: 837px;"/>
                     </t>
                     <t t-elif="o.picking_type_id.warehouse_id.name == 'Grupo Domex'">
                         <!-- entregar a  -->
                         <img src='/gdomex/static/src/img/domex_logo_reporte.png' style="max-width: 837px;"/>
                     </t>
-                    <t t-elif="company.name == 'KINETICS, S.A.'">
+                    <t t-elif="o.company_id.name == 'KINETICS, S.A.'">
                         <img src='/gdomex/static/src/img/kinetics_logo.png' style="max-width: 837px;"/>
                     </t>
-                    <t t-elif="company.name == 'LEJAIM, S.A.'">
+                    <t t-elif="o.company_id.name == 'LEJAIM, S.A.'">
                         <img src='/gdomex/static/src/img/lejaim_logo.png' style="max-width: 837px;"/>
                     </t>
 
                     <table style="width:100%;border-collapse: collapse;">
                         <tr>
                             <td style="border-left: 2px solid grey;">
-                                <h3><span t-esc="company.name"/></h3>
+                                <h3><span t-esc="o.company_id.name"/></h3>
                                 <span t-esc="company.street"/>
                                 <br/>Guatemala, Guatemala
-                                <br/>PBX <span t-esc="company.phone"/>
-                                <br/>NIT <span t-esc="company.vat"/>
+                                <br/>PBX <span t-esc="o.company_id.phone"/>
+                                <br/>NIT <span t-esc="o.company_id.vat"/>
                             </td>
                             <td style="border-left: 2px solid grey;">
                                 <br/><br/>
