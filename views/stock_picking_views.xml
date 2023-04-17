@@ -23,7 +23,7 @@
                   string="Crear orden fabricación"
                   type="object"
                   class="oe_highlight"
-                  groups="base.group_user"
+                  groups="gdomex.grupo_fabribar_desde_proyectos"
                   data-hotkey="x"
                   />
             </xpath>
