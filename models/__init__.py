@@ -12,3 +12,4 @@ from . import stock_move
 from . import product
 from . import mrp
 from . import purchase
+from . import account_move
