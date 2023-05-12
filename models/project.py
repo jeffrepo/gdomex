@@ -14,6 +14,7 @@ class Project(models.Model):
 
     transferencias_ids = fields.One2many('stock.picking', 'project_id', string='Transferencias')
     presupuesto_producto_ids = fields.One2many('domex.presupuesto_producto_linea', 'project_id', string='Presupuesto de productos')
+    area = fields.Char('Area')
 
     def activar_envio(self):
     	view_id = self.env.ref('stock.view_picking_form').id
