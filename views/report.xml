@@ -96,7 +96,7 @@
         </record>
 
         <record id="report_purchase_orders_multi" model="ir.actions.report">
-            <field name="name">Ordenes de Compra Multiempresa</field>
+            <field name="name">Ordenes de Compra Local</field>
             <!-- <field name="model">gdomex.wizard_po</field> -->
             <field name="model">purchase.order</field>
             <field name="report_type">qweb-pdf</field>
