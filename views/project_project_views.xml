@@ -15,11 +15,13 @@
                       <tree editable="bottom">
                           <field name="producto_id"/>
                           <field name="cantidad"/>
-                      </tree>    
-                  </field>    
+                      </tree>
+                  </field>
                 </page>
             </xpath>
-
+            <field name="partner_id" position="after">
+                <field name="area"/>
+            </field>  
             <!-- <header position="inside">
                 <button name="activar_envio" string="Activar envio" type="action" class="oe_highlight"/>
                  groups="project.group_project_manager" context="{'default_access_mode': 'read'}"

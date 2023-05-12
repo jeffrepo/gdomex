@@ -106,7 +106,7 @@
                     <tr style="vertical-align: middle;">
                         <td ></td>
                         <td style="text-align:center;width:100px;border-top: none;">2. Forma de pago:</td>
-                        <td style="padding-left:5px; border-bottom: 1px solid grey;"><span t-field="o.payment_term_id"/></td>
+                        <td style="padding-left:5px; border-bottom: 1px solid grey;"><span t-field="o.payment_term_id.name"/></td>
                         <td ></td>
                     </tr>
                     <tr style="vertical-align: middle;">
@@ -118,14 +118,14 @@
                     <tr style="vertical-align: middle;">
                         <td ></td>
                         <td style="text-align:center;width:200px;border-top: none;">4. Precios incluyen:</td>
-                        <td style="padding-left:5px; border-bottom: 1px solid grey;"></td>
+                        <td style="padding-left:5px; border-bottom: 1px solid grey;"><span t-field="o.incluyen"/></td>
                         <td ></td>
                     </tr>
                     <tr style="vertical-align: middle;">
                         <td ></td>
                         <td style="text-align:center;width:200px;border-top: none;">5. Tiempo de Entrega:</td>
                         <td style="padding-left:5px; border-bottom: 1px solid grey;">
-                          <span t-field="o.delivery"/>
+                          <span t-field="o.tiempo_estimado_entrega"/>
                         </td>
                         <td ></td>
                     </tr>

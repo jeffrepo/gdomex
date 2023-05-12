@@ -12,7 +12,9 @@
             <field name="no_negociable"/>
             <field name="nombre_impreso"/>
         </xpath>
-
+        <field name="journal_id" position="after">
+            <field name="cuenta_transitoria_id"/>
+        </field>
       </field>
 
   </record>

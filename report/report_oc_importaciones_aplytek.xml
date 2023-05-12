@@ -68,7 +68,7 @@
                             </tr>
                             <tr style="border: 1px solid grey;height:37px;vertical-align: middle;">
                                 <td style="border: 1px solid grey;width:180px;">PAYMENT TERMS</td>
-                                <td style="border: 1px solid grey;"><span t-field="o.payment_term_id"/></td>
+                                <td style="border: 1px solid grey;"><span t-field="o.payment_term_id.name"/></td>
                             </tr>
                             <tr style="border: 1px solid grey;height:37px;vertical-align: middle;">
                                 <td style="border: 1px solid grey;width:180px;">DELIVERY</td>
@@ -76,7 +76,7 @@
                             </tr>
                             <tr style="border: 1px solid grey;height:37px;vertical-align: middle;">
                                 <td style="border: 1px solid grey;width:180px;">INCOTERMS</td>
-                                <td style="border: 1px solid grey;"><span t-field="o.supplier_order_ref"/></td>
+                                <td style="border: 1px solid grey;"><span t-field="o.incoterm_id.name"/></td>
                             </tr>
                         </table>
                         <br/><br/>

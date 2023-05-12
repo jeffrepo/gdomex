@@ -35,6 +35,7 @@
             </field>
 
             <field name="quantity_done" position="after">
+              <field name="unidad"/>
               <field name="largo_gdomex"/>
               <field name="ancho_gdomex"/>
               <field name="color_gdomex"/>

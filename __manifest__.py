@@ -18,8 +18,12 @@
 
     'data': [
         'data/report_paperformat_data.xml',
-        #'wizard/purchase_order_wizard_views.xml',
+        'report/report_oc_importaciones_almex.xml',
+        'report/report_oc_importaciones_aplytek.xml',
+        'report/report_orden_trabajo.xml',
+        'report/report_purchase_orders.xml',
         'views/stock_quant_views.xml',
+        'security/groups.xml',
         'views/stock_production_lot_views.xml',
         'views/account_report.xml',
         'report/reporte_cheque_axir_g_t.xml',
@@ -32,6 +36,7 @@
         'views/sale_views.xml',
         'views/product_views.xml',
         'views/account_analytic_view.xml',
+        'views/purchase_orders.xml',
         'views/report.xml',
         'views/report_saleordershipping_domex.xml',
         'views/report_so_almex.xml',
@@ -44,10 +49,6 @@
         'report/report_envio_almex.xml',
         'report/report_orden_trabajo.xml',
         'views/mrp_production_views.xml',
-        'report/report_oc_importaciones_almex.xml',
-        'report/report_oc_importaciones_aplytek.xml',
-        'report/report_purchase_orders.xml',
-        'security/groups.xml',
-        'wizard/project_orden_trabajo.xml'
+        'wizard/project_orden_trabajo.xml',
     ],
 }

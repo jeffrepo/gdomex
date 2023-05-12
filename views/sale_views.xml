@@ -29,13 +29,6 @@
           <field name="require_payment" position="after">
               <field name="proyecto"/>
               <field name="atencion"/>
-              <field name="supplier"/>
-              <field name="bill_to"/>
-              <field name="consigned_to"/>
-              <field name="send_docs_to"/>
-              <field name="marks"/>
-              <field name="insurance"/>
-              <field name="delivery"/>
               <field name="comision"/>
               <field name="lugar_entrega"/>
               <field name="tiempo_estimado_entrega"/>

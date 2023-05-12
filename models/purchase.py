@@ -22,12 +22,12 @@ class PurchaseOrder(models.Model):
 
     # Ni idea de que sea esto ---------
     supplier_order_ref = fields.Char(string='Referencia proveedor')
-    bill_to = fields.Many2one('res.partner', string='Bill to')
-    consigned_to = fields.Many2one('res.partner', string='Consigned to')
-    send_docs_to = fields.Many2one('res.partner', string='Send Docs to')
-    marks = fields.Text(string="Marks")
-    insurance = fields.Char('Insurance')
-    delivery = fields.Char('Delivery')
+    #bill_to = fields.Many2one('res.partner', string='Bill to')
+    #consigned_to = fields.Many2one('res.partner', string='Consigned to')
+    #send_docs_to = fields.Many2one('res.partner', string='Send Docs to')
+    #marks = fields.Text(string="Marks")
+    #insurance = fields.Char('Insurance')
+    #delivery = fields.Char('Delivery')
     proyecto = fields.Char('Proyecto')
     solicitante = fields.Many2one('res.partner', string='Solicitante')
     lugar_entrega = fields.Char('Lugar de entrega')

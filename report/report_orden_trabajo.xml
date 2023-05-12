@@ -12,7 +12,7 @@
                       </div>
                       <div style="width:70%;float:right; height:100px; text-align:center">
                         <br/>
-                        <h1><FONT color="#2C3E50"><b>SOLICITUD DE PRODUCCIÓN</b></FONT></h1>
+                        <h3><FONT color="#2C3E50"><b>SOLICITUD DE PRODUCCIÓN<br/><span t-esc="o.sale_order_id.name"/> </b></FONT></h3>
                       </div>
                     </div>
 
@@ -22,8 +22,10 @@
                       <p text-align="center" color="withe"><FONT color="white">DATOS DEL CLIENTE</FONT></p>
                     </div>
 
-                    <div style="width:100%; height:100px;border: 1px solid black;">
-                      <p>CLIENTE/FISCAL: <span t-field="o.partner_id.name"/><br/><br/>PROYECTO: <span t-field="o.name"/></p>
+                    <div style="width:100%; height:125px;border: 1px solid black;">
+                      <p>CLIENTE/FISCAL: <span t-field="o.partner_id.name"/><br/><br/>PROYECTO: <span t-field="o.sale_order_id.proyecto"/>
+                        <br/><br/>Área: <span t-field="o.area"/><br/><br/>
+                       </p>
                     </div>
 
                     <div style="height:25px;background:#F39C12;text-align: center;border: 1px solid black;">
@@ -35,10 +37,10 @@
                         <p>Nombre: <br/> <span t-esc="o.user_id.name"/></p>
                       </div>
                       <div style="height:50px;width:30.05%;border: 1px solid black;float:left">
-                        <p>Puesto:<br/><span t-esc="o.user_id.department_id.name"/></p>
+                        <p>Puesto:<br/><span t-esc="o.user_id.function"/></p>
                       </div>
                       <div style="height:50px;width:30%;float:right;border: 1px solid black;">
-                        <p>Fecha:<br/><span t-esc="o.date_start" t-field-options='{"format": "d/m/Y"}'/></p>
+                        <p>Fecha:<br/><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/> </p>
                       </div>
                     </div>
 
@@ -57,7 +59,7 @@
                         <t t-foreach="transferencia.move_ids_without_package" t-as="op">
                           <t t-if="op.product_id.tipo_gdomex == '3' or op.product_id.tipo_gdomex == '4'">
                             <tr style="border: black 1px solid">
-                              <td style="border: black 1px solid"><t t-esc="op.product_uom_qty"/></td>
+                              <td style="border: black 1px solid"><t t-esc="op.unidad"/></td>
                               <td style="border: black 1px solid"><t t-esc="op.product_id.default_code"/></td>
                               <td style="border: black 1px solid; text-align:center"><t t-esc="op.product_id.name"/></td>
                               <td style="border: black 1px solid"><t t-esc="op.largo_gdomex"/></td>
@@ -74,7 +76,7 @@
                       <tr style="border: black 1px solid">
                         <td style="border: black 1px solid; text-align:center" colspan="3">Total metros lineales</td>
                         <td style="border: black 1px solid; text-align:right" colspan="2">
-                          <!-- <span t-esc="total_metros_lineales_paneles(o)"/> -->
+                          <span t-esc="total_metros_lineales_paneles(o)"/>
                         </td>
                       </tr>
 
