@@ -26,6 +26,14 @@
                   groups="gdomex.grupo_fabribar_desde_proyectos"
                   data-hotkey="x"
                   />
+                <button name="forzar_disponibilidad"
+                  attrs="{'invisible': [('state', 'in', ['done', 'cancel'])]}"
+                  string="Forzar disponibilidad"
+                  type="object"
+                  class="oe_highlight"
+                  groups="base.group_user"
+                  data-hotkey="f"
+                  />                
             </xpath>
             <field name="user_id" position="after">
               <field name="recibe"/>
