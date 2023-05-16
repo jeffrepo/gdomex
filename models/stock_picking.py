@@ -30,7 +30,27 @@ class Picking(models.Model):
     placas = fields.Char(string='Placas')
     entrega = fields.Char(string='Entrega')
     encargado_entrega = fields.Many2one('res.users', string='Encargado de la entrega')
-
+    
+    def forzar_disponibilidad(self):
+        for picking in self:
+            logging.warning(picking)
+            if picking.move_ids_without_package:
+                for line_move in picking.move_ids_without_package:
+                    move_line_dic = {
+                        'product_id': line_move.product_id.id,
+                        'product_uom_id': line_move.product_uom.id,
+                        'location_id': picking.location_id.id,
+                        'picking_id': picking.id,
+                        'move_id': line_move.id,
+                        'location_dest_id': picking.location_dest_id.id,
+                        'company_id': picking.company_id.id,
+                        'product_uom_qty': line_move.product_uom_qty,
+                        'qty_done': line_move.product_uom_qty,
+                        # 'qty_done': product_uom_qty,
+                    }
+                    move_line_id = self.env['stock.move.line'].create(move_line_dic)
+        return True
+    
     def action_confirm(self):
         res = super().action_confirm()
         for picking in self:
