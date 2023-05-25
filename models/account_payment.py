@@ -2,7 +2,7 @@
 
 from odoo import api, fields, models, SUPERUSER_ID, _
 from odoo.exceptions import AccessError, UserError, ValidationError
-
+import logging
 
 class AccountPayment(models.Model):
     _inherit = "account.payment"
