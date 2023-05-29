@@ -7,6 +7,8 @@ import logging
 class AccountMove(models.Model):
     _inherit = "account.move"
     
+    otro_comentario = fields.Char('Otro comentario')
+    
     @api.depends('company_id', 'invoice_filter_type_domain')
     def _compute_suitable_journal_ids(self):
         for m in self:
