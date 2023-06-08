@@ -123,7 +123,7 @@
                                     <tr style="border-bottom: 1px solid grey;vertical-align: middle;height:20px;">
                                         <td colspan="2" style="border-left: 1px solid grey;border-top: 1px solid grey;"></td>
                                         <td style="text-align: right;border-top: 1px solid grey;">
-                                            IVA<br/><b>TOTAL(GTQ):</b>
+                                            IVA<br/><b>TOTAL(<span t-field="o.currency_id.name"/>):</b>
                                         </td>
                                         <td style="text-align: right;border-top: 1px solid grey;">
                                             <span t-esc="o.amount_tax"  t-options='{"widget":"float","precision":5}'/> 
