@@ -14,7 +14,7 @@
     'category': 'Uncategorized',
     'version': '0.1',
 
-    'depends': ['stock','project', 'sale','mrp'],
+    'depends': ['stock','project', 'sale','mrp', 'stock_landed_costs'],
 
     'data': [
         'data/report_paperformat_data.xml',
