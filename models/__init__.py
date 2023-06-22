@@ -13,3 +13,4 @@ from . import product
 from . import mrp
 from . import purchase
 from . import account_move
+from . import stock_landed_cost

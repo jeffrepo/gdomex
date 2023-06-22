@@ -50,5 +50,6 @@
         'report/report_orden_trabajo.xml',
         'views/mrp_production_views.xml',
         'wizard/project_orden_trabajo.xml',
+        'views/stock_landed_cost_views.xml',
     ],
 }

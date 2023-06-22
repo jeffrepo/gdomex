@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- STOCK.LANDED.COST -->
+        <record id='gdomex_view_stock_landed_cost_form' model='ir.ui.view'>
+            <field name="name">gdomex.stock.landed.cost.form</field>
+            <field name="model">stock.landed.cost</field>
+            <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_form"/>
+            <field name="arch" type="xml">
+                <button name="button_validate" position="after">
+                    <button name="cargar_compras" string="Cargar compras" states="draft" class="oe_highlight" type="object"/>
+                </button>    
+                <field name="picking_ids" position="after">
+                    <field name="compra_ids" widget="many2many_tags"/>
+                </field>    
+            </field>
+        </record>
+
+    </data>
+</odoo>
