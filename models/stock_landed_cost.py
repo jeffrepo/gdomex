@@ -6,7 +6,7 @@ from odoo import api, fields, models, tools, _
 
 class StockLandedCost(models.Model):
     _inherit = 'stock.landed.cost'
-    
+
     compra_ids = fields.Many2many('purchase.order', string='Compras')
 
     def cargar_compras(self):
@@ -22,7 +22,7 @@ class StockLandedCost(models.Model):
                                     'name': linea_compra.name,
                                     'account_id': linea_compra.product_id.property_account_expense_id.id,
                                     'split_method': "by_current_cost_price",
-                                    'price_unit': linea_compra.price_total,
+                                    'price_unit': linea_compra.price_subtotal,
                                     'compra_linea_id': linea_compra.id,
                                     'cost_id': importacion.id,
                                 }

@@ -30,10 +30,9 @@ class Picking(models.Model):
     placas = fields.Char(string='Placas')
     entrega = fields.Char(string='Entrega')
     encargado_entrega = fields.Many2one('res.users', string='Encargado de la entrega')
-    
+
     def forzar_disponibilidad(self):
         for picking in self:
-            logging.warning(picking)
             if picking.move_ids_without_package:
                 for line_move in picking.move_ids_without_package:
                     move_line_dic = {
@@ -50,7 +49,7 @@ class Picking(models.Model):
                     }
                     move_line_id = self.env['stock.move.line'].create(move_line_dic)
         return True
-    
+
     def action_confirm(self):
         res = super().action_confirm()
         for picking in self:
@@ -70,14 +69,14 @@ class Picking(models.Model):
 
                 if len(project.presupuesto_producto_ids) > 0 and len(project.transferencias_ids) > 0 and picking.move_ids_without_package:
                     for pick in project.transferencias_ids:
-                        if pick.state in ["done","draft"]:
+                        if pick.state in ["done","draft","waiting","confirmed"]:
                             for l in pick.move_ids_without_package:
                                 if l.product_id.id not in dic_envio:
                                     dic_envio[l.product_id.id] = 0
                                 dic_envio[l.product_id.id] += l.product_uom_qty
 
                     for actual_pick_l in picking.move_ids_without_package:
-                        if actual_pick_l.product_id.id not in productos_presupuesto:
+                        if actual_pick_l.product_id.id not in dic_envio:
                             dic_envio[actual_pick_l.product_id.id] = 0
                         dic_envio[actual_pick_l.product_id.id] += actual_pick_l.product_uom_qty
 
@@ -87,21 +86,13 @@ class Picking(models.Model):
                                 productos_presupuesto.append(linea_p.producto_id.id)
 
                                 if dic_envio[linea_p.producto_id.id] > linea_p.cantidad:
-                                    logging.warning("no presupuesto")
-                                    logging.warning(dic_envio[linea_p.producto_id.id])
-                                    logging.warning(linea_p.cantidad)
                                     dic_productos_limite.append(linea_p.producto_id.name)
 
                     if len(productos_presupuesto) > 0 and len(project.transferencias_ids) > 0:
                         for pick in project.transferencias_ids:
-                            logging.warning(picking.name)
-                            logging.warning('el pick')
-                            logging.warning(pick.name)
-                            if pick.state in ["done","draft","assigned"]:
+                            if pick.state in ["done","waiting","confirmed","draft","assigned"]:
                                 for l in pick.move_ids_without_package:
                                     if l.product_id.id not in productos_presupuesto:
-                                        logging.warning(pick.name)
-                                        logging.warning(l.product_id)
                                         dic_productos_limite.append(l.product_id.name)
 
                         for actual_pick_l in picking.move_ids_without_package:
@@ -120,9 +111,7 @@ class Picking(models.Model):
         res = super()._action_done()
         self.env.context.get('active_ids')
         project = None
-        logging.warning('Haciendo clic en alguna parte :::')
-        logging.warning(self.env.context)
-        # logging.warning(self.env.context['proyecto'])
+
         if 'proyecto' in self.env.context and self.env.context['proyecto']:
             project = self.env['project.project'].search([('id', '=', self.env.context['proyecto'])])
         else:
@@ -147,7 +136,7 @@ class Picking(models.Model):
 
         doc_origin = ''
         if self.project_id and self.origin:
-            logging.warning('Tenemos projecto /////////////')
+
             doc_origin = self.origin.split(" ")[-1]
 
             if doc_origin:
@@ -200,12 +189,14 @@ class Picking(models.Model):
                                 mrp_order = {
                                     'product_id': line.product_id.id,
                                     'product_uom_id': line.product_uom.id,
+                                    'qty_producing': line.product_uom_qty,
                                     'product_qty': line.product_uom_qty,
                                     'bom_id': line.product_id.bom_ids.id,
                                     'origin': line.picking_id.name,
                                     'move_line_id': line.id,
                                 }
                                 mrp_order_id = self.env['mrp.production'].create(mrp_order)
-                                mrp_order_id._onchange_product_id()
-                                mrp_order_id._onchange_bom_id()
+                                #mrp_order_id._onchange_product_id()
+                                #mrp_order_id._onchange_bom_id()
                                 mrp_order_id._onchange_move_raw()
+                                mrp_order_id._onchange_move_finished()
