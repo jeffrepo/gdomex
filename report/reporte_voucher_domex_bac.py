@@ -4,8 +4,8 @@ from odoo import models, fields, api
 
 import logging
 
-class ReportVoucherDomexBi(models.AbstractModel):
-    _name = 'report.gdomex.voucher_domex_bi'
+class ReportVoucherDomexBac(models.AbstractModel):
+    _name = 'report.gdomex.voucher_domex_bac'
     _description = 'Creado para la configuración del cheque'
 
     def num_a_letras(self, num, completo=True):
