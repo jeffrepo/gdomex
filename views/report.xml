@@ -2,6 +2,30 @@
 <odoo>
     <data>
 
+        <record id="reporte_voucher_domex_bi" model="ir.actions.report">
+            <field name="name">Domex Voucher BI</field>
+            <field name="model">account.payment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gdomex.voucher_domex_bi</field>
+            <field name="report_file">gdomex.voucher_domex_bi</field>
+            <field name="print_report_name"></field>
+            <field name="attachment"></field>
+            <field name="binding_model_id" ref="model_account_payment"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="reporte_voucher_domex_bac" model="ir.actions.report">
+            <field name="name">Domex Voucher BAC</field>
+            <field name="model">account.payment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gdomex.voucher_domex_bac</field>
+            <field name="report_file">gdomex.voucher_domex_bac</field>
+            <field name="print_report_name"></field>
+            <field name="attachment"></field>
+            <field name="binding_model_id" ref="model_account_payment"/>
+            <field name="binding_type">report</field>
+        </record>
+
         <record id="report_stock_picking_domex" model="ir.actions.report">
           <field name="name">Envíos Domex</field>
           <field name="model">stock.picking</field>

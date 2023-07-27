@@ -6,14 +6,14 @@
             <t t-set="data_report_header_spacing" t-value="1"/>
             <t t-foreach="docs" t-as="o">
                    <div class="article">
-                        <div class="page">
+                        <div class="page" style="font-size: 14px">
                             <t t-if="o.picking_type_id.warehouse_id.name in ['Almex','Grupo Domex - almex']">
                                 <img src='/gdomex/static/src/img/almex_logo_reporte.png' style="max-width: 837px;"/>
                             </t>
                             <t t-elif="o.company_id.name == 'APLYTEK, S.A.'">
                                 <img src='/domex/static/src/img/aplytek_logo_reporte.png' style="max-width: 837px;"/>
                             </t>
-                            
+
                             <t t-elif="o.company_id.name == 'AXIR, S.A.'">
                                 <img src='/domex/static/src/img/axir_logo.png' style="max-width: 837px;"/>
                             </t>
@@ -44,7 +44,7 @@
                                         <td style="border-left: 2px solid grey;border-top: 3px solid #e36d2d;">
                                             <br/><br/>
                                             <h4>SOLICITUD DE PRESUPUESTO</h4>
-                                            <br/>PO: <span t-field="o.name"/> 
+                                            <br/>PO: <span t-field="o.name"/>
                                             <br/>FECHA: <span t-esc="fecha_impresion()"/>
                                             <br/>SOLICITANTE: <span t-field="o.solicitante"/>
                                             <br/>CONDICIÓN DE PAGO: <span t-field="o.payment_term_id.name"/>
@@ -55,14 +55,14 @@
                                         <td style="border-left: 2px solid grey;">
                                             <br/><br/>
                                             <h4>SOLICITUD DE PRESUPUESTO</h4>
-                                            <br/>PO: <span t-field="o.name"/> 
+                                            <br/>PO: <span t-field="o.name"/>
                                             <br/>FECHA: <span t-esc="fecha_impresion()"/>
                                             <br/>SOLICITANTE: <span t-field="o.solicitante"/>
                                             <br/>CONDICIÓN DE PAGO: <span t-field="o.payment_term_id.name"/>
                                             <br/>TIPO DE MONEDA: <span t-field="o.currency_id.name"/>
                                         </td>
-                                    </t>    
-                                        
+                                    </t>
+
 
                                 </tr>
                             </table>
@@ -80,7 +80,7 @@
                                             <br/>DIRECCIÓN: <span t-field="o.partner_id.street"/>, <span t-field="o.partner_id.city"/>
                                             <br/>TELÉFONO:<span t-field="o.partner_id.phone"/>
                                             <br/>EMAIL: <span t-field="o.partner_id.email"/>
-                                            
+
                                         </td>
                                         <td style="border-right: 1px solid grey;border-left: 1px solid grey;">
                                             PROYECTO: <span t-field="o.proyecto"/>
@@ -90,10 +90,10 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            
+
                             <b>SIRVASE SUMINISTRAR LOS ARTICULOS QUE SE DESCRIBEN A CONTINUACIÓN DE ACUERDO CON NUESTRAS INSTRUCCIONES.</b>
                             <br/><br/>
-                            
+
                             <table class="table table-condensed" style="border-collapse: collapse;">
                                 <tr style="border: 1px solid grey;height:35px;vertical-align: middle;">
                                     <b><th style="border: 1px solid grey;vertical-align: middle;text-align: center;">CANTIDAD</th>
@@ -126,25 +126,25 @@
                                             IVA<br/><b>TOTAL(<span t-field="o.currency_id.name"/>):</b>
                                         </td>
                                         <td style="text-align: right;border-top: 1px solid grey;">
-                                            <span t-esc="o.amount_tax"  t-options='{"widget":"float","precision":5}'/> 
+                                            <span t-esc="o.amount_tax"  t-options='{"widget":"float","precision":5}'/>
                                             <br/><span t-esc="o.amount_total"  t-options='{"widget":"float","precision":5}'/>
                                         </td>
                                         <td style="border-right: 1px solid grey;border-top: 1px solid grey;"></td>
                                     </tr>
                                 </tbody>
                             </table>
-                            
+
                             <br/>
                             <table class="table table-condensed" style="border-collapse: collapse;">
                                 <tr style="border: 1px solid grey;height:50px;vertical-align: middle;">
                                     <b><th style="border: 1px solid grey;vertical-align: middle;text-align: left;width:410px">OBSERVACIONES</th></b>
-                                    <th class="text-right" style="border: 1px solid grey;vertical-align: middle;text-align: center;"> <span t-field="o.notes"/></th> 
+                                    <th class="text-right" style="border: 1px solid grey;vertical-align: middle;text-align: center;font-size: 12px"> <span t-field="o.notes"/></th>
 
                                 </tr>
                             </table>
                         </div>
-                       
-                       <div class="footer text-center">                  
+
+                       <div class="footer text-center">
                             <br/>
                             <div style="padding-left:620px">
                                 <span t-esc="o.company_id.name"/>

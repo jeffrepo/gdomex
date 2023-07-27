@@ -22,6 +22,8 @@
         'report/report_oc_importaciones_aplytek.xml',
         'report/report_orden_trabajo.xml',
         'report/report_purchase_orders.xml',
+        'report/reporte_voucher_domex_bac.xml',
+        'report/reporte_voucher_domex_bi.xml',
         'views/stock_quant_views.xml',
         'security/groups.xml',
         'views/stock_production_lot_views.xml',

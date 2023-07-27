@@ -8,3 +8,5 @@ from . import asistente_reporte_costos
 from . import report_orden_trabajo
 #Orden de compra multi
 from . import report_purchase_orders
+from . import reporte_voucher_domex_bi
+from . import reporte_voucher_domex_bac
