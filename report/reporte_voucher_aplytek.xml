@@ -81,7 +81,7 @@
                                   <td style="width: 2.5cm">
                                   </td>
                                   <td style="width: 0.5cm" class="text-right">
-                                      <span t-esc="totales(o)['credito']" />
+                                      <span t-esc="totales(o)['credito']"/>
                                   </td>
                               </tr>
                           </tbody>
@@ -93,7 +93,7 @@
                       <!-- <span t-field="o.communication"></span> -->
                   </div>
                   <div style="position: absolute; top: 22cm; left: 5cm">
-                      NO.  DE  CHEQUE:<span t-field="o.move_id.name"></span>
+                      NO.  DE  CHEQUE:<span t-field="o.move_id.name"/>
                   </div>
 
                   <div style="position: absolute; top: 23.9cm; left: 2cm">
