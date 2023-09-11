@@ -27,6 +27,7 @@
         'views/stock_quant_views.xml',
         'security/groups.xml',
         'views/stock_production_lot_views.xml',
+        'views/contrasenia_pago.xml',
         'views/account_report.xml',
         'report/reporte_cheque_axir_g_t.xml',
         'report/reporte_voucher_aplytek.xml',

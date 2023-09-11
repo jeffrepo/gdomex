@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="contrasenia_pago">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                   <div class="article">
+                        <div class="header">
+
+                            <t t-if="o.company_id.name in ['Grupo Domex S.AAA.']">
+                                <img src='/gdomex/static/src/img/almex_logo_reporte.png' style="max-width: 837px;"/>
+                            </t>
+                            <t t-elif="o.company_id.name == 'APLYTEK, S.A.'">
+                                <img src='/domex/static/src/img/aplytek_logo_reporte.png' style="max-width: 837px;"/>
+                            </t>
+
+                            <t t-elif="o.company_id.name == 'AXIR,ese S.A.'">
+                                <img src='/domex/static/src/img/axir_logo.png' style="max-width: 837px;"/>
+                            </t>
+                            <t t-elif="o.company_id.name == 'CAPEX, S.A.'">
+                                <img src='/domex/static/src/img/capex_logo.png' style="max-width: 837px;"/>
+                            </t>
+                            <t t-elif="o.company_id.name in ['Grupo Domex S.A','DOMEX']">
+                                <!-- entregar a  -->
+                                <img src='/gdomex/static/src/img/domexl.png' style="max-width: 800px;"/>
+                            </t>
+                            <t t-elif="o.company_id.name == 'KINETICS, S.A.'">
+                                <img src='/domex/static/src/img/kinetics_logo.png' style="max-width: 837px;"/>
+                            </t>
+                            <t t-elif="o.company_id.name == 'LEJAIM, S.A.'">
+                                <img src='/domex/static/src/img/lejaim_logo.png' style="max-width: 837px;"/>
+                            </t>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td style="border-left: 2px solid grey;">
+                                        <h3><span t-esc="o.company_id.name"/></h3>
+                                        <span t-esc="o.company_id.street"/>
+                                        <br/>Guatemala, Guatemala
+                                        <br/>PBX <span t-esc="o.company_id.phone"/>
+                                        <br/>NIT <span t-esc="o.company_id.vat"/>
+                                    </td>
+                                    <td style="border-left: 2px solid grey;">
+                                        <br/><br/>
+                                        <h4>CONTRASEÑA DE PAGO</h4>
+                                    </td>
+                                    <td>
+                                        <br/>
+                                        <b>FECHA DE EMISIÓN</b> <span t-esc="fecha_impresion()" t-options='{"widget": "date"}'/>
+                                        <br/><b>CONTRASEÑA NO.</b> <span t-field="o.name"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="page">
+                            <br/><br/><br/><br/>
+                            <t t-set="factura" t-value="_get_facturas(o)"/>
+                            <table  class="table table-condensed" style="border-style: none;">
+                                <tr style="vertical-align: bottom;">
+                                    <td style="border-top: none; width:180px;">A FAVOR DE </td>
+                                    <td style="border-bottom: 1px solid grey;border-top: none"><span t-esc="factura['nombre']"/></td>
+                                    <td style="border-top: none; width:100px;">NIT </td>
+                                    <td style="border-bottom: 1px solid grey;border-top: none"><span t-esc="factura['nit']"/></td>
+                                </tr>
+                                <tr style="vertical-align: bottom;">
+                                    <td style="border-top: none;">ORDENES DE COMPRA </td>
+                                    <td style="border-bottom: 1px solid grey;"><span t-esc="factura['compras']"/></td>
+                                    <td style="border-top: none">HECHO POR </td>
+                                    <td style="border-bottom: 1px solid grey;"><span t-esc="user.name"/></td>
+                                </tr>
+                            </table>
+
+                            <br/>
+                            <b>QUEDAN A NUESTRO PODER PARA SU REVISIÓN</b>
+                            <br/>
+
+                            <table class="table table-condensed" style="border-collapse: collapse;">
+                                <tr style="border: 1px solid grey;height:35px;vertical-align: middle;">
+                                    <b><th style="border: 1px solid grey;vertical-align: middle;text-align: center;">FECHA</th>
+                                    <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">SERIE</th>
+                                    <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">NÚMERO</th>
+                                    <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">ORDEN DE COMPRA</th>
+                                    <th class="text-right" style="border: 1px solid grey;vertical-align: middle;text-align: center;">FECHA DE VENCIMIENTO</th>
+                                    <th class="text-right" style="border: 1px solid grey;vertical-align: middle;text-align: center;">MONTO</th>
+                                    <th class="text-right" style="border: 1px solid grey;vertical-align: middle;text-align: center;">ESTADO</th></b>
+
+                                </tr>
+                                <tbody>
+                                    <t t-foreach="factura['facturas']" t-as="fac">
+                                        <tr style="border-bottom: 1px solid grey;vertical-align: middle;height:35px;">
+                                            <td style="border-left: 1px solid grey;"><span t-esc="fac.invoice_date" t-options='{"widget": "date"}'/></td>
+                                            <td><span t-esc="factura['serie']"/></td>
+                                            <td><span t-esc="factura['numero']"/></td>
+                                            <td style="text-align: center;"><span t-esc="fac.invoice_line_ids[0].purchase_order_id.name"/></td>
+                                            <td style="text-align: center;">
+                                                <t t-if="fac.invoice_date_due">
+                                                    <span t-esc="fac.invoice_date_due" t-options='{"widget": "date"}'/>
+                                                </t>
+                                                <t t-else="">
+
+                                                </t>
+                                            </td>
+                                            <td style="text-align: right;"><span t-esc="fac.amount_total" t-options='{"widget": "monetary", "display_currency": fac.currency_id}'/></td>
+                                            <td style="border-right: 1px solid grey;text-align: center;"><span t-esc="fac.state"/></td>
+                                        </tr>
+                                    </t>
+                                    <tr style="border-bottom: 1px solid grey;vertical-align: middle;height:20px;">
+                                        <td colspan="4" style="border-left: 1px solid grey;border-top: 1px solid grey;"></td>
+                                        <td style="text-align: right;border-top: 1px solid grey;"><b>TOTAL</b></td>
+                                        <td style="text-align: right;border-top: 1px solid grey;"><span t-esc="factura['total']" t-options='{"widget": "monetary", "display_currency": factura["currency"]}'/></td>
+                                        <td style="border-right: 1px solid grey;border-top: 1px solid grey;"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <br/>
+
+                        </div>
+
+                       <div class="footer text-center">
+                            FECHAS LÍMITE PARA PROCESAMIENTO DE FACTURAS DE PROVEEDORES:
+                            <br/><br/>
+                            <b>FACTURAS DE PAPEL:</b>  Recepción Oficinas Centrales 7 calle 3-24 zona 18, Condominio Interbodegas, Ofibodega Numero 20.
+                            <br/>
+                            <b>FACTURAS ELECTRÓNICAS:</b> Enviar correo a <b>contabilidad.grupohr@gmail.com</b>
+                            <br/>
+                            <b>FECHAS:</b> lunes y miércoles en horario de 9:00 a 12:00 de 14:30 a 16:00. Ultima fecha para recibir facturas 25 de cada mes, en caso sea día inhábil, el inmediato anterior.
+                            <br/>
+                            <b>DOCUMENTOS PARA PRESENTAR Y/O ADJUNTAR:</b>
+                            <br/>    - Orden de Compra
+                            <br/>    - Nota de envío
+                            <br/>    - Factura
+                            <br/><b>FECHA DE PAGO:</b> Únicamente viernes en horario de 9:00 a 12:00 de 14:30 a 16:00, presentando respectiva contraseña de pago emitida.
+                            <br/>
+                            <b>NOTA:</b>
+                            <br/>1. Únicamente se emitirán pagos a facturas con contraseña que cumplan con los puntos arriba mencionados
+                            <br/>2. No se entregarán cheque de pago sin contraseña
+                            <br/>3. <span t-esc="o.company_id.name"/> no se hace responsable por facturas no entregadas al
+                                    departamento contable en el lugar, correo y fecha autorizado.
+                            <br/><br/><br/>
+
+                            <table class="table table-condensed;">
+                                <tr>
+                                    <td style="border-top: 1px solid grey;">
+                                        El presente perderá efecto y valor en el momento que <span t-esc="o.company_id.name"/> realice el pago mediante cheque o transferencia. El comprobante de depósito o transferencia elemento emitido por el banco será suficiente para dejar sin efecto la presente contraseña de pago y liberar a <span t-esc="o.company_id.name"/> de su responsabilidad por virtud del mismo.
+                                        <br/>
+                                        La presente contraseña de pago podría aplicar retenciones de ley.
+                                    </td>
+                                </tr>
+                            </table>
+                       </div>
+
+                    </div>
+            </t>
+        </t>
+    </template>
+</odoo>
