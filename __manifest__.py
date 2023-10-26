@@ -17,6 +17,8 @@
     'depends': ['stock','project', 'sale','mrp', 'stock_landed_costs'],
 
     'data': [
+    	'report/venta_cotizacion_grupodomex.xml',
+    	'report/instalacion_cotizacion_grupodomex.xml',
         'data/report_paperformat_data.xml',
         'report/report_oc_importaciones_almex.xml',
         'report/report_oc_importaciones_aplytek.xml',

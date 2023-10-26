@@ -76,6 +76,7 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     unidad = fields.Float('Unidad')
+    ancho = fields.Float('Ancho')
     largo = fields.Float('Largo')
 
     @api.onchange('unidad','largo','product_id')

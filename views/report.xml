@@ -2,6 +2,26 @@
 <odoo>
     <data>
 
+        <record id="gdomex_venta_cotizacion_grupodomex" model="ir.actions.report">
+            <field name="name">Venta Cotización Domex</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gdomex.venta_cotizacion_grupodomex</field>
+            <field name="report_file">gdomex.venta_cotizacion_grupodomex</field>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
+        
+        <record id="gdomex_instalacion_cotizacion_grupodomex" model="ir.actions.report">
+            <field name="name">Instalación Cotización Domex</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gdomex.instalacion_cotizacion_grupodomex</field>
+            <field name="report_file">gdomex.instalacion_cotizacion_grupodomex</field>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
+        
         <record id="reporte_voucher_domex_bi" model="ir.actions.report">
             <field name="name">Domex Voucher BI</field>
             <field name="model">account.payment</field>
