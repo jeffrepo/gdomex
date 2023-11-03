@@ -6,6 +6,8 @@ from . import reporte_inter_continuo
 from . import reporte_voucher_aplytek
 from . import asistente_reporte_costos
 from . import report_orden_trabajo
+from . import venta_cotizacion_grupodomex
+from . import instalacion_cotizacion_grupodomex
 #Orden de compra multi
 from . import report_purchase_orders
 from . import reporte_voucher_domex_bi

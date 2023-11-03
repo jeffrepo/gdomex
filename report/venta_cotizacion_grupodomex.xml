@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <template id="venta_cotizacion_grupodomex">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="o">
+          <div class="article">
+
+            <div class="page">
+                <img src='/gdomex/static/src/img/domex_logo_reporte.png' style="max-width: 837px;"/>
+
+                <table class="table table-condensed">
+                    <tr>
+                        <td style="border-left: 2px solid grey;">
+                            <h3>DOMEX S.A.</h3>
+                            7 calle OFIBODEGA 20 3-24 zona 18
+                            <br/>Guatemala, Guatemala
+                            <br/>PBX 2304-7700
+                            <br/>NIT 3978678-1
+                        </td>
+                        <td style="border-left: 2px solid grey;">
+                            <br/>
+                            <h4>PRESUPUESTO
+                            <br/><b><span t-field="o.name"/></b></h4>
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                <table style="width:100%; margin-top:30px">
+                  <tr style="vertical-align: bottom;">
+                      <td>FECHA:</td>
+                      <td>
+                        <span t-esc="convertir_fecha_hora(o.date_order)['fecha']" t-options='{"widget": "date"}'/>
+                      </td>
+                  </tr>
+                  <tr style="vertical-align: bottom;">
+                      <td>CLIENTE:</td>
+                      <td style="border-bottom: 1px solid grey">
+                        <span t-field="o.partner_id.name"/>
+                      </td>
+                      <td>ATENCIÓN A:</td>
+                      <td style="border-bottom: 1px solid grey;border-top: none"><span t-field="o.atencion"/></td>
+                      <td style="border-bottom: 1px solid grey;border-top: none"></td>
+                      <td style="border-bottom: 1px solid grey;border-top: none"></td>
+                  </tr>
+                  <tr style="vertical-align: bottom;">
+                      <td> PROYECTO:</td>
+                      <td style="border-bottom: 1px solid grey;"><span t-field="o.proyecto"/></td>
+                      <td> TEL:</td>
+                      <td style="border-bottom: 1px solid grey;"><span t-field="o.partner_id.phone"/></td>
+                      <td>EMAIL:</td>
+                      <td style="border-bottom: 1px solid grey;"><span t-field="o.partner_id.email"/></td>
+                  </tr>
+                </table>
+                <br/>
+
+                <table style="width:100%; border:1px solid black; margin-bottom:50px">
+                  <tr style="border: 1px solid grey;height:35px;vertical-align: middle;">
+                      <b><th style="border: 1px solid grey;vertical-align: middle;text-align: center;">CÓDIGO</th>
+                      <th style="border: 1px solid grey;vertical-align: middle;text-align: center;width:150px;">DESCRIPCIÓN</th>
+                      <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">ANCHO</th>
+                      <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">LARGO</th>
+                      <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">U.M.</th>
+                      <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">CANTIDAD</th>
+                      <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">PRECIO UNITARIO</th>
+                      <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">SUBTOTAL</th></b>
+                  </tr>
+                  <tbody>
+                      <t t-foreach="o.order_line" t-as="l">
+                          <tr style="border-bottom: 1px solid grey;vertical-align: middle;height:35px;">
+                              <td style="border-left: 1px solid grey;"><span t-esc="l.product_id.code"/></td>
+                              <td><span t-esc="l.product_id.name"/></td>
+                              <td><span t-esc="l.ancho"/></td>
+                              <td><span t-esc="l.largo"/></td>
+                              <td><span t-esc="l.product_uom.name"/></td>
+                              <td style="text-align: center;"><span t-esc="l.product_uom_qty"/></td>
+                              <td style="text-align: right;"><span t-esc="l.price_unit"  t-options='{"widget":"float","precision":2}'/></td>
+                              <td style="border-right: 1px solid grey;text-align: right;"><span t-esc="l.price_total"  t-options='{"widget":"float","precision":2}'/></td>
+                          </tr>
+                      </t>
+                      <tr style="border-bottom: 1px solid grey;vertical-align: middle;height:25px;">
+                          <td colspan="6" style="border-top: 1px solid grey;border-left: 1px solid grey;">LUGAR DE ENTREGA: <span t-esc="o.lugar_entrega"/></td>
+                          <td style="border-top: 1px solid grey;text-align: right;"><b>TOTAL BASE</b></td>
+                          <td style="border-top: 1px solid grey;border-right: 1px solid grey;text-align: right;"><span t-esc="o.amount_untaxed" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: docs.pricelist_id.currency_id}"/></td>
+                      </tr>
+                      <tr style="vertical-align: middle;">
+                          <td colspan="6" style="border-left: 1px solid grey; border-top: 1px solid white;">TIEMPO DE ENTREGA: <span t-esc="o.tiempo_estimado_entrega"/></td>
+                          <td style="text-align: right;border-top: 1px solid white;"><b>IMPUESTOS</b></td>
+                          <td style="border-right: 1px solid grey;border-right: 1px solid grey;text-align: right;border-top: 1px solid white;"><span t-esc="o.amount_tax"  t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: docs.pricelist_id.currency_id}"/></td>
+                      </tr>
+                      <tr style="border-bottom: 1px solid grey;vertical-align: middle;height:20px;">
+                          <td colspan="6" style="border-left: 1px solid grey;border-top: 1px solid white;">FORMA DE PAGO: <span t-esc="o.payment_term_id.name"/></td>
+                          <td style="text-align: right;border-top: 1px solid white;"><b>TOTAL</b></td>
+                          <td style="border-right: 1px solid grey;border-right: 1px solid grey;text-align: right;border-top: 1px solid white;"><span t-esc="o.amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: docs.pricelist_id.currency_id}"/></td>
+                      </tr>
+                  </tbody>
+                </table>
+
+                <div style="text-align:center; width:100%">
+
+                    <table style="width:100%; margin-top:10px">
+                        <tr style="text-align: left;">
+                            <td colspan="2" style="font-size: 12px; border-top: 1px solid grey; border-left: 1px solid grey; border-right: 1px solid grey;">Notas:</td>
+                        </tr>
+                        <tr style="vertical-align: middle;">
+                            <td style="font-size: 12px; border-left: 1px solid grey; border-bottom: 1px solid grey;">
+                            	<p style="text-align:left; padding-left: 30px; padding-right: 30px">1. Forma de pago: Contado, al confirmar orden.<br/><br/>
+                            	2. El pago es unicamente con cheque a nombre de Grupo<br/>Domex,S.A. o deposito directo a las cuentas Grupo Domex,S.A.<br/>
+                            	3. Numeros de cuentas Q: GyT: 066-0032793-9, BI: 306-001039-8,<br/>Interbanco: 81-0144879-9, Bac: 904337524<br/>
+                            	4. Precios incluyen: IVA.<br/><br/>
+                            	5. El precio total del proyecto no incluye costo de fianzas ni<br/>contratos.
+                            	</p>
+                            </td>
+                            <td style="font-size: 12px; border-right: 1px solid grey; border-bottom: 1px solid grey;">
+                            	<p style="text-align:left; padding-left: 30px; padding-right: 30px">6. El precio total del proyecto es solo de materiales no incluye el servicio de instalación.<br/>
+                            	7. Vigencia de la oferta, 5 días.<br/><br/>
+                            	8. El precio total de la cotización puede variar con rectificacion de<br/>medidas en obra o confirmacion de planos finales.<br/>
+                            	9. El precio total de la cotización esta sujeto a cambios sin previo aviso.
+                            	</p>
+                            </td>
+                        </tr>
+                        <tr style="vertical-align: middle;">
+                            <td style="border-top: 1px solid grey; border-left: 1px solid grey;width:430px;"></td>
+                            <td style="text-align:center;border: 1px solid grey;">Aceptado Cliente</td>
+                        </tr>
+                        <tr style="height: 60px">
+                            <td style="vertical-align: middle;border-top: none;text-align:center;border-left: 1px solid grey;border-bottom: 1px solid grey;font-size: 11px;"> <span t-field="o.user_id.name"/><br/><span t-field="o.user_id.phone"/> <br/><span t-field="o.user_id.email"/></td>
+                            <td style="border: 1px solid grey;"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td style="font-size: 11px;text-align:center;">(firma y sello)</td>
+                        </tr>
+                    </table>
+
+
+                </div>
+            </div>
+          </div>
+
+        </t>
+    </t>
+
+  </template>
+
+</odoo>
