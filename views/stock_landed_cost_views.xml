@@ -12,7 +12,29 @@
                 </button>    
                 <field name="picking_ids" position="after">
                     <field name="compra_ids" widget="many2many_tags"/>
-                </field>    
+                </field>
+                <page name="valuation_adjustments" position="after">
+                    <page string="Costo unitario" name="costo_unitario">
+                        <field name="costo_unitario_ids">
+                            <form string="Costo unitario">
+                                <group>
+                                    <group>
+                                        <field name="producto_id"/>
+                                        <field name="costo"/>
+                                    </group>
+                                    <group>
+                                        <field name="cost_id" invisible="1"/>
+                                    </group>
+                                </group>
+                            </form>
+                            <tree string="Costo unitario" editable="bottom" create="0">
+                                <field name="producto_id" readonly="1"/>
+                                <field name="costo" readonly="1"/>
+                                <field name="cost_id"  invisible="True"/>
+                            </tree>
+                        </field>
+                    </page>
+                </page>                
             </field>
         </record>
 
