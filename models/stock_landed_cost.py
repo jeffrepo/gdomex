@@ -8,7 +8,35 @@ class StockLandedCost(models.Model):
     _inherit = 'stock.landed.cost'
 
     compra_ids = fields.Many2many('purchase.order', string='Compras')
+    costo_unitario_ids = fields.One2many('gdomex.costo_unitario_lineas','cost_id',string='Costo unitario')
+    
+    def calcular_costo_unitario(self):
+        for coste in self:
+            if len(coste.costo_unitario_ids) > 0:
+                coste.costo_unitario_ids.unlink()
 
+            productos = {}
+            for linea in coste.valuation_adjustment_lines:
+                if linea.product_id.id not in productos:
+                    productos[linea.product_id.id] = {'costo': linea.final_cost, 'cantidad': linea.quantity, 'producto': linea.product_id.id}
+
+                if linea.final_cost > productos[linea.product_id.id]['costo']:
+                    productos[linea.product_id.id]['costo'] = linea.final_cost
+
+            lineas = []
+            if productos:
+                for p in productos:
+                    costo_unitario = productos[p]['costo'] / productos[p]['cantidad']
+                    dic ={
+                        'producto_id': productos[p]['producto'],
+                        'costo': costo_unitario,
+                        # 'cost_id': coste.id,
+                    }
+                    coste.write({
+                        'costo_unitario_ids': [(0,0, dic)]
+                    })
+        return True
+        
     def cargar_compras(self):
         for importacion in self:
             if importacion.compra_ids:
