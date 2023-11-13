@@ -5,7 +5,6 @@ import re
 import datetime
 from datetime import date
 import logging
-# import odoo.addons.l10n_gt_extra.a_letras
 
 class ReportPurchaseOrders(models.AbstractModel):
     _name = 'report.gdomex.purchase_orders'
