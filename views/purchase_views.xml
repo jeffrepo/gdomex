@@ -8,6 +8,9 @@
         <field name="incoterm_id" position="after">
           <field name="supplier"/>
           <field name="bill_to"/>
+          <field name="proyecto"/>
+          <field name="solicitante"/>
+          <field name="lugar_entrega"/>
           <field name="consigned_to"/>
           <field name="send_docs_to"/>
           <field name="marks"/>
