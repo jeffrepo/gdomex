@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from odoo import api, models, fields
-from odoo.addons.num_to_words.models.numero_letras import numero_a_letras, numero_a_moneda
 import logging, datetime
 
 class VentaCotizacionGrupodomex(models.AbstractModel):
@@ -41,7 +40,5 @@ class VentaCotizacionGrupodomex(models.AbstractModel):
             'doc_ids': docids,
             'doc_model': 'sale.order',
             'docs': docs,
-            'a_letras': self.a_letras,
-
         }
         
