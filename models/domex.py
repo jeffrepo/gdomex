@@ -3,6 +3,13 @@
 from odoo import models, fields, api
 import logging
 
+class GdomexCostoUnitarioLineas(models.Model):
+    _name = 'gdomex.costo_unitario_lineas'
+
+    cost_id = fields.Many2one('stock.landed.cost',string='Coste destino')
+    producto_id = fields.Many2one('product.product','Producto')
+    costo = fields.Float('Costo')
+
 class Color(models.Model):
     _name = 'domex.color'
 
