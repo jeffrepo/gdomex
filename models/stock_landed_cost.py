@@ -45,12 +45,15 @@ class StockLandedCost(models.Model):
                         for linea_compra in compra.order_line:
                             existe_linea_compra_id = self.env['stock.landed.cost.lines'].search([('compra_linea_id','=',linea_compra.id)])
                             if linea_compra.product_id.detailed_type == "service":
+                                total_linea = linea_compra.price_subtotal
+                                if linea_compra.currency_id.id != linea_compra.company_id.currency_id.id:
+                                    total_linea = linea_compra.currency_id._convert(linea_compra.price_subtotal,linea_compra.company_id.currency_id,linea_compra.company_id,importacion.date)
                                 dic_linea_costo = {
                                     'product_id': linea_compra.product_id.id,
                                     'name': linea_compra.name,
                                     'account_id': linea_compra.product_id.property_account_expense_id.id,
                                     'split_method': "by_current_cost_price",
-                                    'price_unit': linea_compra.price_subtotal,
+                                    'price_unit': total_linea,
                                     'compra_linea_id': linea_compra.id,
                                     'cost_id': importacion.id,
                                 }
