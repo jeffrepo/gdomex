@@ -15,22 +15,41 @@ class StockLandedCost(models.Model):
             if len(coste.costo_unitario_ids) > 0:
                 coste.costo_unitario_ids.unlink()
 
+            total_gastos = 0
             productos = {}
             for linea in coste.valuation_adjustment_lines:
+                total_gastos += linea.additional_landed_cost
                 if linea.product_id.id not in productos:
-                    productos[linea.product_id.id] = {'costo': linea.final_cost, 'cantidad': linea.quantity, 'producto': linea.product_id.id}
-
-                if linea.final_cost > productos[linea.product_id.id]['costo']:
-                    productos[linea.product_id.id]['costo'] = linea.final_cost
-
+                    productos[linea.product_id.id] = {
+                        'costo': 0.00, 
+                        'cantidad': linea.quantity, 
+                        'producto': linea.product_id.id,
+                        'unidad_gtq': 0,
+                        'precio_total': 0,
+                        'porcentaje': 0,
+                        'gasto': 0}
+                    
+            for compra in coste.compra_ids:
+                for linea_compra in compra.order_line:
+                    llave = linea_compra.product_id.id
+                    if llave in productos:
+                        unidad_gtq = linea_compra.currency_id._convert(linea_compra.price_unit,linea_compra.company_id.currency_id,linea_compra.company_id,coste.date)
+                        precio_total = unidad_gtq * linea_compra.product_qty
+                        porcentaje = linea_compra.price_subtotal / compra.amount_total
+                        gasto = total_gastos * porcentaje
+                        costo = (gasto / linea_compra.product_qty) + unidad_gtq
+                        productos[llave]['unidad_gtq'] = unidad_gtq
+                        productos[llave]['precio_total'] = precio_total
+                        productos[llave]['porcentaje'] = porcentaje
+                        productos[llave]['costo'] = costo
+                    
             lineas = []
             if productos:
                 for p in productos:
-                    costo_unitario = productos[p]['costo'] / productos[p]['cantidad']
+                    costo_unitario = productos[p]['costo']
                     dic ={
                         'producto_id': productos[p]['producto'],
                         'costo': costo_unitario,
-                        # 'cost_id': coste.id,
                     }
                     coste.write({
                         'costo_unitario_ids': [(0,0, dic)]
