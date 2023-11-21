@@ -1,113 +1,114 @@
-<?xml version="1.0"?>
-<t t-name="gdomex.design_inter_continuo_document">
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="report_envio_almex">
+        <t t-name="gdomex.design_inter_continuo_document">
 
-      <!-- <t t-name="gdomex.design_inter_continuo"> -->
-          <!-- <t t-call="web.external_layout"> -->
-          <t t-call="web.html_container">
-              <t t-foreach="docs" t-as="o">
+            <!-- <t t-name="gdomex.design_inter_continuo"> -->
+                <!-- <t t-call="web.external_layout"> -->
+                <t t-call="web.html_container">
+                    <t t-foreach="docs" t-as="o">
 
-                  <div class="page">
-                  
-                      <div style="font-size: 80%; position: absolute; top: 2.2cm; left: 3.5cm">
-                          GUATEMALA, <span t-field="o.date"/>
-                      </div>
-                      <div style="font-size: 80%; position: absolute; top: 2cm; left: 16.3cm">
-                          <span t-esc="'{0:,.2f}'.format(o.amount)"/>
-                      </div>
-                     
-                      <div style="font-size: 80%; position: absolute; top: 2.8cm; left: 4.6cm; width: 15cm">
-                          <span t-esc="o.nombre_impreso or o.partner_id.name"/>
-                      </div>
-                  
-                      <div style="font-size: 80%; position: absolute; top: 3.4cm; left: 4.6cm; width: 15cm">
-                          <span t-esc="a_letras(o.amount)"/>
-                      </div>
-                      <div t-if="o.no_negociable == True" style="font-size: 110%; position: absolute; top: 2.8cm; left: 4.4cm">
-                             <span>NO  NEGOCIABLE</span>
-                      </div>
-                  
-                  
-                  
-                      <div style="position: absolute; top: 7.6cm; left: 0.5cm">
-                          <table style="font-size: 80%;" >
-                             <tbody>
-                                  <tr t-foreach="o.line_ids" t-as="l">
-                                      <td style="width: 1.5cm">
-                                      </td>
-                                      <td style="width: 2cm">
-                                         <span t-field="l.account_id.code"/>
-                                      </td>
-                                      <td style="width: 1.5cm">
-                                      </td>
-                                      <td style="width: 10.6cm">
-                                          <span t-field="l.account_id.name"/>
-                                      </td>
-                                      <td style="width: 0.6cm" class="text-right">
-                                          <span t-field="l.debit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
-                                      </td>
-                                      <td style="width: 1.5cm">
-                                      </td>
-                                      <td style="width: 0.7cm" class="text-right">
-                                          <span t-field="l.credit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
-                                      </td>
-                                        <td style="width: 0.9cm"></td>
-                                  </tr>
-                              </tbody>
-                          </table>
-                      </div>
-                  
-                      <div style="position: absolute; top: 9cm; left: 1.3cm">
-                          <table  style="font-size: 80%;" >
-                             <tbody>
-                                  <tr>
-                                      <td style="width: 16.3cm">
-                                      </td>
-                                      <td style="width: 2cm" class="text-right">
-                                          <span t-esc="totales(o)['debito']" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
-                                      </td>
-                                      <td style="width: 2cm">
-                                      </td>
-                                      <td style="width: 0.5cm" class="text-right">
-                                          <span t-esc="totales(o)['credito']" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
-                                      </td>
-                                        <td style="width: 0.9cm"></td>
-                                  </tr>
-                              </tbody>
-                          </table>
-                      </div>
-                  
-                      
-                      <div style="font-size: 80%; position: absolute; top: 10cm; left: 2cm; width 20cm">
-                          MOTIVO  DE:<span t-field="o.ref"/>
-                      </div>
-                      <div style="font-size: 80%; position: absolute; top: 11cm; left: 2cm">
-                          NO.  DE  CHEQUE:<span t-field="o.move_id.name"/>
-                      </div>
-                  
-                      <div style="font-size: 80%; position: absolute; top: 12cm; left: 2cm">
-                          <table  style="font-size: 80%;" >
-                             <tbody>
-                                  <tr>
-                                      <td style="width: 3cm">
-                                          <span t-field="user.name"/>
-                                      </td>
-                                      <td style="width: 1">
-                                      </td>
-                                  </tr>
-                              </tbody>
-                          </table>
-                      </div>
-                  
-                  </div>
-
-
-              </t>
-          </t>
-
-      <!-- </t> -->
-
-    </t>
-    
+                        <div class="page">
+                        
+                            <div style="font-size: 80%; position: absolute; top: 2.2cm; left: 3.5cm">
+                                GUATEMALA, <span t-field="o.date"/>
+                            </div>
+                            <div style="font-size: 80%; position: absolute; top: 2cm; left: 16.3cm">
+                                <span t-esc="'{0:,.2f}'.format(o.amount)"/>
+                            </div>
+                            
+                            <div style="font-size: 80%; position: absolute; top: 2.8cm; left: 4.6cm; width: 15cm">
+                                <span t-esc="o.nombre_impreso or o.partner_id.name"/>
+                            </div>
+                        
+                            <div style="font-size: 80%; position: absolute; top: 3.4cm; left: 4.6cm; width: 15cm">
+                                <span t-esc="a_letras(o.amount)"/>
+                            </div>
+                            <div t-if="o.no_negociable == True" style="font-size: 110%; position: absolute; top: 2.8cm; left: 4.4cm">
+                                    <span>NO  NEGOCIABLE</span>
+                            </div>
+                        
+                        
+                        
+                            <div style="position: absolute; top: 7.6cm; left: 0.5cm">
+                                <table style="font-size: 80%;" >
+                                    <tbody>
+                                        <tr t-foreach="o.line_ids" t-as="l">
+                                            <td style="width: 1.5cm">
+                                            </td>
+                                            <td style="width: 2cm">
+                                                <span t-field="l.account_id.code"/>
+                                            </td>
+                                            <td style="width: 1.5cm">
+                                            </td>
+                                            <td style="width: 10.6cm">
+                                                <span t-field="l.account_id.name"/>
+                                            </td>
+                                            <td style="width: 0.6cm" class="text-right">
+                                                <span t-field="l.debit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                            </td>
+                                            <td style="width: 1.5cm">
+                                            </td>
+                                            <td style="width: 0.7cm" class="text-right">
+                                                <span t-field="l.credit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                            </td>
+                                                <td style="width: 0.9cm"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        
+                            <div style="position: absolute; top: 9cm; left: 1.3cm">
+                                <table  style="font-size: 80%;" >
+                                    <tbody>
+                                        <tr>
+                                            <td style="width: 16.3cm">
+                                            </td>
+                                            <td style="width: 2cm" class="text-right">
+                                                <span t-esc="totales(o)['debito']" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                            </td>
+                                            <td style="width: 2cm">
+                                            </td>
+                                            <td style="width: 0.5cm" class="text-right">
+                                                <span t-esc="totales(o)['credito']" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                            </td>
+                                                <td style="width: 0.9cm"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        
+                            
+                            <div style="font-size: 80%; position: absolute; top: 10cm; left: 2cm; width 20cm">
+                                MOTIVO  DE:<span t-field="o.ref"/>
+                            </div>
+                            <div style="font-size: 80%; position: absolute; top: 11cm; left: 2cm">
+                                NO.  DE  CHEQUE:<span t-field="o.move_id.name"/>
+                            </div>
+                        
+                            <div style="font-size: 80%; position: absolute; top: 12cm; left: 2cm">
+                                <table  style="font-size: 80%;" >
+                                    <tbody>
+                                        <tr>
+                                            <td style="width: 3cm">
+                                                <span t-field="user.name"/>
+                                            </td>
+                                            <td style="width: 1">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        
+                        </div>
 
 
+                    </t>
+                </t>
 
+            <!-- </t> -->
+
+            </t>
+        
+    </template>    
+</odoo>
