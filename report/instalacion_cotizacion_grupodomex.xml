@@ -3,6 +3,8 @@
 
   <template id="instalacion_cotizacion_grupodomex">
     <t t-call="web.html_container">
+    <t t-set="data_report_margin_top" t-value="1"/>
+    <t t-set="data_report_header_spacing" t-value="1"/>
       <t t-foreach="docs" t-as="o">
           <div class="article">
 
@@ -35,20 +37,20 @@
                       </td>
                   </tr>
                   <tr style="vertical-align: bottom;">
-                      <td>ATENCIÓN A:</td>
-                      <td colspan="5" style="border-bottom: 1px solid grey;border-top: none"><span t-field="o.atencion"/></td>
+                      <td style="width 20%">ATENCIÓN A:</td>
+                      <td colspan="5" style="border-bottom: 1px solid grey; text-align:left"><span t-field="o.atencion"/></td>
                   </tr>
                   <tr style="vertical-align: bottom;">
                       <td>CLIENTE:</td>
-                      <td colspan="5" style="border-bottom: 1px solid grey"><span t-field="o.partner_id.name"/></td>
+                      <td colspan="5" style="border-bottom: 1px solid grey; text-align:left"><span t-field="o.partner_id.name"/></td>
                   </tr>
                   <tr style="vertical-align: bottom;">
                       <td> PROYECTO:</td>
-                      <td style="border-bottom: 1px solid grey;"><span t-field="o.proyecto"/></td>
+                      <td style="border-bottom: 1px solid grey; text-align:left"><span t-field="o.proyecto"/></td>
                       <td> TEL:</td>
-                      <td style="border-bottom: 1px solid grey;"><span t-field="o.partner_id.phone"/></td>
+                      <td style="border-bottom: 1px solid grey; text-align:left"><span t-field="o.partner_id.phone"/></td>
                       <td>EMAIL:</td>
-                      <td style="border-bottom: 1px solid grey;"><span t-field="o.partner_id.email"/></td>
+                      <td style="border-bottom: 1px solid grey; text-align:left"><span t-field="o.partner_id.email"/></td>
                   </tr>
                 </table>
                 
@@ -120,6 +122,11 @@
                         <tr style="vertical-align: middle;">
                             <td style="border-top: none; width:30px;"></td>
                             <td style="text-align:left;width:200px;border-top: none;"><b>3. Tiempo de entrega: </b><span t-field="o.tiempo_estimado_entrega"/></td>
+                            <td style="border-top: none; width:30px;"></td>
+                        </tr>
+                        <tr style="vertical-align: middle;">
+                            <td style="border-top: none; width:30px;"></td>
+                            <td style="text-align:left;width:200px;border-top: none;"><b>4. Condiciones: </b>Validez: <span t-field="o.payment_term_id.name"/></td>
                             <td style="border-top: none; width:30px;"></td>
                         </tr>
                     </table><br/>
