@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<odoo>
-
-    <template id="voucher_domex_bi_document">
+<?xml version="1.0"?>
+<t t-name="gdomex.voucher_domex_bi_document">
 
       <!-- <t t-name="gdomex.voucher_domex_bi"> -->
           <!-- <t t-call="web.external_layout"> -->
@@ -13,7 +11,7 @@
                     <div style="font-size: 75%; position: absolute; top: 2.5cm; left: 3.8cm">
                         GUATEMALA, <span t-field="o.date"/>
                     </div>
-                    <div style="font-size: 75%; position: absolute; top: 3.6cm; left: 16.8cm">
+                    <div style="font-size: 75%; position: absolute; top: 2.4cm; left: 16.2cm">
                         <span t-esc="'{0:,.2f}'.format(o.amount)"/>
                     </div>
 
@@ -32,7 +30,7 @@
 		                <div style="font-size: 75%; position: absolute; top: 9.0cm; left: 3.7cm">
                         GUATEMALA, <span t-field="o.date"/>
                     </div>
-                    <div style="font-size: 75%; position: absolute; top: 10.2cm; left: 16.8cm">
+                    <div style="font-size: 75%; position: absolute; top: 8.9cm; left: 16.2cm">
                         <span t-esc="'{0:,.2f}'.format(o.amount)"/>
                     </div>
                     <div style="font-size: 75%; position: absolute; top: 9.5cm; left: 3.8cm; width: 15cm">
@@ -49,7 +47,7 @@
                                     <td style="width: 1.7cm">
                                     </td>
                                     <td style="width: 2cm">
-                                       <span t-field="l.account_id.code"  style="font-size: 12px;"/>
+                                       <span t-field="l.account_id.code" style="font-size: 12px;"/>
                                     </td>
                                     <td style="width: 2cm">
                                     </td>
@@ -89,8 +87,8 @@
                     </div>
 
 
-                    <div style="position: absolute; top: 15.8cm; left: 5cm">
-                         <span t-field="o.ref"></span>
+                    <div style="position: absolute; top: 15.8cm; left: 5cm" >
+                         <span t-field="o.ref"/>
                     </div>
 	                  <div style="position: absolute; top: 17cm; left: 5cm">
                         NO.  DE  CHEQUE:<span t-field="o.move_id.name"/>
@@ -117,15 +115,8 @@
 
       <!-- </t> -->
 
-    </template>
+    </t>
 
-    <template id="voucher_domex_bi">
-        <t t-call="web.html_container">
-            <!-- <t t-set="data_report_margin_top" t-value="12"/>
-            <t t-set="data_report_header_spacing" t-value="9"/> -->
-            <t t-foreach="docs" t-as="o">
-                <t t-call="gdomex.voucher_domex_bi_document" t-lang="o.partner_id.lang"/>
-            </t>
-        </t>
-    </template>
-</odoo>
+    
+
+

@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<odoo>
-
-    <template id="design_axir_g_t_document">
+<?xml version="1.0"?>
+<t t-name="gdomex.design_axir_g_t_document">
 
       <!-- <t t-name="gdomex.design_axir_g_t"> -->
           <!-- <t t-call="web.external_layout"> -->
@@ -10,25 +8,25 @@
 
                 <div class="page">
 
-                    <div style="font-size: 110%; position: absolute; top: 2.6cm; left: 6.0cm">
+                    <div style="font-size: 80%; position: absolute; top: 2.1cm; left: 2cm">
                         GUATEMALA, <span t-field="o.date"/>
                     </div>
-                    <div style="font-size: 110%; position: absolute; top: 2.6cm; left: 16.4cm">
+                    <div style="font-size: 80%; position: absolute; top: 2.1cm; left: 11.8cm">
                         <span t-esc="'{0:,.2f}'.format(o.amount)"/>
                     </div>
-                    <div style="font-size: 110%; position: absolute; top: 3.3cm; left: 3.4cm; width: 15cm">
+                    <div style="font-size: 80%; position: absolute; top: 2.7cm; left: 3.4cm; width: 15cm">
                         <span t-esc="o.nombre_impreso or o.partner_id.name"/>
                     </div>
-                    <div style="font-size: 110%; position: absolute; top: 4cm; left: 2.2cm; width: 15cm">
+                    <div style="font-size: 80%; position: absolute; top: 3.3cm; left: 2.2cm; width: 15cm">
                         <span t-esc="a_letras(o.amount)"/>
                     </div>
-	                  <div t-if="o.no_negociable == True" style="font-size: 110%; position: absolute; top: 5.5cm; left: 4.4cm">
+	                  <div t-if="o.no_negociable == True" style="font-size: 80%; position: absolute; top: 5.5cm; left: 4.4cm">
                            <span>NO  NEGOCIABLE</span>
                     </div>
 
 
-                    <div style="position: absolute; top: 12.5cm; left: 0.5cm">
-                        <table>
+                    <div style="position: absolute; top: 11.00cm; left: 0.5cm">
+                        <table style="font-size: 80%;">
                            <tbody>
                                 <tr t-foreach="o.line_ids" t-as="l">
                                     <td style="width: 1.7cm">
@@ -49,13 +47,14 @@
                                     <td style="width: 0.5cm" class="text-right">
                                         <span t-field="l.credit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                     </td>
+                                    <td style="width: 0.9cm"></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <div style="position: absolute; top: 17.5cm; left: 0.5cm">
-                        <table>
+                    <div style="position: absolute; top: 14.3cm; left: 0.5cm">
+                        <table style="font-size: 80%;">
                            <tbody>
                                 <tr>
                                     <td style="width: 16.3cm">
@@ -68,37 +67,38 @@
                                     <td style="width: 0.5cm" class="text-right">
                                         <span t-esc="totales(o)['credito']" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                     </td>
+                                    <td style="width: 0.9cm"></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <div style="position: absolute; top: 17.9cm; left: 2.2cm">
+                    <div style="font-size: 80%; position: absolute; top: 14.3cm; left: 2.2cm">
                         <t t-if="o.journal_id.bank_account_id">
                           <span t-field="o.journal_id.bank_account_id.name">BANCO</span>
                         </t>
                     </div>
 
-                    <div style="position: absolute; top: 17.9cm; left: 12cm">
-                        <span t-field="o.move_id.name"></span>
+                    <div style="font-size: 80%; position: absolute; top: 14.3cm; left: 9cm">
+                        <span t-field="o.move_id.name"/>
                     </div>
 
-                    <div style="position: absolute; top: 19.6cm; left: 2.2cm">
-                        <span t-field="o.company_id.name"></span>
+                    <div style="font-size: 80%; position: absolute; top: 16.6cm; left: 2.2cm">
+                        <span t-field="o.company_id.name"/>
                     </div>
 
-                    <div style="position: absolute; top: 19.6cm; left: 12cm">
+                    <div style="font-size: 80%; position: absolute; top: 10.6cm; left: 12cm">
                         <t t-if="o.journal_id.bank_account_id">
-                          <span t-field="o.journal_id.bank_account_id.bank_acc_number"></span>
+                          <span t-field="o.journal_id.bank_account_id.bank_acc_number"/>
                         </t>
                     </div>
 
-                    <div style="position: absolute; top: 25.5cm; left: 3cm">
-                        <span t-field="o.ref"></span>
+                    <div style="font-size: 80%; position: absolute; top: 20.5cm; left: 3cm">  
+                        <span t-field="o.ref"/>
                     </div>
 
-                    <div style="position: absolute; top: 19.6cm; left: 17.5cm">
-                        <table>
+                    <div style="position: absolute; top: 16.6cm; left: 15cm">
+                        <table style = "font-size: 80%;">
                            <tbody>
                                 <tr>
                                     <td style="width: 0cm">
@@ -119,14 +119,7 @@
 
       <!-- </t> -->
 
-    </template>
-    <template id="design_axir_g_t">
-        <t t-call="web.html_container">
-            <!-- <t t-set="data_report_margin_top" t-value="12"/>
-            <t t-set="data_report_header_spacing" t-value="9"/> -->
-            <t t-foreach="docs" t-as="o">
-                <t t-call="gdomex.design_axir_g_t_document" t-lang="o.partner_id.lang"/>
-            </t>
-        </t>
-    </template>
-</odoo>
+    </t>
+    
+
+
