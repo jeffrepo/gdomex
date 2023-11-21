@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
   <template id="report_envio_almex">
-        <t t-name="gdomex.design_inter_continuo_document">
 
             <!-- <t t-name="gdomex.design_inter_continuo"> -->
                 <!-- <t t-call="web.external_layout"> -->
