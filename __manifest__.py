@@ -40,6 +40,7 @@
         'views/stock_picking_views.xml',
         'views/sale_views.xml',
         'views/product_views.xml',
+        'data/ir_sequence_data.xml',
         'views/account_analytic_view.xml',
         'views/purchase_orders.xml',
         'views/report.xml',
