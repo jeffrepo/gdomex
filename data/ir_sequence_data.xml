@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Sequences for sale.order -->
+        <record id="seq_sale_order_gdomex_code" model="ir.sequence">
+            <field name="name">Sales Order Gdomex sequence</field>
+            <field name="code">sale_order_gdomex_code</field>
+            <field name="prefix">GDMXSO</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_sale_order_almex_code" model="ir.sequence">
+            <field name="name">Sales Order Almex sequence</field>
+            <field name="code">sale_order_almex_code</field>
+            <field name="prefix">GDALXSO</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <record id="seq_sale_order_bordalas_code" model="ir.sequence">
+            <field name="name">Sales Order bordalas sequence</field>
+            <field name="code">sale_order_bordalas_code</field>
+            <field name="prefix">BOROSO</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_sale_order_neira_code" model="ir.sequence">
+            <field name="name">Sales Order Neira sequence</field>
+            <field name="code">sale_order_neira_code</field>
+            <field name="prefix">NEISO</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>        
+
+        <record id="seq_sale_order_acuario_code" model="ir.sequence">
+            <field name="name">Sales Order Acuario sequence</field>
+            <field name="code">sale_order_acuario_code</field>
+            <field name="prefix">ACUSO</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>         
+        
+        <!-- Sequences for purchase.order -->
+        <record id="seq_purchase_order_gdomex_code" model="ir.sequence">
+            <field name="name">Purchase Order Gdomex sequence</field>
+            <field name="code">purchase_order_gdomex_code</field>
+            <field name="prefix">GDMXOC</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>        
+
+        <record id="seq_purchase_order_almex_code" model="ir.sequence">
+            <field name="name">Purchase Order Almex sequence</field>
+            <field name="code">purchase_order_almex_code</field>
+            <field name="prefix">GDALXOC</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>   
+        
+        <record id="seq_purchase_order_bordalas_code" model="ir.sequence">
+            <field name="name">Purchase Order Bordalas sequence</field>
+            <field name="code">purchase_order_bordalas_code</field>
+            <field name="prefix">BOROC</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_purchase_order_neira_code" model="ir.sequence">
+            <field name="name">Purchase Order Neira sequence</field>
+            <field name="code">purchase_order_neira_code</field>
+            <field name="prefix">NEIOC</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_purchase_order_acuario_code" model="ir.sequence">
+            <field name="name">Purchase Order Acuario sequence</field>
+            <field name="code">purchase_order_acuario_code</field>
+            <field name="prefix">ACUOC</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>   
+
+        
+    </data>
+</odoo>
