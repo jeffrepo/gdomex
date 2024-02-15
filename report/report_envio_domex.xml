@@ -54,7 +54,13 @@
                     <br/>
                     <b>ENVIO:</b> <span t-esc="o.name"/><br/>
                     <br/>
-                    <b>COTIZACIÓN:</b> <span t-esc="o.project_id.sale_order_id.name"/><br/>
+                    <b>COTIZACIÓN:</b>
+                      <t t-if="o.project_id">
+                          <span t-esc="o.project_id.sale_order_id.name"/><br/>
+                      </t>
+                      <t t-if="o.sale_id">
+                          <span t-esc="o.sale_id.name"/><br/>
+                      </t>                     
                     <br/>
 
                   </p>
@@ -66,7 +72,13 @@
                   <b>FECHA:</b> <span t-field="o.scheduled_date" t-field-options='{"format": "d/m/Y"}'/>
                   <br/><b>DE:</b> <span t-if="o.picking_type_id.warehouse_id" t-esc="o.picking_type_id.warehouse_id.name"/>
                   <br/><b>PARA:</b> <span t-esc="o.partner_id.name"/>
-                  <br/><b>PROYETO:</b> <span t-esc="o.project_id.sale_order_id.name"/>
+                  <br/><b>PROYETO:</b>
+                      <t t-if="o.project_id">
+                          <span t-esc="o.project_id.sale_order_id.proyecto"/>
+                      </t>
+                      <t t-if="o.sale_id">
+                          <span t-esc="o.sale_id.proyecto"/>
+                      </t>                    
                   <br/>
                   <!-- <span t-esc="o.sale_id.proyecto"/> -->
               </div>
