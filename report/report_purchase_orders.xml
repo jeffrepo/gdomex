@@ -25,7 +25,7 @@
                     </t>
                     <t t-elif="o.picking_type_id.warehouse_id.name in ['Grupo Domex','DOMEX']">
                         <!-- entregar a  -->
-                        <img src='/gdomex/static/src/img/domexl.png' style="max-width: 800px;"/>
+                        <img src='/gdomex/static/src/img/domexl.png' style="max-width: 200px;"/>
                     </t>
                     <t t-elif="o.company_id.name == 'KINETICS, S.A.'">
                         <img src='/gdomex/static/src/img/kinetics_logo.png' style="max-width: 837px;"/>

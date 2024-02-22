@@ -29,6 +29,7 @@
           </xpath>
           <field name="require_payment" position="after">
               <field name="proyecto"/>
+              <field name="forma_pago"/>
               <field name="atencion"/>
               <field name="comision"/>
               <field name="lugar_entrega"/>
@@ -53,8 +54,5 @@
           </xpath>
       </field>
   </record>
-
-
-
 
 </odoo>

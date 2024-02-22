@@ -3,22 +3,24 @@
 
   <template id="report_so_domex">
     <t t-call="web.html_container">
+    <t t-set="data_report_margin_top" t-value="1"/>
+    <t t-set="data_report_header_spacing" t-value="1"/>
       <t t-foreach="docs" t-as="o">
           <div class="article">
 
             <div class="page">
-                <img src='/gdomex/static/src/img/domex_logo_reporte.png' style="max-width: 837px;"/>
+                <img src='/gdomex/static/src/img/grupo_domex_nuevo.png' style="max-width: 300px;"/>
 
                 <table class="table table-condensed">
                     <tr>
-                        <td style="border-left: 2px solid grey;">
-                            <h3>DOMEX S.A.</h3>
-                            7 calle OFIBODEGA 20 3-24 zona 18
+                        <td style="border-left: 2px solid grey;border-top: 6px solid grey">
+                            <h3>GRUPO DOMEX S.A.</h3>
+                            7 calle 3-24 Zona 18 Condominio Inter bodegas Bodega 20
                             <br/>Guatemala, Guatemala
                             <br/>PBX 2304-7700
                             <br/>NIT 3978678-1
                         </td>
-                        <td style="border-left: 2px solid grey;">
+                        <td style="border-left: 2px solid grey;border-top: 6px solid rgba(233, 138, 37, 1);">
                             <br/>
                             <h4>PRESUPUESTO
                             <br/><b><span t-field="o.name"/></b></h4>
@@ -101,7 +103,7 @@
                         <tr style="vertical-align: middle;">
                             <td ></td>
                             <td style="text-align:center;width:100px;border-top: none;">2. Forma de pago:</td>
-                            <td style="padding-left:5px; border-bottom: 1px solid grey;"><span t-field="o.payment_term_id.name"/></td>
+                            <td style="padding-left:5px; border-bottom: 1px solid grey;"><span t-field="o.forma_pago"/></td>
                             <td ></td>
                         </tr>
                         <tr style="vertical-align: middle;">

@@ -22,7 +22,7 @@
                             </t>
                             <t t-elif="o.picking_type_id.warehouse_id.name in ['Grupo Domex','DOMEX']">
                                 <!-- entregar a  -->
-                                <img src='/gdomex/static/src/img/domexl.png' style="max-width: 800px;"/>
+                                <img src='/gdomex/static/src/img/domexl.png' style="max-width: 200px;"/>
                             </t>
                             <t t-elif="o.company_id.name == 'KINETICS, S.A.'">
                                 <img src='/domex/static/src/img/kinetics_logo.png' style="max-width: 837px;"/>
@@ -43,7 +43,7 @@
                                     <t t-if="o.picking_type_id.warehouse_id.name in ['Grupo Domex','DOMEX']">
                                         <td style="border-left: 2px solid grey;border-top: 3px solid #e36d2d;">
                                             <br/><br/>
-                                            <h4>SOLICITUD DE PRESUPUESTO</h4>
+                                            <h4>ORDEN DE COMPRA</h4>
                                             <br/>PO: <span t-field="o.name"/>
                                             <br/>FECHA: <span t-esc="fecha_impresion()"/>
                                             <br/>SOLICITANTE: <span t-field="o.solicitante"/>
@@ -54,7 +54,7 @@
                                     <t t-else="">
                                         <td style="border-left: 2px solid grey;">
                                             <br/><br/>
-                                            <h4>SOLICITUD DE PRESUPUESTO</h4>
+                                            <h4>ORDEN DE COMPRA</h4>
                                             <br/>PO: <span t-field="o.name"/>
                                             <br/>FECHA: <span t-esc="fecha_impresion()"/>
                                             <br/>SOLICITANTE: <span t-field="o.solicitante"/>
@@ -70,7 +70,7 @@
                             <table class="table table-condensed" style="border-collapse: collapse;">
                                 <tr style="border: 1px solid grey;height:35px;vertical-align: middle;">
                                     <b><th style="border: 1px solid grey;vertical-align: middle;text-align: center;">PROVEEDOR</th>
-                                    <th class="text-right" style="border: 1px solid grey;vertical-align: middle;text-align: center;">PEDIDO</th></b>
+                                    <th  style="border: 1px solid grey;vertical-align: middle;text-align: center;">PEDIDO</th></b>
 
                                 </tr>
                                 <tbody>

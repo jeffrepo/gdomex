@@ -9,7 +9,7 @@ class StockLandedCost(models.Model):
 
     compra_ids = fields.Many2many('purchase.order', string='Compras')
     costo_unitario_ids = fields.One2many('gdomex.costo_unitario_lineas','cost_id',string='Costo unitario')
-    
+
     def calcular_costo_unitario(self):
         for coste in self:
             if len(coste.costo_unitario_ids) > 0:
@@ -21,28 +21,81 @@ class StockLandedCost(models.Model):
                 total_gastos += linea.additional_landed_cost
                 if linea.product_id.id not in productos:
                     productos[linea.product_id.id] = {
-                        'costo': 0.00, 
-                        'cantidad': linea.quantity, 
+                        'costo': 0.00,
+                        'cantidad': linea.quantity,
                         'producto': linea.product_id.id,
                         'unidad_gtq': 0,
                         'precio_total': 0,
                         'porcentaje': 0,
                         'gasto': 0}
-                    
+            compra_con_gastos_productos = False
             for compra in coste.compra_ids:
-                for linea_compra in compra.order_line:
-                    llave = linea_compra.product_id.id
-                    if llave in productos:
-                        unidad_gtq = linea_compra.currency_id._convert(linea_compra.price_unit,linea_compra.company_id.currency_id,linea_compra.company_id,coste.date)
-                        precio_total = unidad_gtq * linea_compra.product_qty
-                        porcentaje = linea_compra.price_subtotal / compra.amount_total
-                        gasto = total_gastos * porcentaje
-                        costo = (gasto / linea_compra.product_qty) + unidad_gtq
-                        productos[llave]['unidad_gtq'] = unidad_gtq
-                        productos[llave]['precio_total'] = precio_total
-                        productos[llave]['porcentaje'] = porcentaje
-                        productos[llave]['costo'] = costo
-                    
+                if compra.incluye_gastos == True:
+                    compra_con_gastos_productos = True
+
+            if compra_con_gastos_productos == False:
+                for compra in coste.compra_ids:
+                    for linea_compra in compra.order_line:
+                        llave = linea_compra.product_id.id
+                        if llave in productos:
+                            unidad_gtq = linea_compra.currency_id._convert(linea_compra.price_unit,linea_compra.company_id.currency_id,linea_compra.company_id,coste.date)
+                            precio_total = unidad_gtq * linea_compra.product_qty
+                            porcentaje = linea_compra.price_subtotal / compra.amount_total
+                            gasto = total_gastos * porcentaje
+                            costo = (gasto / linea_compra.product_qty) + unidad_gtq
+                            logging.warning(unidad_gtq)
+                            logging.warning(precio_total)
+                            logging.warning(porcentaje)
+                            logging.warning(gasto)
+                            logging.warning(costo)
+                            productos[llave]['unidad_gtq'] = unidad_gtq
+                            productos[llave]['precio_total'] = precio_total
+                            productos[llave]['porcentaje'] = porcentaje
+                            productos[llave]['costo'] = costo
+            else:
+                logging.warning('no incliue')
+                total_gastos_otras_compras = 0
+                for compra in coste.compra_ids:
+                    if compra.incluye_gastos == False:
+                        total_gastos_otras_compras += (compra.amount_total/1.12)
+
+
+                total_gastos = 0
+                cantidad_productos = 0
+                costo_unitario = 0
+                for compra in coste.compra_ids:
+                    if compra.incluye_gastos:
+                        for linea_compra in compra.order_line:
+                            logging.warning(linea_compra.product_id.detailed_type)
+                            if linea_compra.product_id.detailed_type == "service":
+                                total_gastos += linea_compra.price_subtotal
+                            else:
+                                cantidad_productos += linea_compra.product_qty
+
+                logging.warning('cantidad productos')
+                logging.warning(cantidad_productos)
+                logging.warning(total_gastos_otras_compras)
+                for compra in coste.compra_ids:
+                    costo_unitario = total_gastos / cantidad_productos
+                    for linea_compra in compra.order_line:
+                        if linea_compra.product_id.detailed_type == "product":
+                            llave = linea_compra.product_id.id
+                            if llave in productos:
+                                unidad_usd = linea_compra.price_unit + costo_unitario
+                                unidad_gtq = linea_compra.currency_id._convert(unidad_usd,linea_compra.company_id.currency_id,linea_compra.company_id,coste.date)
+                                precio_total = unidad_gtq * linea_compra.product_qty
+                                costo = (total_gastos_otras_compras / linea_compra.product_qty) + unidad_gtq
+                                logging.warning('gasto_compra')
+                                logging.warning(total_gastos)
+                                logging.warning('unidad_usd')
+                                logging.warning(unidad_usd)
+
+                                logging.warning('unidad_gtq')
+                                logging.warning(unidad_gtq)
+                                productos[llave]['unidad_usd'] = unidad_usd
+                                productos[llave]['unidad_gtq'] = unidad_gtq
+                                productos[llave]['precio_total'] = precio_total
+                                productos[llave]['costo'] = costo
             lineas = []
             if productos:
                 for p in productos:
@@ -55,7 +108,7 @@ class StockLandedCost(models.Model):
                         'costo_unitario_ids': [(0,0, dic)]
                     })
         return True
-        
+
     def cargar_compras(self):
         for importacion in self:
             if importacion.compra_ids:

@@ -2,6 +2,8 @@
 <odoo>
   <template id="report_envio_almex">
       <t t-call="web.html_container">
+      <t t-set="data_report_margin_top" t-value="12"/>
+      <t t-set="data_report_header_spacing" t-value="4"/>
         <t t-foreach="docs" t-as="o">
             <div class="article">
               <div class="page">
@@ -34,13 +36,7 @@
                       <br/>
                       <b>ENVIO:</b> <span t-esc="o.name"/><br/>
                       <br/>
-                      <b>COTIZACIÓN:</b>
-                      <t t-if="o.project_id">
-                          <span t-esc="o.project_id.sale_order_id.name"/><br/>
-                      </t>
-                      <t t-if="o.sale_id">
-                          <span t-esc="o.sale_id.name"/><br/>
-                      </t>                      
+                      <b>COTIZACIÓN:</b> <span t-if="o.project_id" t-esc="o.project_id.sale_order_id.name"/> <span t-if="o.project_id == False" t-esc="o.origin"/> <br/>
                       <br/>
 
                     </p>
@@ -53,13 +49,7 @@
                     <b>FECHA:</b> <span t-field="o.scheduled_date" t-field-options='{"format": "d/m/Y"}'/>
                     <br/><b>DE:</b> <span t-if="o.picking_type_id.warehouse_id" t-esc="o.picking_type_id.warehouse_id.name"/>
                     <br/><b>PARA:</b> <span t-esc="o.partner_id.name"/>
-                    <br/><b>PROYETO:</b>
-                      <t t-if="o.project_id">
-                          <span t-esc="o.project_id.sale_order_id.proyecto"/>
-                      </t>
-                      <t t-if="o.sale_id">
-                          <span t-esc="o.sale_id.proyecto"/>
-                      </t>                      
+                    <br/><b>PROYETO:</b> <span t-esc="o.project_id.name"/>
                     <br/>
                     <!-- <span t-esc="o.sale_id.proyecto"/> -->
                 </div>
@@ -89,13 +79,13 @@
                         </t>
                     </tbody>
                 </table>
-                <div style="width:100%; height:auto;border:1px solid #99A3A4;word-break:break-all;">
+                <div style="width:100%; height:auto;border:1px solid #99A3A4;word-break:break-all;font-size:12px">
                   <br/>
                   <p>
                     <b>OBSERVACIONES:</b> <span t-esc="o.note"/>
                   </p>
                 </div>
-                <table class="table table-condensed" style="border-collapse: collapse;border:1px solid #99A3A4;">
+                <table class="table table-condensed" style="border-collapse: collapse;border:1px solid #99A3A4;font-size:12px">
                     <tr style="background:#E5E7E9;">
                         <td style="border: 1px solid #99A3A4;">RECIBE: <span t-field="o.recibe"/> <br/>DPI: <span t-if="o.dpi" t-esc="o.dpi"/>
                             <br/>PLACAS: <span t-field="o.placas"/> </td>

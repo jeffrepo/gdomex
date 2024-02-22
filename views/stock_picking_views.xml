@@ -33,13 +33,14 @@
                   class="oe_highlight"
                   groups="base.group_user"
                   data-hotkey="f"
-                  />                
+                  />
             </xpath>
             <field name="user_id" position="after">
               <field name="recibe"/>
               <field name="dpi"/>
               <field name="placas"/>
               <field name="entrega"/>
+              <field name="fecha_hora_entrega"/>
             </field>
 
             <field name="quantity_done" position="after">

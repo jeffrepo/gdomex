@@ -16,11 +16,11 @@
 
                     <div style="border-left:2px solid gray; width:60%;float:left; padding-left:5px">
                       <br/>
-                      <h2>ALMEX S.A.</h2><br/>
-                      7 calle OFIBODEGA 20 3-24 zona 18
+                      <h2>GRUPO DOMEX S.A.</h2><br/>
+                      7 calle 3-24 Zona 18 Condominio Interbodegas Bodega 20
                       <br/>Guatemala, Guatemala
                       <br/>PBX 2304-7750
-                      <br/>NIT 1188846-6
+                      <br/>NIT 11239550-3
                     </div>
 
                     <div style="border-left:2px solid gray; width:40%;float:right; height:190px; padding-left:5px">
@@ -30,25 +30,29 @@
                     </div>
                 </div>
               </div>
-
-              <table style="width:100%; margin-top:30px">
+              Fecha: <span t-field="o.date_order"/>
+              <table style="width:99%; margin-top:30px">
                   <tr style="vertical-align: bottom;">
                       <td>ATENCIÓN A:</td>
                       <td style="border-bottom: 1px solid grey">
                         <span t-field="o.atencion"/>
                       </td>
+                  </tr>
+                  <tr>
                       <td>CLIENTE:</td>
                       <td style="border-bottom: 1px solid grey;border-top: none"><span t-field="o.partner_id"/></td>
-                      <td style="border-bottom: 1px solid grey;border-top: none"></td>
-                      <td style="border-bottom: 1px solid grey;border-top: none"></td>
+                      <td>NIT:</td>
+                      <td style="border-bottom: 1px solid grey;"><span t-field="o.partner_id.vat"/></td>
                   </tr>
                   <tr style="vertical-align: bottom;">
                       <td> DIRECCIÓN:</td>
                       <td style="border-bottom: 1px solid grey;">
-                        <span t-field="o.lugar_entrega"/>
+                        <span t-field="o.partner_id.street"/>
                       </td>
                       <td> TEL:</td>
                       <td style="border-bottom: 1px solid grey;"><span t-field="o.partner_id.phone"/></td>
+                  </tr>
+                  <tr style="vertical-align: bottom;">
                       <td>EMAIL:</td>
                       <td style="border-bottom: 1px solid grey;"><span t-field="o.partner_id.email"/></td>
                   </tr>
@@ -93,39 +97,47 @@
                   </tbody>
               </table>
 
-              <div style="text-align:center; width:100%">
+              <div style="text-align:left; width:100%">
                 Notas
 
                 <table style="width:100%">
                     <tr style="vertical-align: middle;">
-                        <td style="border-top: none; width:80px;"></td>
-                        <td style="text-align:center;width:200px;border-top: none;">1. Validez de la oferta:</td>
+                        <td style="border-top: none; width:15px;"></td>
+                        <td style="text-align:left;width:175px;border-top: none;">1. Validez de la oferta:</td>
                         <td style="padding-left:5px; border-bottom: 1px solid grey;border-top: none;"><span t-field="o.validity_date"/></td>
                         <td style="border-top: none;width:80px;"></td>
                     </tr>
                     <tr style="vertical-align: middle;">
                         <td ></td>
-                        <td style="text-align:center;width:100px;border-top: none;">2. Forma de pago:</td>
+                        <td style="text-align:left;width:175px;border-top: none;">2. Forma de pago:</td>
                         <td style="padding-left:5px; border-bottom: 1px solid grey;"><span t-field="o.payment_term_id.name"/></td>
                         <td ></td>
                     </tr>
                     <tr style="vertical-align: middle;">
                         <td ></td>
-                        <td style="text-align:center;width:200px;border-top: none;">3. Condiciones:</td>
-                        <td style="padding-left:5px; border-bottom: 1px solid grey;"><span t-field="o.note"/></td>
+                        <td style="text-align:left;width:175px;border-top: none;">3. Condiciones:</td>
+                        <td style="padding-left:5px; border-bottom: 1px solid grey;text-align:left"><span t-field="o.note"/></td>
                         <td ></td>
                     </tr>
                     <tr style="vertical-align: middle;">
                         <td ></td>
-                        <td style="text-align:center;width:200px;border-top: none;">4. Precios incluyen:</td>
+                        <td style="text-align:left;width:175px;border-top: none;">4. Precios incluyen:</td>
                         <td style="padding-left:5px; border-bottom: 1px solid grey;"><span t-field="o.incluyen"/></td>
                         <td ></td>
                     </tr>
                     <tr style="vertical-align: middle;">
                         <td ></td>
-                        <td style="text-align:center;width:200px;border-top: none;">5. Tiempo de Entrega:</td>
+                        <td style="text-align:left;width:175px;border-top: none;">5. Tiempo de Entrega:</td>
                         <td style="padding-left:5px; border-bottom: 1px solid grey;">
                           <span t-field="o.tiempo_estimado_entrega"/>
+                        </td>
+                        <td ></td>
+                    </tr>
+                    <tr style="vertical-align: middle;">
+                        <td ></td>
+                        <td style="text-align:left;width:175px;border-top: none;">6. Dirección de Entrega:</td>
+                        <td style="padding-left:5px; border-bottom: 1px solid grey;text-align:left">
+                          <span t-field="o.partner_shipping_id.street"/>
                         </td>
                         <td ></td>
                     </tr>
@@ -150,6 +162,9 @@
               </div>
 
 
+            </div>
+            <div class="footer text-center">
+                www.almexsa.com
             </div>
 
           </div>

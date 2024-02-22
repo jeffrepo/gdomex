@@ -3,6 +3,8 @@
 
   <template id="report_envio_domex">
     <t t-call="web.html_container">
+      <t t-set="data_report_margin_top" t-value="12"/>
+      <t t-set="data_report_header_spacing" t-value="4"/>
       <t t-foreach="docs" t-as="o">
         <div class="article">
 
@@ -46,7 +48,7 @@
                     Km. 32 CA-9 SUR, Parque Inmobiliario Rancho Grande<br/>
                     Amatitlán, Guatemala<br/>
                     <b>PBX: </b>2304-7777<br/>
-                    <b>NIT: </b>3978678-1
+                    <b>NIT: </b>11239550-3
                   </p>
                 </div>
                 <div style="width:50%;height:150px;float:right;">
@@ -55,12 +57,13 @@
                     <b>ENVIO:</b> <span t-esc="o.name"/><br/>
                     <br/>
                     <b>COTIZACIÓN:</b>
-                      <t t-if="o.project_id">
-                          <span t-esc="o.project_id.sale_order_id.name"/><br/>
-                      </t>
-                      <t t-if="o.sale_id">
-                          <span t-esc="o.sale_id.name"/><br/>
-                      </t>                     
+                          <t t-if="o.project_id">
+                              <span t-esc="o.project_id.sale_order_id.name"/><br/>
+                          </t>
+                          <t t-if="o.sale_id">
+                              <span t-esc="o.sale_id.name"/><br/>
+                          </t>
+                      <br/>
                     <br/>
 
                   </p>
@@ -68,7 +71,7 @@
               </div>
 
               <br/>
-              <div style="width:100%; height:120px; border-bottom: 4px solid #E5E7E9;">
+              <div style="width:100%; height:120px;">
                   <b>FECHA:</b> <span t-field="o.scheduled_date" t-field-options='{"format": "d/m/Y"}'/>
                   <br/><b>DE:</b> <span t-if="o.picking_type_id.warehouse_id" t-esc="o.picking_type_id.warehouse_id.name"/>
                   <br/><b>PARA:</b> <span t-esc="o.partner_id.name"/>
@@ -78,25 +81,25 @@
                       </t>
                       <t t-if="o.sale_id">
                           <span t-esc="o.sale_id.proyecto"/>
-                      </t>                    
+                      </t>
                   <br/>
                   <!-- <span t-esc="o.sale_id.proyecto"/> -->
               </div>
               <br/>
-              Por este medio se hace constar la entrega de los materiales descritos a continuación en perfecto estado y se exime a <b>Domex S.A.</b> de cualquier reclamo posterior
+              Por este medio se hace constar la entrega de los materiales descritos a continuación en perfecto estado y se exime a <b>Grupo Domex, S.A.</b> de cualquier reclamo posterior
               <br/><br/>
               <table class="table table-condensed" style="border-collapse: collapse;margin-bottom:0px">
-                  <tr style="border: 1px solid #FFFFFF;height:35px;text-align:center;background:#FF7518">
-                      <b><th style="border: 1px solid #FFFFFF;vertical-align: middle"><FONT color="white">NO.</FONT></th>
-                      <th style="border: 1px solid #FFFFFF;vertical-align: middle"><FONT color="white">CANTIDAD</FONT></th>
-                      <th style="border: 1px solid #FFFFFF;vertical-align: middle"><FONT color="white">UNIDAD DE MEDIDA</FONT></th>
-                      <th style="border: 1px solid #FFFFFF;vertical-align: middle"><FONT color="white">DESCRIPCION</FONT></th></b>
+                  <tr style="border: 1px solid #EB984E;height:35px;text-align:center;border-bottom: 1px solid #EB984E">
+                      <b><th style="border: 1px solid #EB984E;vertical-align: middle"><FONT color="black">NO.</FONT></th>
+                      <th style="border: 1px solid #EB984E;vertical-align: middle"><FONT color="black">CANTIDAD</FONT></th>
+                      <th style="border: 1px solid #EB984E;vertical-align: middle"><FONT color="black">UNIDAD DE MEDIDA</FONT></th>
+                      <th style="border: 1px solid #EB984E;vertical-align: middle"><FONT color="black">DESCRIPCION</FONT></th></b>
                   </tr>
-                  <tbody style="background:#FAE5D3">
+                  <tbody>
                       <t t-set="numero" t-value="1"/>
                       <t t-foreach="o.move_lines" t-as="l">
-                          <tr style="border-bottom: 1px solid grey;vertical-align: middle;height:35px;">
-                              <td style="border-left: 1px solid #FAE5D3;"><span t-esc="numero"/></td>
+                          <tr style="border-top: 1px solid #EB984E;border-bottom: 1px solid #EB984E;vertical-align: middle;height:35px;">
+                              <td style="border-left: 1px solid #EB984E;"><span t-esc="numero"/></td>
                               <td style="text-align: center;">
                                 <span t-esc="l.product_uom_qty"/>
                                   <!-- <t t-if="l.quant_ids">
@@ -122,20 +125,21 @@
                       </t>
                   </tbody>
               </table>
-              <div style="width:100%; height:auto;border:1px solid #99A3A4;word-break:break-all;">
+              <div style="width:100%; height:auto;border:1px solid #EB984E;word-break:break-all;font-size:12px">
                 <br/>
                 <p>
                   <b>OBSERVACIONES:</b> <span t-esc="o.note"/>
                 </p>
               </div>
-              <table class="table table-condensed" style="border-collapse: collapse;border:1px solid #FAE5D3;">
-                  <tr style="background:#FAE5D3;">
+              <table class="table table-condensed" style="border-collapse: collapse;border:1px solid #FAE5D3;font-size:12px">
+                  <tr>
                       <td style="border: 1px solid #EB984E;">RECIBE: <span t-field="o.recibe"/> <br/>DPI: <span t-if="o.dpi" t-esc="o.dpi"/>
                           <br/>PLACAS: <span t-field="o.placas"/> </td>
                       <td style="border: 1px solid #EB984E;">FIRMA:</td>
                   </tr>
                   <tr>
-                     <td style="border: 1px solid #EB984E;">ENTREGA: <span t-field="o.entrega"/><br/>FECHA: <span t-field="o.date_done" t-options="{'widget': 'date', 'format': 'dd/MM/yyyy'}"/> <br/>HORA: <span t-field="o.date_done"  t-options="{'format': 'HH:mm:ss '}"/> </td>
+                     <td style="border: 1px solid #EB984E;">ENTREGA: <span t-field="o.entrega"/><br/>
+                         FECHA Y HORA: <span t-field="o.fecha_hora_entrega"/> <br/> </td>
                      <td style="border: 1px solid #EB984E;">FIRMA:</td>
                   </tr>
               </table>

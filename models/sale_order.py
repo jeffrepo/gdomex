@@ -25,6 +25,7 @@ class SaleOrder(models.Model):
     no_incluyen = fields.Text("Precios no incluyen")
     incluyen = fields.Char("Precios incluyen")
     tiempo_instalacion = fields.Char("Tiempo de instalación")
+    forma_pago = fields.Char("Forma de pago")
 
     @api.depends('order_line.price_total', 'invoice_ids', 'invoice_count')
     def _new_total_invoice(self):
@@ -56,16 +57,16 @@ class SaleOrder(models.Model):
             if vals['warehouse_id'] == 1:
                 vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_gdomex_code', sequence_date=seq_date) or _('New')
             if vals['warehouse_id'] == 10:
-                vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_almex_code', sequence_date=seq_date) or _('New')            
+                vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_almex_code', sequence_date=seq_date) or _('New')
             if vals['warehouse_id'] == 9:
                 vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_bordalas_code', sequence_date=seq_date) or _('New')
             if vals['warehouse_id'] == 8:
                 vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_neira_code', sequence_date=seq_date) or _('New')
             if vals['warehouse_id'] == 7:
-                vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_acuario_code', sequence_date=seq_date) or _('New')            
+                vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_acuario_code', sequence_date=seq_date) or _('New')
         result = super(SaleOrder, self).create(vals)
         return result
-    
+
     def create_mrp_order(self):
         for sale in self:
             if sale.state in ['done','sale']:

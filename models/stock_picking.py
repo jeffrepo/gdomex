@@ -30,6 +30,7 @@ class Picking(models.Model):
     placas = fields.Char(string='Placas')
     entrega = fields.Char(string='Entrega')
     encargado_entrega = fields.Many2one('res.users', string='Encargado de la entrega')
+    fecha_hora_entrega = fields.Datetime('Fecha y hora entrega')
 
     def forzar_disponibilidad(self):
         for picking in self:
@@ -43,7 +44,7 @@ class Picking(models.Model):
                         'move_id': line_move.id,
                         'location_dest_id': picking.location_dest_id.id,
                         'company_id': picking.company_id.id,
-                        'product_uom_qty': line_move.product_uom_qty,
+                        #'product_uom_qty': line_move.product_uom_qty,
                         'qty_done': line_move.product_uom_qty,
                         # 'qty_done': product_uom_qty,
                     }

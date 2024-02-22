@@ -9,18 +9,18 @@
           <div class="article">
 
             <div class="page">
-                <img src='/gdomex/static/src/img/domex_logo_reporte.png' style="max-width: 837px;"/>
+                <img src='/gdomex/static/src/img/grupo_domex_nuevo.png' style="max-width: 300px;"/>
 
                 <table class="table table-condensed">
                     <tr>
-                        <td style="border-left: 2px solid grey;">
-                            <h3>DOMEX S.A.</h3>
-                            7 calle OFIBODEGA 20 3-24 zona 18
+                        <td style="border-left: 2px solid grey;border-top: 6px solid rgba(47, 47, 113, 1);">
+                            <h3>GRUPO DOMEX S.A.</h3>
+                            7 calle 3-24 Zona 18 Condominio Inter bodegas Bodega 20
                             <br/>Guatemala, Guatemala
                             <br/>PBX 2304-7700
-                            <br/>NIT 3978678-1
+                            <br/>NIT 11239550-3
                         </td>
-                        <td style="border-left: 2px solid grey;">
+                        <td style="border-left: 2px solid grey;border-top: 6px solid rgba(125, 168, 200, 1);">
                             <br/>
                             <h4>PRESUPUESTO
                             <br/><b><span t-field="o.name"/></b></h4>
@@ -38,7 +38,7 @@
                   </tr>
                   <tr style="vertical-align: bottom;">
                       <td style="width 20%">ATENCIÓN A:</td>
-                      <td colspan="5" style="border-bottom: 1px solid grey; text-align:left"><span t-field="o.atencion"/></td>
+                      <td colspan="5" style="border-bottom: 1px solid grey; text-align:left"><span t-field="o.atencion.name"/></td>
                   </tr>
                   <tr style="vertical-align: bottom;">
                       <td>CLIENTE:</td>
@@ -53,17 +53,17 @@
                       <td style="border-bottom: 1px solid grey; text-align:left"><span t-field="o.partner_id.email"/></td>
                   </tr>
                 </table>
-                
+
                 <br/>
-                
+
                 <table style="width:100%; text-align: left;">
                   <tr>
                       <td style="border-left: 1px solid grey; padding-left: 5px;">Estimado/a<br/>De acuerdo a a continuación tenemos el agrado de presentarle nuestra oferta por de los materiales para el proyecto indicado en referencia, la cual comprende:</td>
                   </tr>
                 </table>
-                
+
                 <br/>
-                
+
                 <table style="width:100%; border:1px solid black; margin-bottom:50px">
                   <tr style="border: 1px solid grey;height:35px;vertical-align: middle;">
                       <b><th style="border: 1px solid grey;vertical-align: middle;text-align: center;">CÓDIGO</th>
@@ -101,17 +101,17 @@
                       </tr>
                   </tbody>
                 </table>
-                
+
                 <p style="page-break-after:always;">   </p>
 
                 <div style="text-align:center; width:100%">
-                
+
                 <h5>Notas</h5>
 
                     <table style="width:100%">
                         <tr style="vertical-align: middle;">
                             <td style="border-top: none; width:30px;"></td>
-                            <td style="text-align:left;width:200px;border-top: none;"><b>1. Forma de Pago: </b><span t-field="o.payment_term_id.name"/></td>
+                            <td style="text-align:left;width:200px;border-top: none;"><b>1. Forma de Pago: </b><span t-field="o.forma_pago"/></td>
                             <td style="border-top: none; width:30px;"></td>
                         </tr>
                         <tr style="vertical-align: middle;">
