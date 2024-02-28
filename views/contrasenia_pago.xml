@@ -4,9 +4,15 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                    <div class="article">
+                        <t t-set="info_pago" t-value="_get_facturas(o)"/>
                         <div class="header">
-
-                            <t t-if="o.company_id.name in ['Grupo Domex S.AAA.']">
+                            <t t-if="info_pago[1] in ['Almex','Grupo Domex - almex']">
+                                <img src='/gdomex/static/src/img/almex_logo_reporte.png' style="max-width: 837px;"/>
+                            </t>
+                            <t t-elif="info_pago[1] in ['Grupo Domex','DOMEX']">
+                                <img src='/gdomex/static/src/img/domexl.png' style="max-width: 200px;"/>
+                            </t>
+                            <!-- <t t-if="o.company_id.name in ['Grupo Domex S.AAA.']">
                                 <img src='/gdomex/static/src/img/almex_logo_reporte.png' style="max-width: 837px;"/>
                             </t>
                             <t t-elif="o.company_id.name == 'APLYTEK, S.A.'">
@@ -20,7 +26,6 @@
                                 <img src='/domex/static/src/img/capex_logo.png' style="max-width: 837px;"/>
                             </t>
                             <t t-elif="o.company_id.name in ['Grupo Domex S.A','DOMEX']">
-                                <!-- entregar a  -->
                                 <img src='/gdomex/static/src/img/domexl.png' style="max-width: 800px;"/>
                             </t>
                             <t t-elif="o.company_id.name == 'KINETICS, S.A.'">
@@ -28,33 +33,52 @@
                             </t>
                             <t t-elif="o.company_id.name == 'LEJAIM, S.A.'">
                                 <img src='/domex/static/src/img/lejaim_logo.png' style="max-width: 837px;"/>
-                            </t>
+                            </t> -->
 
                             <table class="table table-condensed">
                                 <tr>
-                                    <td style="border-left: 2px solid grey;">
+                                    <td style="border-left: 2px solid grey;border-top: 2px solid grey;">
                                         <h3><span t-esc="o.company_id.name"/></h3>
                                         <span t-esc="o.company_id.street"/>
                                         <br/>Guatemala, Guatemala
                                         <br/>PBX <span t-esc="o.company_id.phone"/>
                                         <br/>NIT <span t-esc="o.company_id.vat"/>
                                     </td>
-                                    <td style="border-left: 2px solid grey;">
-                                        <br/><br/>
-                                        <h4>CONTRASEÑA DE PAGO</h4>
-                                    </td>
-                                    <td>
-                                        <br/>
-                                        <b>FECHA DE EMISIÓN</b> <span t-esc="fecha_impresion()" t-options='{"widget": "date"}'/>
-                                        <br/><b>CONTRASEÑA NO.</b> <span t-field="o.name"/>
-                                    </td>
+                                    <t t-if="info_pago[1] in ['Grupo Domex','DOMEX']">
+                                        <td style="border-left: 2px solid grey;border-top: 3px solid #e36d2d;">
+                                         <br/><br/>
+                                            <h4>CONTRASEÑA DE PAGO</h4>
+                                        </td>
+                                    </t>
+                                    <t t-else="">
+                                        <td style="border-left: 2px solid grey;border-top: 2px solid grey;">
+                                         <br/><br/>
+                                            <h4>CONTRASEÑA DE PAGO</h4>
+                                        </td>
+                                    </t>
+
+
+                                    <t t-if="info_pago[1] in ['Grupo Domex','DOMEX']">
+                                        <td style="border-top: 3px solid #e36d2d;">
+                                            <br/>
+                                            <b>FECHA DE EMISIÓN</b> <span t-esc="fecha_impresion()" t-options='{"widget": "date"}'/>
+                                            <br/><b>CONTRASEÑA NO.</b> <span t-field="o.name"/>
+                                        </td>
+                                    </t>
+                                    <t t-else="">
+                                        <td style="border-top: 2px solid grey;">
+                                            <br/>
+                                            <b>FECHA DE EMISIÓN</b> <span t-esc="fecha_impresion()" t-options='{"widget": "date"}'/>
+                                            <br/><b>CONTRASEÑA NO.</b> <span t-field="o.name"/>
+                                        </td>
+                                    </t>
                                 </tr>
                             </table>
                         </div>
 
                         <div class="page">
                             <br/><br/><br/><br/>
-                            <t t-set="factura" t-value="_get_facturas(o)"/>
+                            <t t-set="factura" t-value="info_pago[0]"/>
                             <table  class="table table-condensed" style="border-style: none;">
                                 <tr style="vertical-align: bottom;">
                                     <td style="border-top: none; width:180px;">A FAVOR DE </td>
@@ -115,40 +139,41 @@
 
                             <br/>
 
+                           <div class="footer-no text-center" style="font-size:13px">
+                                FECHAS LÍMITE PARA PROCESAMIENTO DE FACTURAS DE PROVEEDORES:
+                                <br/><br/>
+                                <b>FACTURAS DE PAPEL:</b>  Recepción Oficinas Centrales 7 calle 3-24 zona 18, Condominio Interbodegas, Ofibodega Numero 20.
+                                <br/>
+                                <b>FACTURAS ELECTRÓNICAS:</b> Enviar correo a <b>contabilidad.grupohr@gmail.com</b>
+                                <br/>
+                                <b>FECHAS:</b> lunes y miércoles en horario de 9:00 a 12:00 de 14:30 a 16:00. Ultima fecha para recibir facturas 25 de cada mes, en caso sea día inhábil, el inmediato anterior.
+                                <br/>
+                                <b>DOCUMENTOS PARA PRESENTAR Y/O ADJUNTAR:</b>
+                                <br/>    - Orden de Compra
+                                <br/>    - Nota de envío
+                                <br/>    - Factura
+                                <br/><b>FECHA DE PAGO:</b> Únicamente viernes en horario de 9:00 a 12:00 de 14:30 a 16:00, presentando respectiva contraseña de pago emitida.
+                                <br/>
+                                <b>NOTA:</b>
+                                <br/>1. Únicamente se emitirán pagos a facturas con contraseña que cumplan con los puntos arriba mencionados
+                                <br/>2. No se entregarán cheque de pago sin contraseña
+                                <br/>3. <span t-esc="o.company_id.name"/> no se hace responsable por facturas no entregadas al
+                                        departamento contable en el lugar, correo y fecha autorizado.
+                                <br/><br/><br/>
+
+                                <table class="table table-condensed;">
+                                    <tr>
+                                        <td style="border-top: 1px solid grey;">
+                                            El presente perderá efecto y valor en el momento que <span t-esc="o.company_id.name"/> realice el pago mediante cheque o transferencia. El comprobante de depósito o transferencia elemento emitido por el banco será suficiente para dejar sin efecto la presente contraseña de pago y liberar a <span t-esc="o.company_id.name"/> de su responsabilidad por virtud del mismo.
+                                            <br/>
+                                            La presente contraseña de pago podría aplicar retenciones de ley.
+                                        </td>
+                                    </tr>
+                                </table>
+                           </div>
+
+
                         </div>
-
-                       <div class="footer text-center">
-                            FECHAS LÍMITE PARA PROCESAMIENTO DE FACTURAS DE PROVEEDORES:
-                            <br/><br/>
-                            <b>FACTURAS DE PAPEL:</b>  Recepción Oficinas Centrales 7 calle 3-24 zona 18, Condominio Interbodegas, Ofibodega Numero 20.
-                            <br/>
-                            <b>FACTURAS ELECTRÓNICAS:</b> Enviar correo a <b>contabilidad.grupohr@gmail.com</b>
-                            <br/>
-                            <b>FECHAS:</b> lunes y miércoles en horario de 9:00 a 12:00 de 14:30 a 16:00. Ultima fecha para recibir facturas 25 de cada mes, en caso sea día inhábil, el inmediato anterior.
-                            <br/>
-                            <b>DOCUMENTOS PARA PRESENTAR Y/O ADJUNTAR:</b>
-                            <br/>    - Orden de Compra
-                            <br/>    - Nota de envío
-                            <br/>    - Factura
-                            <br/><b>FECHA DE PAGO:</b> Únicamente viernes en horario de 9:00 a 12:00 de 14:30 a 16:00, presentando respectiva contraseña de pago emitida.
-                            <br/>
-                            <b>NOTA:</b>
-                            <br/>1. Únicamente se emitirán pagos a facturas con contraseña que cumplan con los puntos arriba mencionados
-                            <br/>2. No se entregarán cheque de pago sin contraseña
-                            <br/>3. <span t-esc="o.company_id.name"/> no se hace responsable por facturas no entregadas al
-                                    departamento contable en el lugar, correo y fecha autorizado.
-                            <br/><br/><br/>
-
-                            <table class="table table-condensed;">
-                                <tr>
-                                    <td style="border-top: 1px solid grey;">
-                                        El presente perderá efecto y valor en el momento que <span t-esc="o.company_id.name"/> realice el pago mediante cheque o transferencia. El comprobante de depósito o transferencia elemento emitido por el banco será suficiente para dejar sin efecto la presente contraseña de pago y liberar a <span t-esc="o.company_id.name"/> de su responsabilidad por virtud del mismo.
-                                        <br/>
-                                        La presente contraseña de pago podría aplicar retenciones de ley.
-                                    </td>
-                                </tr>
-                            </table>
-                       </div>
 
                     </div>
             </t>

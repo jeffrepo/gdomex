@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="design_axir_g_t">
+    <template id="design_axir_g_t_document">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <div class="page">
@@ -16,7 +16,7 @@
                     <div style="font-size: 80%; position: absolute; top: 3.3cm; left: 2.2cm; width: 15cm">
                         <span t-esc="a_letras(o.amount)"/>
                     </div>
-                    <div t-if="o.no_negociable == True" style="font-size: 80%; position: absolute; top: 5.5cm; left: 4.4cm">
+                    <div t-if="o.no_negociable == True" style="font-size: 80%; position: absolute; top: 5.0cm; left: 4.4cm">
                         <span>NO NEGOCIABLE</span>
                     </div>
 
@@ -83,7 +83,7 @@
                         </t>
                     </div>
 
-                    <div style="font-size: 80%; position: absolute; top: 20.5cm; left: 3cm">  
+                    <div style="font-size: 70%; position: absolute; top: 20.5cm; left: 3cm;">
                         <span t-field="o.ref"/>
                     </div>
 
@@ -102,5 +102,13 @@
                 </div>
             </t>
         </t>
-    </template>    
+    </template>
+
+    <template id="design_axir_g_t">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="gdomex.design_axir_g_t_document" t-lang="o.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
 </odoo>

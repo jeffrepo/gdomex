@@ -15,6 +15,7 @@ class ReportContraseniasPago(models.AbstractModel):
 
     def _get_facturas(self,facturas):
         factura_dic = {}
+        nombre_empresa = False
         for factura in facturas:
             if factura.partner_id.id not in factura_dic:
                 serie = ''
@@ -29,10 +30,11 @@ class ReportContraseniasPago(models.AbstractModel):
             factura_dic[factura.partner_id.id]['total'] += factura.amount_total
             factura_dic[factura.partner_id.id]['compras'].append(factura.invoice_line_ids[0].purchase_order_id.name)
             factura_dic[factura.partner_id.id]['facturas'].append(factura)
+            nombre_empresa = factura.invoice_line_ids[0].purchase_order_id.picking_type_id.warehouse_id.name
         primer_proveedor = next(iter(factura_dic))
         factura_dic = factura_dic[primer_proveedor]
         factura_dic['compras'] = (','.join(factura_dic['compras'])) if factura_dic['compras'][0] != False else ''
-        return factura_dic
+        return [factura_dic, nombre_empresa]
 
     @api.model
     def _get_report_values(self, docids, data=None):

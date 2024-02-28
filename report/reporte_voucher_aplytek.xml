@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-    <template id="design_voucher_aplytek">
+    <template id="design_voucher_aplytek_document">
 
-      <t t-name="gdomex.design_voucher_aplytek">
           <!-- <t t-call="web.external_layout"> -->
           <t t-call="web.html_container">
               <t t-foreach="docs" t-as="o">
@@ -109,17 +108,15 @@
                           </tbody>
                       </table>
                   </div>
-
-
-
                 </div>
-
-
               </t>
           </t>
-
-      </t>
-
     </template>
-
+    <template id="design_voucher_aplytek">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="gdomex.design_voucher_aplytek_document" t-lang="o.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
 </odoo>

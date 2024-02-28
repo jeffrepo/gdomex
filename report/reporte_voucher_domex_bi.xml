@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="voucher_domex_bi">
+    <template id="voucher_domex_bi_document">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <div class="page">
@@ -95,5 +95,12 @@
                 </div>
             </t>
         </t>
-    </template>    
+    </template>
+    <template id="voucher_domex_bi">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="gdomex.voucher_domex_bi_document" t-lang="o.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
 </odoo>

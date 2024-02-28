@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="design_inter_continuo">
+    <template id="design_inter_continuo_document">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <div class="page">
@@ -16,7 +16,7 @@
                     <div style="font-size: 80%; position: absolute; top: 3.4cm; left: 4.6cm; width: 15cm">
                         <span t-esc="a_letras(o.amount)"/>
                     </div>
-                    <div t-if="o.no_negociable == True" style="font-size: 110%; position: absolute; top: 2.8cm; left: 4.4cm">
+                    <div t-if="o.no_negociable == True" style="font-size: 80%; position: absolute; top: 3.9cm; left: 4.4cm">
                         <span>NO NEGOCIABLE</span>
                     </div>
 
@@ -63,10 +63,10 @@
                         </table>
                     </div>
 
-                    <div style="font-size: 80%; position: absolute; top: 10cm; left: 2cm; width 20cm">
+                    <div style="font-size: 70%; position: absolute; top: 10cm; left: 2cm; width 20cm">
                         MOTIVO DE:<span t-field="o.ref"/>
                     </div>
-                    <div style="font-size: 80%; position: absolute; top: 11cm; left: 2cm">
+                    <div style="font-size: 70%; position: absolute; top: 11cm; left: 2cm">
                         NO. DE CHEQUE:<span t-field="o.move_id.name"/>
                     </div>
 
@@ -85,5 +85,12 @@
                 </div>
             </t>
         </t>
-    </template>    
+    </template>
+    <template id="design_inter_continuo">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="gdomex.design_inter_continuo_document" t-lang="o.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
 </odoo>
