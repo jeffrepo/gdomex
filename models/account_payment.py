@@ -7,7 +7,7 @@ import logging
 class AccountPayment(models.Model):
     _inherit = "account.payment"
 
-    no_negociable = fields.Boolean(string='No negociable',default=False)
+    no_negociable = fields.Boolean(string='No negociable',default=True)
     nombre_impreso = fields.Char(string='Nombre impreso')
     cuenta_transitoria_id = fields.Many2one('account.account', 'Cuenta transitoria')
 
@@ -15,7 +15,7 @@ class AccountPayment(models.Model):
     def _compute_destination_account_id(self):
         super(AccountPayment, self)._compute_destination_account_id()
         if self.cuenta_transitoria_id:
-            self.destination_account_id = self.cuenta_transitoria_id.id    
+            self.destination_account_id = self.cuenta_transitoria_id.id
 
 class AccountMove(models.Model):
     _inherit = "account.move"
