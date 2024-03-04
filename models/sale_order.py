@@ -64,7 +64,28 @@ class SaleOrder(models.Model):
                 vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_neira_code', sequence_date=seq_date) or _('New')
             if vals['warehouse_id'] == 7:
                 vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_acuario_code', sequence_date=seq_date) or _('New')
+
         result = super(SaleOrder, self).create(vals)
+        if 'warehouse_id' in vals:
+            warehouse_id = self.env['stock.warehouse'].search([('id','=', vals['warehouse_id'])])
+            if warehouse_id:
+                result.message_post(body=_("Almacen %s ", warehouse_id.name))
+        return result
+
+    def write(self, values):
+        if self.warehouse_id:
+            seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(self.date_order))
+            if values['warehouse_id'] == 1:
+                values['name'] = self.env['ir.sequence'].next_by_code('sale_order_gdomex_code', sequence_date=seq_date) or _('New')
+            if values['warehouse_id'] == 10:
+                values['name'] = self.env['ir.sequence'].next_by_code('sale_order_almex_code', sequence_date=seq_date) or _('New')
+            if values['warehouse_id'] == 9:
+                values['name'] = self.env['ir.sequence'].next_by_code('sale_order_bordalas_code', sequence_date=seq_date) or _('New')
+            if values['warehouse_id'] == 8:
+                values['name'] = self.env['ir.sequence'].next_by_code('sale_order_neira_code', sequence_date=seq_date) or _('New')
+            if values['warehouse_id'] == 7:
+                values['name'] = self.env['ir.sequence'].next_by_code('sale_order_acuario_code', sequence_date=seq_date) or _('New')
+        result = super(SaleOrder, self).write(values)
         return result
 
     def create_mrp_order(self):
