@@ -73,7 +73,7 @@ class SaleOrder(models.Model):
         return result
 
     def write(self, values):
-        if self.warehouse_id:
+        if self.warehouse_id and 'warehouse_id' in values:
             seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(self.date_order))
             if values['warehouse_id'] == 1:
                 values['name'] = self.env['ir.sequence'].next_by_code('sale_order_gdomex_code', sequence_date=seq_date) or _('New')
