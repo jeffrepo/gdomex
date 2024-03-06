@@ -200,4 +200,4 @@ class Picking(models.Model):
                                 #mrp_order_id._onchange_product_id()
                                 #mrp_order_id._onchange_bom_id()
                                 mrp_order_id._onchange_move_raw()
-                                mrp_order_id._onchange_move_finished()
+                                # mrp_order_id._onchange_move_finished()

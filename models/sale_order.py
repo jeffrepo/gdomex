@@ -106,9 +106,10 @@ class SaleOrder(models.Model):
                                     'unidad': line.unidad,
                                     'largo': line.largo,
                                 }
+                                logging.warning(mrp_order)
                                 mrp_order_id = self.env['mrp.production'].create(mrp_order)
-                                mrp_order_id._onchange_product_id()
-                                mrp_order_id._onchange_bom_id()
+                                # mrp_order_id._onchange_product_id()
+                                # mrp_order_id._onchange_bom_id()
                                 mrp_order_id._onchange_move_raw()
 
 class SaleOrderLine(models.Model):
