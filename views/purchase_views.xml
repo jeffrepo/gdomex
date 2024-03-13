@@ -16,6 +16,8 @@
           <field name="marks"/>
           <field name="insurance"/>
           <field name="delivery"/>
+          <field name="incluye_gastos"/>
+          <field name="factura_importacion"/> 
         </field>
       </field>
   </record>

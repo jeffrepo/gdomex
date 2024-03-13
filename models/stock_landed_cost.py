@@ -9,6 +9,10 @@ class StockLandedCost(models.Model):
 
     compra_ids = fields.Many2many('purchase.order', string='Compras')
     costo_unitario_ids = fields.One2many('gdomex.costo_unitario_lineas','cost_id',string='Costo unitario')
+    purchase_invoice_ids =  fields.Many2many('purchase.order', 'stock_landed_cost_purchase_rel',string="Factura compras")
+    total_company_currency = fields.Float('Total compras moneda')
+    total_cost = fields.Float('Total general')
+
 
     def calcular_costo_unitario(self):
         for coste in self:
@@ -112,7 +116,15 @@ class StockLandedCost(models.Model):
     def cargar_compras(self):
         for importacion in self:
             if importacion.compra_ids:
+                listas_compras = []
+                total_moneda = 0.00
+                total_general = 0.00
                 for compra in importacion.compra_ids:
+                    if compra.factura_importacion:
+                        listas_compras.append(compra.id)
+                        total_moneda += (compra.amount_total / compra.currency_rate)
+                        logging.warning('total_moneda')
+                        logging.warning(total_moneda)
                     if compra.order_line:
                         for linea_compra in compra.order_line:
                             existe_linea_compra_id = self.env['stock.landed.cost.lines'].search([('compra_linea_id','=',linea_compra.id)])
@@ -135,6 +147,10 @@ class StockLandedCost(models.Model):
                                     existe_linea_compra_id.unlink()
                                     linea_costo_id = self.env['stock.landed.cost.lines'].create(dic_linea_costo)
 
+                    importacion.purchase_invoice_ids = listas_compras
+                    importacion.total_company_currency = total_moneda
+                    importacion.total_cost = total_moneda + importacion.amount_total
+                    
 class StockLandedCostLine(models.Model):
     _inherit = 'stock.landed.cost.lines'
 

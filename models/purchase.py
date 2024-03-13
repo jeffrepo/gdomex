@@ -32,6 +32,7 @@ class PurchaseOrder(models.Model):
     solicitante = fields.Many2one('res.partner', string='Solicitante')
     lugar_entrega = fields.Char('Lugar de entrega')
     incluye_gastos = fields.Boolean('Incluye gastos')
+    factura_importacion = fields.Boolean('Factura importacion')
 
     @api.model
     def create(self, vals):

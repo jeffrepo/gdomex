@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
                 <button name="button_validate" position="after">
                     <button name="cargar_compras" string="Cargar compras" states="draft" class="oe_highlight" type="object"/>
-                </button>    
+                </button>
                 <field name="picking_ids" position="after">
                     <field name="compra_ids" widget="many2many_tags"/>
                 </field>
@@ -34,7 +34,17 @@
                             </tree>
                         </field>
                     </page>
-                </page>                
+                    <page name="additional_costs" position="inside">
+                        <field name="purchase_invoice_ids"/>
+                        <group class="oe_subtotal_footer oe_right">
+                            <field name="total_company_currency"/>
+                        </group>
+                        <br/>
+                        <group class="oe_subtotal_footer oe_right">
+                            <field name="total_cost"/>
+                        </group>
+                    </page>  
+                </page>
             </field>
         </record>
 
