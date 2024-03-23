@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="stock.view_production_lot_form"/>
             <field name="arch" type="xml">
                 <group name="main_group" position="replace">
-                    
+
                     <group name="main_group_one">
                         <group>
                             <field name="product_id"/>
@@ -25,8 +25,12 @@
                             <field name="ancho"/>
                             <field name="color_id"/>
                             <field name="calibre"/>
-                            <field name="aislante"/>
-                            <field name="cantidad_planchas"/>
+                            <!-- <field name="aislante"/> -->
+                            <field name="factor"/>
+                            <field name="metros_reales"/>
+                            <!-- <field name="cantidad_planchas"/> -->
+                            <field name="proveedor_id"/>
+                            <field name="orden_compra_id"/>
                         </group>
                     </group>
                 </group>
@@ -36,5 +40,3 @@
 
     </data>
 </odoo>
-
-

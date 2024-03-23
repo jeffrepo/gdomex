@@ -34,16 +34,16 @@
                             </tree>
                         </field>
                     </page>
-                    <page name="additional_costs" position="inside">
-                        <field name="purchase_invoice_ids"/>
-                        <group class="oe_subtotal_footer oe_right">
-                            <field name="total_company_currency"/>
-                        </group>
-                        <br/>
-                        <group class="oe_subtotal_footer oe_right">
-                            <field name="total_cost"/>
-                        </group>
-                    </page>  
+                </page>
+                <page name="additional_costs" position="inside">
+                    <field name="purchase_invoice_ids"/>
+                    <group class="oe_subtotal_footer oe_right">
+                        <field name="total_company_currency"/>
+                    </group>
+                    <br/>
+                    <group class="oe_subtotal_footer oe_right">
+                        <field name="total_cost"/>
+                    </group>
                 </page>
             </field>
         </record>

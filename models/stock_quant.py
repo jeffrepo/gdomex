@@ -16,9 +16,28 @@ _logger = logging.getLogger(__name__)
 class StockQuant(models.Model):
     _inherit = 'stock.quant'
 
+
+    def _default_compra(self):
+        compra = False
+        logging.warning(self)
+        if self.lot_id:
+            logging.warning(self)
+            logging.warning(self.lot_id)
+            compra = self.lot_id.purchase_order_ids.id
+        return compra
+
+    def _default_proveedor(self):
+        proveedor = False
+        if self.lot_id:
+            logging.warning(self.lot_id)
+            proveedor = self.lot_id.purchase_order_ids.partner_id.id
+        return proveedor
+
     largo = fields.Float(related='lot_id.largo', store=True, readonly=True)
     cantidad_en_metros = fields.Float('Cantidad en metros', compute='_cantidad_en_metros')
     costo_total_en_metros = fields.Float('Costo total en metros', compute='_costo_total_en_metros')
+    compra_id = fields.Many2one('purchase.order', 'Compra', store=True, compute='_obtener_compra')
+    proveedor_id = fields.Many2one('res.partner','Proveedor',store=True, compute='_obtener_compra')
 
     # @api.one
     @api.depends('largo','quantity')
@@ -41,5 +60,9 @@ class StockQuant(models.Model):
             else:
                 self1.costo_total_en_metros = 0
 
-        
-    
+    @api.depends('lot_id')
+    def _obtener_compra(self):
+        for line in self:
+            if line.lot_id:
+                line.compra_id = line.lot_id.purchase_order_ids.id
+                line.proveedor_id = line.lot_id.purchase_order_ids.partner_id.id
