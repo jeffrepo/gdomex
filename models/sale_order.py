@@ -89,28 +89,52 @@ class SaleOrder(models.Model):
         return result
 
     def create_mrp_order(self):
+        productos_dic = {}
         for sale in self:
             if sale.state in ['done','sale']:
                 if sale.order_line:
                     for line in sale.order_line:
-                        if line.product_id.bom_ids:
-                            mrp_order_exist = self.env['mrp.production'].search([('sale_order_line_id','=', line.id)])
-                            if len(mrp_order_exist) == 0:
-                                mrp_order = {
+                        logging.warning('1')
+                        logging.warning(line.product_id.bom_ids)
+                        logging.warning(line.mrp_id)
+                        if len(line.product_id.bom_ids) > 0 and len(line.mrp_id) == 0:
+                            if line.product_id.id not in productos_dic:
+                                logging.warning(line)
+                                mrp_order_d = {
                                     'product_id': line.product_id.id,
                                     'product_uom_id': line.product_uom.id,
                                     'product_qty': line.product_uom_qty,
                                     'bom_id': line.product_id.bom_ids.id,
                                     'origin': line.order_id.name,
-                                    'sale_order_line_id': line.id,
                                     'unidad': line.unidad,
                                     'largo': line.largo,
+                                    'lines': [],
                                 }
-                                logging.warning(mrp_order)
-                                mrp_order_id = self.env['mrp.production'].create(mrp_order)
-                                # mrp_order_id._onchange_product_id()
-                                # mrp_order_id._onchange_bom_id()
-                                mrp_order_id._onchange_move_raw()
+                                productos_dic[line.product_id.id] = mrp_order_d
+                            productos_dic[line.product_id.id]['product_qty'] += line.product_uom_qty
+                            productos_dic[line.product_id.id]['lines'].append(line)
+        logging.warning('productos')
+        logging.warning(productos_dic)
+        if productos_dic:
+            for p in productos_dic:
+                mrp_order = {
+                    'product_id':  productos_dic[p]['product_id'],
+                    'product_uom_id': productos_dic[p]['product_uom_id'],
+                    'product_qty': productos_dic[p]['product_qty'],
+                    'origin': productos_dic[p]['origin'],
+                    'unidad': productos_dic[p]['unidad'],
+                    'bom_id': productos_dic[p]['bom_id'],
+                    'largo': productos_dic[p]['largo'],
+
+
+                }
+                mrp_order_id = self.env['mrp.production'].create(mrp_order)
+                #mrp_order_id._onchange_product_id()
+                #mrp_order_id._onchange_bom_id()
+                mrp_order_id._onchange_move_raw()
+                # mrp_order_id._onchange_move_finished()
+                for l in productos_dic[p]['lines']:
+                    l.mrp_id = mrp_order_id.id
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
