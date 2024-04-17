@@ -12,8 +12,15 @@ class StockMove(models.Model):
     calibre_gdomex = fields.Char(string='Calibre')
     desarrollo_gdomex = fields.Char(string='Desarrollo')
     unidad = fields.Integer('Unidad')
-    
+    mrp_id = fields.Many2one('mrp.production','Fabricacion')
+
     @api.onchange('unidad','largo_gdomex')
     def _onchange_domex_unidad(self):
         if self.product_id.uom_id.name == "m" and (self.unidad > 0 or self.largo_gdomex > 0):
             self.product_uom_qty = self.unidad * self.largo_gdomex
+
+
+class StockMoveLine(models.Model):
+    _inherit = 'stock.move.line'
+
+    mrp_id = fields.Many2one('mrp.production','Fabricacion')

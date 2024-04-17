@@ -180,24 +180,43 @@ class Picking(models.Model):
         return res
 
     def create_mrp_order(self):
+        productos_dic = {}
         for picking in self:
             if picking.state in ['waiting','confirmed']:
                 if picking.move_ids_without_package:
                     for line in picking.move_ids_without_package:
-                        if line.product_id.bom_ids:
-                            mrp_order_exist = self.env['mrp.production'].search([('move_line_id','=', line.id)])
-                            if len(mrp_order_exist) == 0:
-                                mrp_order = {
+
+                        if len(line.product_id.bom_ids) > 0 and len(line.mrp_id) == 0:
+                            if line.product_id.id not in productos_dic:
+                                logging.warning(line)
+                                mrp_order_d = {
                                     'product_id': line.product_id.id,
                                     'product_uom_id': line.product_uom.id,
                                     'qty_producing': line.product_uom_qty,
                                     'product_qty': line.product_uom_qty,
+                                    'qty': 0,
                                     'bom_id': line.product_id.bom_ids.id,
                                     'origin': line.picking_id.name,
-                                    'move_line_id': line.id,
+                                    'lines': [],
                                 }
-                                mrp_order_id = self.env['mrp.production'].create(mrp_order)
-                                #mrp_order_id._onchange_product_id()
-                                #mrp_order_id._onchange_bom_id()
-                                mrp_order_id._onchange_move_raw()
-                                # mrp_order_id._onchange_move_finished()
+                                productos_dic[line.product_id.id] = mrp_order_d
+                            productos_dic[line.product_id.id]['qty'] += line.product_uom_qty
+                            productos_dic[line.product_id.id]['lines'].append(line)
+
+        if productos_dic:
+            for p in productos_dic:
+                mrp_order = {
+                    'product_id':  productos_dic[p]['product_id'],
+                    'product_uom_id': productos_dic[p]['product_uom_id'],
+                    'qty_producing': productos_dic[p]['qty'],
+                    'product_qty': productos_dic[p]['qty'],
+                    'bom_id': productos_dic[p]['bom_id'],
+                    'origin': productos_dic[p]['origin'],
+                }
+                mrp_order_id = self.env['mrp.production'].create(mrp_order)
+                #mrp_order_id._onchange_product_id()
+                #mrp_order_id._onchange_bom_id()
+                mrp_order_id._onchange_move_raw()
+                # mrp_order_id._onchange_move_finished()
+                for l in productos_dic[p]['lines']:
+                    l.mrp_id = mrp_order_id.id
