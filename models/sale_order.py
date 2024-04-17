@@ -26,6 +26,7 @@ class SaleOrder(models.Model):
     incluyen = fields.Char("Precios incluyen")
     tiempo_instalacion = fields.Char("Tiempo de instalación")
     forma_pago = fields.Char("Forma de pago")
+    validez_oferta = fields.Char('Validez oferta')
 
     @api.depends('order_line.price_total', 'invoice_ids', 'invoice_count')
     def _new_total_invoice(self):
