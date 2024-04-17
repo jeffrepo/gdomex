@@ -142,6 +142,7 @@ class SaleOrderLine(models.Model):
     unidad = fields.Float('Unidad')
     ancho = fields.Float('Ancho')
     largo = fields.Float('Largo')
+     mrp_id = fields.Many2one('mrp.production','Fabricación')
 
     @api.onchange('unidad','largo','product_id')
     def _onchange_domex_largo(self):
