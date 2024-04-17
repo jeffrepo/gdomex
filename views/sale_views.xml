@@ -36,6 +36,7 @@
               <field name="tiempo_estimado_entrega"/>
               <field name="medidas"/>
               <field name="oferta_por"/>
+              <field name="validez_oferta"/>
               <field name="no_incluyen"/>
               <field name="incluyen"/>
               <field name="tiempo_instalacion"/>
