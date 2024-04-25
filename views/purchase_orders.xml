@@ -42,7 +42,6 @@
                                     </td>
                                     <t t-if="o.picking_type_id.warehouse_id.name in ['Grupo Domex','DOMEX']">
                                         <td style="border-left: 2px solid grey;border-top: 3px solid #e36d2d;">
-                                            <br/><br/>
                                             <h4>ORDEN DE COMPRA</h4>
                                             <br/>PO: <span t-field="o.name"/>
                                             <br/>FECHA: <span t-esc="fecha_impresion()"/>
@@ -53,7 +52,6 @@
                                     </t>
                                     <t t-else="">
                                         <td style="border-left: 2px solid grey;">
-                                            <br/><br/>
                                             <h4>ORDEN DE COMPRA</h4>
                                             <br/>PO: <span t-field="o.name"/>
                                             <br/>FECHA: <span t-esc="fecha_impresion()"/>
