@@ -34,6 +34,8 @@ class ReportContraseniasPago(models.AbstractModel):
         primer_proveedor = next(iter(factura_dic))
         factura_dic = factura_dic[primer_proveedor]
         factura_dic['compras'] = (','.join(factura_dic['compras'])) if factura_dic['compras'][0] != False else ''
+        if nombre_empresa == False:
+            nombre_empresa = 'Grupo Domex'
         return [factura_dic, nombre_empresa]
 
     @api.model
