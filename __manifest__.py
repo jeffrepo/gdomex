@@ -14,7 +14,7 @@
     'category': 'Uncategorized',
     'version': '0.1',
 
-    'depends': ['stock','project', 'sale','mrp', 'stock_landed_costs', 'account'],
+    'depends': ['stock','project', 'sale','mrp', 'stock_landed_costs', 'account','account_gt'],
 
     'data': [
     	'report/venta_cotizacion_grupodomex.xml',
