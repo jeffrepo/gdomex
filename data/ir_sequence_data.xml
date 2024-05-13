@@ -18,7 +18,7 @@
             <field name="padding">5</field>
             <field name="company_id" eval="False"/>
         </record>
-        
+
         <record id="seq_sale_order_bordalas_code" model="ir.sequence">
             <field name="name">Sales Order bordalas sequence</field>
             <field name="code">sale_order_bordalas_code</field>
@@ -33,7 +33,7 @@
             <field name="prefix">NEISO</field>
             <field name="padding">5</field>
             <field name="company_id" eval="False"/>
-        </record>        
+        </record>
 
         <record id="seq_sale_order_acuario_code" model="ir.sequence">
             <field name="name">Sales Order Acuario sequence</field>
@@ -41,8 +41,8 @@
             <field name="prefix">ACUSO</field>
             <field name="padding">5</field>
             <field name="company_id" eval="False"/>
-        </record>         
-        
+        </record>
+
         <!-- Sequences for purchase.order -->
         <record id="seq_purchase_order_gdomex_code" model="ir.sequence">
             <field name="name">Purchase Order Gdomex sequence</field>
@@ -50,7 +50,7 @@
             <field name="prefix">GDMXOC</field>
             <field name="padding">5</field>
             <field name="company_id" eval="False"/>
-        </record>        
+        </record>
 
         <record id="seq_purchase_order_almex_code" model="ir.sequence">
             <field name="name">Purchase Order Almex sequence</field>
@@ -58,8 +58,8 @@
             <field name="prefix">GDALXOC</field>
             <field name="padding">5</field>
             <field name="company_id" eval="False"/>
-        </record>   
-        
+        </record>
+
         <record id="seq_purchase_order_bordalas_code" model="ir.sequence">
             <field name="name">Purchase Order Bordalas sequence</field>
             <field name="code">purchase_order_bordalas_code</field>
@@ -82,8 +82,68 @@
             <field name="prefix">ACUOC</field>
             <field name="padding">5</field>
             <field name="company_id" eval="False"/>
-        </record>   
+        </record>
 
-        
+
+        <record id="seq_accont_gt_liquidacion_domex" model="ir.sequence">
+            <field name="name">Liquidacion</field>
+            <field name="code">account_gt.liquidacion_domex</field>
+            <field name="prefix">Liquidacion</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_accont_gt_liquidacion_almex" model="ir.sequence">
+            <field name="name">Liquidacion</field>
+            <field name="code">account_gt.liquidacion_almex</field>
+            <field name="prefix">Liquidacion</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_accont_gt_liquidacion_recubrimientos" model="ir.sequence">
+            <field name="name">Liquidacion</field>
+            <field name="code">account_gt.liquidacion_recubrimientos</field>
+            <field name="prefix">Liquidacion</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_accont_gt_liquidacion_neira" model="ir.sequence">
+            <field name="name">Liquidacion</field>
+            <field name="code">account_gt.liquidacion_neira</field>
+            <field name="prefix">Liquidacion</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_accont_gt_liquidacion_bordalas" model="ir.sequence">
+            <field name="name">Liquidacion</field>
+            <field name="code">account_gt.liquidacion_bordalas</field>
+            <field name="prefix">Liquidacion</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_accont_gt_liquidacion_argentiera" model="ir.sequence">
+            <field name="name">Liquidacion</field>
+            <field name="code">account_gt.liquidacion_argentiera</field>
+            <field name="prefix">Liquidacion</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_accont_gt_liquidacion_vinyasa" model="ir.sequence">
+            <field name="name">Liquidacion</field>
+            <field name="code">account_gt.liquidacion_vinyasa</field>
+            <field name="prefix">Liquidacion</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_accont_gt_liquidacion_galmex" model="ir.sequence">
+            <field name="name">Liquidacion</field>
+            <field name="code">account_gt.liquidacion_galmex</field>
+            <field name="prefix">Liquidacion</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
     </data>
 </odoo>

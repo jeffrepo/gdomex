@@ -16,3 +16,4 @@ from . import account_move
 from . import stock_landed_cost
 from . import account_payment_register
 from . import res_partner
+from . import account_gt
