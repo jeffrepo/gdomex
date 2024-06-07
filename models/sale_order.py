@@ -104,7 +104,7 @@ class SaleOrder(models.Model):
                                 mrp_order_d = {
                                     'product_id': line.product_id.id,
                                     'product_uom_id': line.product_uom.id,
-                                    'product_qty': line.product_uom_qty,
+                                    'product_qty': 0,
                                     'bom_id': line.product_id.bom_ids.id,
                                     'origin': line.order_id.name,
                                     'unidad': line.unidad,
