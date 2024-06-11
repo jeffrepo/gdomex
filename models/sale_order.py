@@ -95,24 +95,24 @@ class SaleOrder(models.Model):
             if sale.state in ['done','sale']:
                 if sale.order_line:
                     for line in sale.order_line:
-                        logging.warning('1')
-                        logging.warning(line.product_id.bom_ids)
-                        logging.warning(line.mrp_id)
-                        if len(line.product_id.bom_ids) > 0 and len(line.mrp_id) == 0:
+                        if len(line.product_id.bom_ids) > 0:
+                        # if len(line.product_id.bom_ids) > 0 and len(line.mrp_id) == 0:
                             if line.product_id.id not in productos_dic:
                                 logging.warning(line)
                                 mrp_order_d = {
                                     'product_id': line.product_id.id,
                                     'product_uom_id': line.product_uom.id,
                                     'product_qty': 0,
+                                    'qty_producing': 0,
                                     'bom_id': line.product_id.bom_ids.id,
-                                    'origin': line.order_id.name,
+                                    # 'origin': line.order_id.name,
                                     'unidad': line.unidad,
                                     'largo': line.largo,
                                     'lines': [],
                                 }
                                 productos_dic[line.product_id.id] = mrp_order_d
                             productos_dic[line.product_id.id]['product_qty'] += line.product_uom_qty
+                            productos_dic[line.product_id.id]['qty_producing'] += line.product_uom_qty
                             productos_dic[line.product_id.id]['lines'].append(line)
         logging.warning('productos')
         logging.warning(productos_dic)
@@ -122,7 +122,8 @@ class SaleOrder(models.Model):
                     'product_id':  productos_dic[p]['product_id'],
                     'product_uom_id': productos_dic[p]['product_uom_id'],
                     'product_qty': productos_dic[p]['product_qty'],
-                    'origin': productos_dic[p]['origin'],
+                    'qty_producing': productos_dic[p]['qty_producing'],
+                    # 'origin': productos_dic[p]['origin'],
                     'unidad': productos_dic[p]['unidad'],
                     'bom_id': productos_dic[p]['bom_id'],
                     'largo': productos_dic[p]['largo'],
@@ -133,9 +134,9 @@ class SaleOrder(models.Model):
                 #mrp_order_id._onchange_product_id()
                 #mrp_order_id._onchange_bom_id()
                 mrp_order_id._onchange_move_raw()
-                # mrp_order_id._onchange_move_finished()
-                for l in productos_dic[p]['lines']:
-                    l.mrp_id = mrp_order_id.id
+                mrp_order_id._onchange_move_finished()
+                # for l in productos_dic[p]['lines']:
+                #     l.mrp_id = mrp_order_id.id
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
