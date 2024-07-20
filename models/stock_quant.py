@@ -64,5 +64,5 @@ class StockQuant(models.Model):
     def _obtener_compra(self):
         for line in self:
             if line.lot_id:
-                line.compra_id = line.lot_id.purchase_order_ids.id
-                line.proveedor_id = line.lot_id.purchase_order_ids.partner_id.id
+                line.compra_id = line.lot_id.purchase_order_ids[0].id
+                line.proveedor_id = line.lot_id.purchase_order_ids[0].partner_id.id
