@@ -38,6 +38,6 @@ class ProductionLot(models.Model):
         res = super(ProductionLot, self)._compute_purchase_order_ids()
         for lot in self:
             if len(lot.purchase_order_ids) > 0:
-                lot.proveedor_id = lot.purchase_order_ids.partner_id.id
-                lot.orden_compra_id = lot.purchase_order_ids.id
+                lot.proveedor_id = lot.purchase_order_ids[0].partner_id.id
+                lot.orden_compra_id = lot.purchase_order_ids[0].id
         return res
