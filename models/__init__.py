@@ -17,3 +17,4 @@ from . import stock_landed_cost
 from . import account_payment_register
 from . import res_partner
 from . import account_gt
+from . import account_journal

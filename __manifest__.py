@@ -43,6 +43,7 @@
         'data/ir_sequence_data.xml',
         'views/account_analytic_view.xml',
         'views/purchase_orders.xml',
+        'wizard/contrapartida_anticipo.xml',
         'views/report.xml',
         'views/report_saleordershipping_domex.xml',
         'views/report_so_almex.xml',
@@ -58,5 +59,6 @@
         'wizard/project_orden_trabajo.xml',
         'views/stock_landed_cost_views.xml',
         'views/account_payments_register_views.xml',
+        'views/account_journal_views.xml',
     ],
 }
