@@ -60,5 +60,6 @@
         'views/stock_landed_cost_views.xml',
         'views/account_payments_register_views.xml',
         'views/account_journal_views.xml',
+        'views/account_move_views.xml',
     ],
 }
