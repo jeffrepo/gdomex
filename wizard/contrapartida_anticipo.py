@@ -34,10 +34,9 @@ class gdomex_contrapartida_wizard(models.TransientModel):
 
         dict = {}
         dict['date'] = fields.Datetime.now()
-        sequence_id = self.env['ir.sequence'].search([('name','like', self.diario_id.name)])
-        dict['name'] = sequence_id.with_context(sequence_date=pago.date).next_by_id()
+        dict['name'] = '/'
         dict['partner_id'] = pago.partner_id.id
-        dict['ref'] = pago.ref or ''
+        dict['ref'] = pago.name
         dict['journal_id'] = self.diario_id.id
         #dict['amount'] = monto
         dict['state'] = 'draft'
