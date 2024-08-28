@@ -28,43 +28,45 @@ class AccountMove(models.Model):
 
 
     def action_post(self):
-        # Llamar al método action_post`
+        # Llamar al método original action_post
         res = super(AccountMove, self).action_post()
         
         for move in self:
-         
-            if move.company_id.id == 11:
-                # Crear el albarán
-                picking = self.env['stock.picking'].create({
-                    'partner_id': move.partner_id.id,
-                    'location_id': 148,  # Ubicación origen
-                    'location_dest_id': 5,  # Clientes
-                    'picking_type_id': 110,  # Tipo de picking
-                    'origin': move.name,
-                    'move_type': 'direct',  # Tipo de movimiento
-                })
+            if move.company_id.id == 11 and move.move_type == 'out_invoice':
+                has_storable_product = any(line.product_id.type == 'product' for line in move.invoice_line_ids)
 
-                # Iterar sobre las líneas de la factura y crear movimientos de stock para cada producto
-                for line in move.invoice_line_ids:
-                    self.env['stock.move'].create({
-                        'name': line.name,
-                        'product_id': line.product_id.id,
-                        'product_uom_qty': line.quantity,
-                        'product_uom': line.product_uom_id.id,
-                        'picking_id': picking.id,
+                if has_storable_product:
+                    # Crear el albarán
+                    picking = self.env['stock.picking'].create({
+                        'partner_id': move.partner_id.id,
                         'location_id': 148,  # Ubicación origen
                         'location_dest_id': 5,  # Clientes
+                        'picking_type_id': 110,  # Tipo de picking
+                        'origin': move.name,
+                        'move_type': 'direct',  # Tipo de movimiento
                     })
 
+                    for line in move.invoice_line_ids:
+                        if line.product_id.type == 'product':  # Solo productos almacenables
+                            self.env['stock.move'].create({
+                                'name': line.name,
+                                'product_id': line.product_id.id,
+                                'product_uom_qty': line.quantity,
+                                'product_uom': line.product_uom_id.id,
+                                'picking_id': picking.id,
+                                'location_id': 148,  # Ubicación origen
+                                'location_dest_id': 5,  # Clientes
+                            })
 
-                # Guardar la referencia del albarán en la factura
-                move.picking_id = picking.id
-                _logger.info(f'Albarán creado: {picking.name} para la factura {move.name}')
-
+                    # Guardar la referencia del albarán en la factura
+                    move.picking_id = picking.id
+                    _logger.info(f'Albarán creado: {picking.name} para la factura {move.name}')
+                else:
+                    _logger.info(f'No se creó albarán para la factura {move.name} porque no contiene productos almacenables.')
             else:
                 _logger.info(f'No se creó albarán para la factura {move.name}')
+        
         return res
-
     
 
 
