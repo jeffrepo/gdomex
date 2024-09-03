@@ -99,8 +99,10 @@ class SaleOrder(models.Model):
                         # if len(line.product_id.bom_ids) > 0 and len(line.mrp_id) == 0:
                             if line.product_id.id not in productos_dic:
                                 logging.warning(line)
+                                sale_name = sale.name
                                 mrp_order_d = {
-                                    'product_id': line.product_id.id,
+                                    'sale': [],
+                                    'product_id': line.product_id,
                                     'product_uom_id': line.product_uom.id,
                                     'product_qty': 0,
                                     'qty_producing': 0,
@@ -113,17 +115,19 @@ class SaleOrder(models.Model):
                                 productos_dic[line.product_id.id] = mrp_order_d
                             productos_dic[line.product_id.id]['product_qty'] += line.product_uom_qty
                             productos_dic[line.product_id.id]['qty_producing'] += line.product_uom_qty
+                            productos_dic[line.product_id.id]['sale'].append(sale.name)
                             productos_dic[line.product_id.id]['lines'].append(line)
         logging.warning('productos')
         logging.warning(productos_dic)
         if productos_dic:
             for p in productos_dic:
+                origin =  ','.join(productos_dic[p]['sale']) + ' '+ productos_dic[p]['product_id'].name
                 mrp_order = {
-                    'product_id':  productos_dic[p]['product_id'],
+                    'product_id':  productos_dic[p]['product_id'].id,
                     'product_uom_id': productos_dic[p]['product_uom_id'],
                     'product_qty': productos_dic[p]['product_qty'],
                     'qty_producing': productos_dic[p]['qty_producing'],
-                    # 'origin': productos_dic[p]['origin'],
+                    'origin': origin,
                     'unidad': productos_dic[p]['unidad'],
                     'bom_id': productos_dic[p]['bom_id'],
                     'largo': productos_dic[p]['largo'],
