@@ -95,7 +95,7 @@ class SaleOrder(models.Model):
             if sale.state in ['done','sale']:
                 if sale.order_line:
                     for line in sale.order_line:
-                        if len(line.product_id.bom_ids) > 0:
+                        if len(line.product_id.bom_ids) > 0 and line.product_uom_qty > 0:
                         # if len(line.product_id.bom_ids) > 0 and len(line.mrp_id) == 0:
                             if line.product_id.id not in productos_dic:
                                 logging.warning(line)
