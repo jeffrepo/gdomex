@@ -18,3 +18,4 @@ from . import account_payment_register
 from . import res_partner
 from . import account_gt
 from . import account_journal
+from . import sync_product
