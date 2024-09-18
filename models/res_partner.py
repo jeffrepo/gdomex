@@ -8,6 +8,8 @@ import logging
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
+    x_almex_id = fields.Integer('Almex ID', help="ID de la orden de compra en Odoo 10")
+    
     @api.model_create_multi
     def create(self, vals_list):
         if vals_list:

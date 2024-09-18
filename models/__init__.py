@@ -19,3 +19,4 @@ from . import res_partner
 from . import account_gt
 from . import account_journal
 from . import sync_product
+from . import sync_purchase_order
