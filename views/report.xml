@@ -46,7 +46,7 @@
             <field name="binding_type">report</field>
         </record>
 
-         <record id="reporte_voucher_almex_bac" model="ir.actions.report">
+        <record id="reporte_voucher_almex_bac" model="ir.actions.report">
             <field name="name">Almex Voucher BAC</field>
             <field name="model">account.payment</field>
             <field name="report_type">qweb-pdf</field>
@@ -59,7 +59,7 @@
         </record>
 
 
-        <record id="reporte_voucher_almex_bac" model="ir.actions.report">
+        <record id="reporte_voucher_atir_bac" model="ir.actions.report">
             <field name="name">Atir, S.A Voucher BAC</field>
             <field name="model">account.payment</field>
             <field name="report_type">qweb-pdf</field>
