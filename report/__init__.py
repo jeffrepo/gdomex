@@ -12,4 +12,6 @@ from . import instalacion_cotizacion_grupodomex
 from . import report_purchase_orders
 from . import reporte_voucher_domex_bi
 from . import reporte_voucher_domex_bac
+from . import reporte_voucher_almex_bac
+from . import reporte_voucher_atir_bac
 from . import contrasenia_pago

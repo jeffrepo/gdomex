@@ -26,6 +26,8 @@
         'report/report_orden_trabajo.xml',
         'report/report_purchase_orders.xml',
         'report/reporte_voucher_domex_bac.xml',
+        'report/reporte_voucher_almex_bac.xml',
+        'report/reporte_voucher_atir_bac.xml',
         'report/reporte_voucher_domex_bi.xml',
         'views/stock_quant_views.xml',
         'security/groups.xml',
