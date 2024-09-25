@@ -94,7 +94,7 @@
                          <span t-field="o.ref"></span>
                     </div>
 	                  <div style="font-size: 75%; position: absolute; top: 17cm; left: 5cm">
-                        NO.  DE  CHEQUE:<span t-field="o.move_id.name"/>
+                        NO.  DE  CHEQUE:<span t-field="o.check_number"/>
                     </div>
 
                     <div style="position: absolute; top: 19cm; left: 2cm">

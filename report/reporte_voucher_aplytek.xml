@@ -92,7 +92,7 @@
                       <!-- <span t-field="o.communication"></span> -->
                   </div>
                   <div style="position: absolute; top: 22cm; left: 5cm">
-                      NO.  DE  CHEQUE:<span t-field="o.move_id.name"/>
+                      NO.  DE  CHEQUE:<span t-field="o.check_number"/>
                   </div>
 
                   <div style="position: absolute; top: 23.9cm; left: 2cm">

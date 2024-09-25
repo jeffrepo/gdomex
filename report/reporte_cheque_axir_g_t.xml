@@ -70,7 +70,7 @@
                     </div>
 
                     <div style="font-size: 80%; position: absolute; top: 14.3cm; left: 9cm">
-                        <span t-field="o.move_id.name"/>
+                        <span t-field="o.check_number"/>
                     </div>
 
                     <div style="font-size: 80%; position: absolute; top: 16.6cm; left: 2.2cm">

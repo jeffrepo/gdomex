@@ -67,7 +67,7 @@
                         MOTIVO DE:<span t-field="o.ref"/>
                     </div>
                     <div style="font-size: 70%; position: absolute; top: 11cm; left: 2cm">
-                        NO. DE CHEQUE:<span t-field="o.move_id.name"/>
+                        NO. DE CHEQUE:<span t-field="o.check_number"/>
                     </div>
 
                     <div style="font-size: 80%; position: absolute; top: 12cm; left: 2cm">
