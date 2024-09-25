@@ -14,17 +14,20 @@
     'category': 'Uncategorized',
     'version': '0.1',
 
-    'depends': ['stock','project', 'sale','mrp', 'stock_landed_costs', 'account','account_gt'],
+    'depends': ['stock','project', 'sale','mrp', 'stock_landed_costs', 'account','account_gt','hr'],
 
     'data': [
     	'report/venta_cotizacion_grupodomex.xml',
     	'report/instalacion_cotizacion_grupodomex.xml',
         'data/report_paperformat_data.xml',
+        'data/ir_cron_data.xml',
         'report/report_oc_importaciones_almex.xml',
         'report/report_oc_importaciones_aplytek.xml',
         'report/report_orden_trabajo.xml',
         'report/report_purchase_orders.xml',
         'report/reporte_voucher_domex_bac.xml',
+        'report/reporte_voucher_almex_bac.xml',
+        'report/reporte_voucher_atir_bac.xml',
         'report/reporte_voucher_domex_bi.xml',
         'views/stock_quant_views.xml',
         'security/groups.xml',

@@ -34,6 +34,8 @@ class PurchaseOrder(models.Model):
     incluye_gastos = fields.Boolean('Incluye gastos', tracking=True)
     factura_importacion = fields.Boolean('Factura importacion', tracking=True)
 
+    x_almex_id = fields.Integer('Almex ID', help="ID de la orden de compra en Odoo 10")
+
     @api.model
     def create(self, vals):
         company_id = vals.get('company_id', self.default_get(['company_id'])['company_id'])

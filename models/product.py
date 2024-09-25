@@ -11,3 +11,4 @@ class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     tipo_gdomex = fields.Selection([('1', 'Accesorios'),('2', 'Molduras'),('4','Paneles'),('3', 'Otros')], string="Tipo")
+    x_almex_id = fields.Integer(string="ALMEX ID", help="ID de Odoo 10 para sincronización")

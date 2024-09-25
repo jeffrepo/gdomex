@@ -12,6 +12,8 @@ class AccountMove(models.Model):
     otro_comentario = fields.Char('Otro comentario')
 
     picking_id = fields.Many2one('stock.picking', string="Albarán")
+
+    x_almex_id = fields.Integer('Almex ID', help="ID de la orden de compra en Odoo 10")
     
     @api.depends('company_id', 'invoice_filter_type_domain')
     def _compute_suitable_journal_ids(self):
