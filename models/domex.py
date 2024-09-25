@@ -2,6 +2,97 @@
 
 from odoo import models, fields, api
 import logging
+from os import getenv
+import pymssql
+import pytz
+import datetime
+from datetime import datetime, timedelta
+
+class GdomexGdomex(models.Model):
+    _name = 'gdomex.gdomex'
+
+    def conectar_mysql_transations_sync(self, fecha_hora_inicio, fecha_hora_fin):
+        action = {}
+        logging.warning('Conectar')
+        
+        timezone = pytz.timezone(self._context.get('tz') or self.env.user.tz or 'UTC')
+        if fecha_hora_inicio == False and fecha_hora_fin == False:
+            fecha_hoy = datetime.now().astimezone(timezone).strftime('%Y-%m-%d')
+            logging.warning(fecha_hoy)
+            fecha_hora_inicio = str(fecha_hoy) +  ' 01:00:00.000'
+            fecha_hora_fin = str(fecha_hoy) +  ' 23:00:00.000'
+        logging.warning(fecha_hora_inicio)
+        logging.warning(fecha_hora_fin)
+        conn = pymssql.connect(server="200.35.178.146", port="1433", user="adm2", password="Pa$$w0rd1", database="security_db")
+        cursor = conn.cursor()
+        cursor.execute("SELECT id, pin, name, last_name, event_time  FROM [dbo].[acc_transaction] WHERE dept_name like ('%PLANTA%') and event_time BETWEEN %s and %s ORDER BY event_time ASC", (fecha_hora_inicio, fecha_hora_fin))
+        data=cursor.fetchall()
+        logging.warning(data)
+        transactions_dic = {}
+        if data:
+            for transaction in data:
+                pin = transaction[1]
+                event_time = transaction[4]
+                if pin not in transactions_dic:
+                    transactions_dic[pin] = []
+                transactions_dic[pin].append(transaction)
+                
+        #logging.warning(transactions_dic)
+        if len(transactions_dic) > 0:
+            for t in transactions_dic:
+                #significa que tiene debió de haber entrado y salido mas de 1 vez
+                pin = transactions_dic[t][0][1]
+                check_in = transactions_dic[t][0][4]
+                check_out = False
+                if transactions_dic[t][0][2] == "JUAN":
+                    logging.warning('esvin')
+                    logging.warning(check_in)
+                if len(transactions_dic[t]) > 1:
+                    check_out = transactions_dic[t][-1][4]
+                logging.warning('PIN')
+                logging.warning(pin)
+                employee_id = self.env['hr.employee'].search([('zk_person_pin','=', pin)])
+                if employee_id:
+                    attendance_id = self.env['hr.attendance'].create({
+                        'employee_id': employee_id.id,
+                        'check_in': check_in+ timedelta(hours=6),
+                        'check_out': check_out+ timedelta(hours=6) if check_out else False,
+                    })
+                    
+                
+        return action
+        
+    def conectar_mysql_empleados_sync(self):
+        action = {}
+        logging.warning('Conectar')
+        conn = pymssql.connect(server="200.35.178.146", port="1433", user="adm2", password="Pa$$w0rd1", database="security_db")
+        cursor = conn.cursor()
+        cursor.execute("SELECT id, name, last_name, pin FROM [dbo].[pers_person]")
+        data=cursor.fetchall()
+        logging.warning(data)
+        if data:
+            for person in data:
+                logging.warning(person)
+                id_zk = person[0]
+                name = person[1]
+                last_name = person[2]
+                pin = person[3]
+                employe_pin = self.env['hr.employee'].search([('zk_person_pin','=', pin)])
+                if len(employe_pin) == 0:
+                    employee_id = self.env['hr.employee'].search([('primer_nombre','=', name),('primer_apellido', '=', last_name)])
+                    logging.warning(employee_id)
+                    #si existe empleado con esos nombre, lo identifica y asigna pin
+                    if len(employee_id) > 0:
+                        employee_id.write({'zk_person_pin': pin})
+                        logging.warning('PING ASIGNADO: ' + str(pin))
+                    else:
+                        logging.warning('no asigno pin para: ' + str(name) + " " + str(last_name))
+                else:
+                    logging.warning('existe')
+                    employe_pin.write({'zk_person_id': id_zk})
+                    logging.warning(employe_pin)
+                
+        return action
 
 class GdomexCostoUnitarioLineas(models.Model):
     _name = 'gdomex.costo_unitario_lineas'
