@@ -69,8 +69,21 @@
                         </t>
                     </div>
 
-                    <div style="font-size: 80%; position: absolute; top: 14.3cm; left: 9cm">
-                        <t t-if="o.check_number"><span t-field="o.check_number"/></t><t t-else=""><span t-field="o.move_id.name"/></t>
+                    <div style="font-size: 80%; position: absolute; top: 14.3cm; left: 7cm">
+                        <div t-if="o.journal_id.default_account_id">
+                            <span t-field="o.journal_id.default_account_id.name"/>
+                        </div>
+                        <div>
+                            <t t-if="o.check_number">
+                                <span t-field="o.check_number"/>
+                            </t>
+                            <t t-else="">
+                                <span t-field="o.move_id.name"/>
+                            </t>
+                        </div>
+                        <div>
+                            <span t-field="o.descripcion"/>
+                        </div>
                     </div>
 
                     <div style="font-size: 80%; position: absolute; top: 16.6cm; left: 2.2cm">
