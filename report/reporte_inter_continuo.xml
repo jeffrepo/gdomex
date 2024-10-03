@@ -67,6 +67,11 @@
                         MOTIVO DE:<span t-field="o.ref"/>
                     </div>
                     <div style="font-size: 70%; position: absolute; top: 11cm; left: 2cm">
+                        <span t-field="o.descripcion"/><br/>
+                        <t t-if="o.journal_id.default_account_id">
+                          <span t-field="o.journal_id.default_account_id.name"/>
+                        </t>
+                        <br/>
                         NO. DE CHEQUE:<t t-if="o.check_number"><span t-field="o.check_number"/></t><t t-else=""><span t-field="o.move_id.name"/></t>
                     </div>
 
