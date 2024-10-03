@@ -9,6 +9,9 @@ class SyncPurchaseOrder(models.Model):
     _description = 'Sincronizar Órdenes de Compra de Odoo 10 a Odoo 15'
 
     def sync_purchase_orders(self):
+        # Establecer el contexto de la compañía
+        self = self.with_company(6)
+
         # Conexión a Odoo 10
         url_odoo10 = 'http://45.79.219.125'
         db_odoo10 = 'domex'
@@ -55,6 +58,23 @@ class SyncPurchaseOrder(models.Model):
             )
 
             _logger.info("Datos de órdenes de compra leídos correctamente. Iniciando sincronización con Odoo 15.")
+
+            # Obtener al usuario administrador que pertenece a la compañía 6
+            admin_user = self.env['res.users'].search([
+                ('login', '=', 'admin'),
+                ('company_ids', 'in', [6])
+            ], limit=1)
+
+            if not admin_user:
+                _logger.error("No se encontró un usuario administrador que pertenezca a la compañía 6.")
+                return
+
+            # Obtener el país de la compañía
+            company = self.env['res.company'].browse(6)
+            country = company.country_id
+            if not country:
+                _logger.error(f"La compañía con ID 6 no tiene país definido. No se puede crear el impuesto.")
+                return  # Detener el proceso si el país no está definido
 
             for order in purchase_orders_odoo10:
                 order_id_odoo10 = order['id']  # ID de la orden de compra en Odoo 10
@@ -103,9 +123,9 @@ class SyncPurchaseOrder(models.Model):
                     }
                     # Obtener país y estado si existen
                     if partner_odoo10.get('country_id'):
-                        country = self.env['res.country'].search([('name', '=', partner_odoo10['country_id'][1])], limit=1)
-                        if country:
-                            partner_vals['country_id'] = country.id
+                        country_partner = self.env['res.country'].search([('name', '=', partner_odoo10['country_id'][1])], limit=1)
+                        if country_partner:
+                            partner_vals['country_id'] = country_partner.id
                     if partner_odoo10.get('state_id'):
                         state = self.env['res.country.state'].search([('name', '=', partner_odoo10['state_id'][1])], limit=1)
                         if state:
@@ -140,15 +160,13 @@ class SyncPurchaseOrder(models.Model):
                             ]}
                         )[0]
 
-                        # Crear categoría si no existe
+                        # Crear categoría si no existe (sin 'company_id')
                         category = self.env['product.category'].search([
                             ('name', '=', product_odoo10['categ_id'][1]),
-                            ('company_id', '=', 6)
                         ], limit=1)
                         if not category:
                             category = self.env['product.category'].create({
                                 'name': product_odoo10['categ_id'][1],
-                                'company_id': 6,
                             })
 
                         # Crear unidad de medida si no existe
@@ -162,7 +180,7 @@ class SyncPurchaseOrder(models.Model):
                             })
 
                         # Crear producto
-                        product = self.env['product.product'].create({
+                        product_vals = {
                             'name': product_odoo10['name'],
                             'default_code': product_odoo10.get('default_code', ''),
                             'list_price': product_odoo10.get('list_price', 0),
@@ -175,7 +193,10 @@ class SyncPurchaseOrder(models.Model):
                             'company_id': 6,
                             'x_almex_id': product_odoo10['id'],
                             'type': product_odoo10.get('type', 'product'),
-                        })
+                            'responsible_id': admin_user.id,  # Asignar el usuario responsable
+                        }
+
+                        product = self.env['product.product'].create(product_vals)
                         _logger.info(f"Producto '{product.name}' creado exitosamente.")
                     else:
                         _logger.info(f"Producto '{product.name}' ya existe en Odoo 15.")
@@ -185,7 +206,7 @@ class SyncPurchaseOrder(models.Model):
                     for tax_id in line_odoo10['taxes_id']:
                         tax_odoo10 = models10.execute_kw(
                             db_odoo10, uid_odoo10, password_odoo10,
-                            'account.tax', 'read', [tax_id], {'fields': ['name', 'amount', 'type_tax_use']}
+                            'account.tax', 'read', [tax_id], {'fields': ['name', 'amount', 'type_tax_use', 'amount_type', 'price_include', 'tax_group_id', 'sequence']}
                         )[0]
 
                         tax = self.env['account.tax'].search([
@@ -193,11 +214,40 @@ class SyncPurchaseOrder(models.Model):
                             ('company_id', '=', 6)
                         ], limit=1)
                         if not tax:
+                            # Obtener o crear el grupo de impuestos
+                            tax_group_name = tax_odoo10.get('tax_group_id', False) and tax_odoo10['tax_group_id'][1] or 'Tax Group'
+                            tax_group = self.env['account.tax.group'].search([('name', '=', tax_group_name)], limit=1)
+                            if not tax_group:
+                                tax_group = self.env['account.tax.group'].create({
+                                    'name': tax_group_name,
+                                    'sequence': tax_odoo10.get('sequence', 1),
+                                })
+                            # Mapear amount_type de Odoo 10 a valores válidos en Odoo 15
+                            amount_type_odoo10 = tax_odoo10.get('amount_type', 'percent')
+                            amount_type_map = {
+                                'percent': 'percent',
+                                'fixed': 'fixed',
+                                'code': 'percent',  # Mapear 'code' a 'percent'
+                            }
+                            amount_type_odoo15 = amount_type_map.get(amount_type_odoo10, 'percent')
+
+                            # Si amount_type es 'code', establecer amount en 0.0 y registrar una advertencia
+                            if amount_type_odoo10 == 'code':
+                                _logger.warning(f"El impuesto '{tax_odoo10['name']}' tiene amount_type 'code' en Odoo 10. Se asignará 'percent' en Odoo 15 y amount=0.0.")
+                                tax_amount = 0.0
+                            else:
+                                tax_amount = tax_odoo10['amount']
+
+                            # Crear impuesto incluyendo 'country_id' y amount_type mapeado
                             tax = self.env['account.tax'].create({
                                 'name': tax_odoo10['name'],
-                                'amount': tax_odoo10['amount'],
+                                'amount': tax_amount,
+                                'amount_type': amount_type_odoo15,
                                 'type_tax_use': tax_odoo10['type_tax_use'],
                                 'company_id': 6,
+                                'country_id': country.id,
+                                'price_include': tax_odoo10.get('price_include', False),
+                                'tax_group_id': tax_group.id,
                             })
                         taxes.append(tax.id)
 
@@ -213,8 +263,6 @@ class SyncPurchaseOrder(models.Model):
                     }
                     order_lines.append((0, 0, order_line_vals))
 
-                # Obtener al usuario administrador
-                admin_user = self.env.ref('base.user_admin').with_company(6)
                 # Preparar valores de la orden de compra
                 order_vals = {
                     'name': order['name'],
@@ -251,7 +299,6 @@ class SyncPurchaseOrder(models.Model):
 
                         for invoice in invoices_odoo10:
                             invoice_id_odoo10 = invoice['id']
-
                             _logger.info(f"Verificando si la factura '{invoice.get('number', '')}' (ID Odoo 10: {invoice_id_odoo10}) ya existe en Odoo 15...")
 
                             # Verificar si la factura ya existe en Odoo 15 basado en 'x_almex_id'
@@ -264,73 +311,25 @@ class SyncPurchaseOrder(models.Model):
                                 _logger.info(f"La factura '{invoice.get('number', '')}' ya existe en Odoo 15 con x_almex_id={invoice_id_odoo10}. Saltando creación.")
                                 continue
 
-                            # Crear factura
-                            # Obtener o crear cuenta contable
-                            account = self.env['account.account'].with_context(active_test=False).search(
-                                [('code', '=', invoice['account_id'][1]), ('company_id', '=', 6)], limit=1
-                            )
-                            if not account:
-                                try:
-                                    _logger.info(f"Creando nueva cuenta contable con código {invoice['account_id'][1]} en la compañía 6...")
-                                    account_odoo10 = models10.execute_kw(
-                                        db_odoo10, uid_odoo10, password_odoo10,
-                                        'account.account', 'read', [invoice['account_id'][0]], {'fields': ['code', 'name', 'user_type_id', 'company_id']}
-                                    )[0]
+                            # Obtener el diario adecuado
+                            journal = self.env['account.journal'].search([
+                                ('type', '=', 'purchase'),
+                                ('company_id', '=', 6)
+                            ], limit=1)
+                            if not journal:
+                                _logger.error("No se encontró un diario para facturas de proveedor en la compañía 6.")
+                                continue  # Saltar esta factura
 
-                                    # Mapear 'user_type_id' desde Odoo 10 a Odoo 15
-                                    account_type_odoo10 = models10.execute_kw(
-                                        db_odoo10, uid_odoo10, password_odoo10,
-                                        'account.account.type', 'read', [account_odoo10['user_type_id'][0]], {'fields': ['name', 'type']}
-                                    )[0]
+                            # Obtener el partner de la factura utilizando x_almex_id
+                            partner_id_odoo10 = invoice['partner_id'][0]
+                            partner = self.env['res.partner'].search([
+                                ('x_almex_id', '=', partner_id_odoo10),
+                                ('company_id', '=', 6)
+                            ], limit=1)
+                            if not partner:
+                                _logger.error(f"El partner con x_almex_id {partner_id_odoo10} no existe en Odoo 15.")
+                                continue  # Saltar esta factura
 
-                                    # Mapeo de tipos de cuenta de Odoo 10 a Odoo 15
-                                    account_type_map = {
-                                        'Receivable': 'account.data_account_type_receivable',
-                                        'Payable': 'account.data_account_type_payable',
-                                        'Bank and Cash': 'account.data_account_type_liquidity',
-                                        'Current Assets': 'account.data_account_type_current_assets',
-                                        'Non-current Assets': 'account.data_account_type_non_current_assets',
-                                        'Fixed Assets': 'account.data_account_type_fixed_assets',
-                                        'Current Liabilities': 'account.data_account_type_current_liabilities',
-                                        'Non-current Liabilities': 'account.data_account_type_non_current_liabilities',
-                                        'Equity': 'account.data_account_type_equity',
-                                        'Income': 'account.data_account_type_revenue',
-                                        'Expense': 'account.data_account_type_expenses',
-                                        'Cost of Revenue': 'account.data_account_type_cost_of_revenue',
-                                        'Off-Balance Sheet': 'account.data_account_type_off_balance',
-                                        # Agrega más mapeos si es necesario
-                                    }
-
-                                    account_type_ref = account_type_map.get(account_type_odoo10['name'])
-                                    if account_type_ref:
-                                        account_type = self.env.ref(account_type_ref)
-                                    else:
-                                        account_type = self.env['account.account.type'].search([('name', '=', account_type_odoo10['name'])], limit=1)
-                                        if not account_type:
-                                            account_type = self.env.ref('account.data_account_type_current_assets')
-                                            _logger.warning(f"No se encontró un mapeo para el tipo de cuenta '{account_type_odoo10['name']}'. Usando 'Current Assets' por defecto.")
-
-                                    # Determinar si la cuenta debe ser conciliable
-                                    reconcile = False
-                                    if account_type.type in ['receivable', 'payable']:
-                                        reconcile = True
-
-                                    account = self.env['account.account'].create({
-                                        'code': account_odoo10['code'],
-                                        'name': account_odoo10['name'],
-                                        'user_type_id': account_type.id,
-                                        'company_id': 6,
-                                        'reconcile': reconcile,
-                                    })
-                                except Exception as e:
-                                    _logger.error(f"Error al crear la cuenta con código {invoice['account_id'][1]} en la compañía 6: {e}")
-                                    self.env.cr.rollback()
-                                    continue
-                            else:
-                                _logger.info(f"La cuenta contable con código {account.code} ya existe en la compañía 6.")
-
-                          
-    
                             # Preparar líneas de factura
                             invoice_lines = []
                             for line_id in invoice['invoice_line_ids']:
@@ -341,108 +340,23 @@ class SyncPurchaseOrder(models.Model):
                                     ]}
                                 )[0]
 
-                                # Verificar que 'account_id' esté presente y tenga el formato esperado
-                                if not line_odoo10.get('account_id') or not isinstance(line_odoo10['account_id'], list) or len(line_odoo10['account_id']) < 2:
-                                    _logger.error(f"La línea de factura '{line_odoo10.get('name', '')}' no tiene 'account_id' válido. Saltando línea.")
+                                # Obtener o crear producto
+                                product_odoo10_id = line_odoo10['product_id'][0]
+                                product = self.env['product.product'].search([
+                                    ('x_almex_id', '=', product_odoo10_id),
+                                    ('company_id', '=', 6)
+                                ], limit=1)
+                                if not product:
+                                    _logger.error(f"El producto con x_almex_id '{product_odoo10_id}' no existe en Odoo 15. Saltando línea.")
                                     continue
 
-                                account_code = line_odoo10['account_id'][1]
-
-                                # Obtener o crear cuenta
-                                account_line = self.env['account.account'].with_context(active_test=False).search(
-                                    [('code', '=', account_code), ('company_id', '=', 6)], limit=1
-                                )
-                                if not account_line:
-                                    try:
-                                        account_line_odoo10 = models10.execute_kw(
-                                            db_odoo10, uid_odoo10, password_odoo10,
-                                            'account.account', 'read', [line_odoo10['account_id'][0]], {'fields': ['code', 'name', 'user_type_id', 'company_id']}
-                                        )[0]
-
-                                        # Mapear 'user_type_id' desde Odoo 10 a Odoo 15
-                                        account_type_odoo10 = models10.execute_kw(
-                                            db_odoo10, uid_odoo10, password_odoo10,
-                                            'account.account.type', 'read', [account_line_odoo10['user_type_id'][0]], {'fields': ['name', 'type']}
-                                        )[0]
-
-                                        account_type_ref = account_type_map.get(account_type_odoo10['name'])
-                                        if account_type_ref:
-                                            account_type = self.env.ref(account_type_ref)
-                                        else:
-                                            account_type = self.env['account.account.type'].search([('name', '=', account_type_odoo10['name'])], limit=1)
-                                            if not account_type:
-                                                account_type = self.env.ref('account.data_account_type_current_assets')
-                                                _logger.warning(f"No se encontró un mapeo para el tipo de cuenta '{account_type_odoo10['name']}'. Usando 'Current Assets' por defecto.")
-
-                                        # Determinar si la cuenta debe ser conciliable
-                                        reconcile = False
-                                        if account_type.type in ['receivable', 'payable']:
-                                            reconcile = True
-
-                                        # Verificar si la cuenta ya existe para evitar duplicados
-                                        existing_account = self.env['account.account'].with_context(active_test=False).search(
-                                            [('code', '=', account_line_odoo10['code']), ('company_id', '=', 6)], limit=1
-                                        )
-                                        if existing_account:
-                                            account_line = existing_account
-                                            _logger.info(f"La cuenta contable con código {account_line_odoo10['code']} ya existe. Usando la cuenta existente.")
-                                        else:
-                                            account_line = self.env['account.account'].create({
-                                                'code': account_line_odoo10['code'],
-                                                'name': account_line_odoo10['name'],
-                                                'user_type_id': account_type.id,
-                                                'company_id': 6,
-                                                'reconcile': reconcile,
-                                            })
-                                    except Exception as e:
-                                        _logger.error(f"Error al obtener o crear la cuenta con código {account_code}: {e}")
-                                        self.env.cr.rollback()
-                                        continue  # Saltar esta línea si no se puede obtener o crear 'account_line'
-
-                                # Verificar que 'account_line' tiene un 'id' válido
-                                if not account_line.id:
-                                    _logger.error(f"No se pudo obtener o crear 'account_line' para la línea de factura. Saltando línea.")
+                                # Obtener cuenta de gasto
+                                cuenta_id = product.product_tmpl_id.property_account_expense_id
+                                if not cuenta_id:
+                                    cuenta_id = product.categ_id.property_account_expense_categ_id
+                                if not cuenta_id:
+                                    _logger.error(f"No se encontró cuenta de gasto para el producto '{product.name}'. Saltando línea.")
                                     continue
-
-                                # Obtener impuestos
-                                taxes = []
-                                for tax_id in line_odoo10['invoice_line_tax_ids']:
-                                    tax_odoo10 = models10.execute_kw(
-                                        db_odoo10, uid_odoo10, password_odoo10,
-                                        'account.tax', 'read', [tax_id], {'fields': ['name', 'amount', 'type_tax_use', 'amount_type', 'price_include', 'tax_group_id', 'sequence']}
-                                    )[0]
-
-                                    # Verificar si el impuesto ya existe para evitar duplicados
-                                    tax = self.env['account.tax'].search([
-                                        ('name', '=', tax_odoo10['name']),
-                                        ('company_id', '=', 6)
-                                    ], limit=1)
-                                    if not tax:
-                                        # Obtener o crear el grupo de impuestos
-                                        tax_group_name = tax_odoo10.get('tax_group_id', False) and tax_odoo10['tax_group_id'][1] or 'Tax Group'
-                                        tax_group = self.env['account.tax.group'].search([('name', '=', tax_group_name)], limit=1)
-                                        if not tax_group:
-                                            tax_group = self.env['account.tax.group'].create({
-                                                'name': tax_group_name,
-                                                'sequence': tax_odoo10.get('sequence', 1),
-                                            })
-                                        # Obtener país
-                                        company = self.env['res.company'].browse(6)
-                                        country = company.country_id
-                                        if not country:
-                                            _logger.error(f"La compañía con ID 6 no tiene país definido. No se puede crear el impuesto.")
-                                            continue  # Saltar impuesto si el país no está definido
-                                        tax = self.env['account.tax'].create({
-                                            'name': tax_odoo10['name'],
-                                            'amount': tax_odoo10['amount'],
-                                            'amount_type': tax_odoo10.get('amount_type', 'percent'),
-                                            'type_tax_use': tax_odoo10['type_tax_use'],
-                                            'company_id': 6,
-                                            'country_id': country.id,
-                                            'price_include': tax_odoo10.get('price_include', False),
-                                            'tax_group_id': tax_group.id,
-                                        })
-                                    taxes.append(tax.id)
 
                                 # Preparar valores de la línea de factura
                                 invoice_line_vals = {
@@ -450,79 +364,93 @@ class SyncPurchaseOrder(models.Model):
                                     'name': line_odoo10['name'],
                                     'quantity': line_odoo10['quantity'],
                                     'price_unit': line_odoo10['price_unit'],
-                                    'account_id': account_line.id,
-                                    'tax_ids': [(6, 0, taxes)],
-                                    'company_id': 6,
+                                    'account_id': cuenta_id.id,
                                 }
+
+                                # Obtener impuestos
+                                if line_odoo10.get('invoice_line_tax_ids'):
+                                    taxes = []
+                                    for tax_id in line_odoo10['invoice_line_tax_ids']:
+                                        tax_odoo10 = models10.execute_kw(
+                                            db_odoo10, uid_odoo10, password_odoo10,
+                                            'account.tax', 'read', [tax_id], {'fields': ['name', 'amount', 'type_tax_use', 'amount_type', 'price_include', 'tax_group_id', 'sequence']}
+                                        )[0]
+
+                                        tax = self.env['account.tax'].search([
+                                            ('name', '=', tax_odoo10['name']),
+                                            ('company_id', '=', 6)
+                                        ], limit=1)
+                                        if not tax:
+                                            # Obtener o crear el grupo de impuestos
+                                            tax_group_name = tax_odoo10.get('tax_group_id', False) and tax_odoo10['tax_group_id'][1] or 'Tax Group'
+                                            tax_group = self.env['account.tax.group'].search([('name', '=', tax_group_name)], limit=1)
+                                            if not tax_group:
+                                                tax_group = self.env['account.tax.group'].create({
+                                                    'name': tax_group_name,
+                                                    'sequence': tax_odoo10.get('sequence', 1),
+                                                })
+                                            # Mapear amount_type de Odoo 10 a valores válidos en Odoo 15
+                                            amount_type_odoo10 = tax_odoo10.get('amount_type', 'percent')
+                                            amount_type_map = {
+                                                'percent': 'percent',
+                                                'fixed': 'fixed',
+                                                'code': 'percent',  # Mapear 'code' a 'percent'
+                                            }
+                                            amount_type_odoo15 = amount_type_map.get(amount_type_odoo10, 'percent')
+
+                                            # Si amount_type es 'code', establecer amount en 0.0 y registrar una advertencia
+                                            if amount_type_odoo10 == 'code':
+                                                _logger.warning(f"El impuesto '{tax_odoo10['name']}' tiene amount_type 'code' en Odoo 10. Se asignará 'percent' en Odoo 15 y amount=0.0.")
+                                                tax_amount = 0.0
+                                            else:
+                                                tax_amount = tax_odoo10['amount']
+
+                                            # Crear impuesto incluyendo 'country_id' y amount_type mapeado
+                                            tax = self.env['account.tax'].create({
+                                                'name': tax_odoo10['name'],
+                                                'amount': tax_amount,
+                                                'amount_type': amount_type_odoo15,
+                                                'type_tax_use': tax_odoo10['type_tax_use'],
+                                                'company_id': 6,
+                                                'country_id': country.id,
+                                                'price_include': tax_odoo10.get('price_include', False),
+                                                'tax_group_id': tax_group.id,
+                                            })
+                                        taxes.append(tax.id)
+                                    if taxes:
+                                        invoice_line_vals['tax_ids'] = [(6, 0, taxes)]
+
                                 invoice_lines.append((0, 0, invoice_line_vals))
 
-
-                            # Obtener o crear el diario contable desde Odoo 10
-                            if 'journal_id' in invoice and invoice['journal_id']:
-                                try:
-                                    invoice_journal_odoo10 = models10.execute_kw(
-                                        db_odoo10, uid_odoo10, password_odoo10,
-                                        'account.journal', 'read', [invoice['journal_id'][0]], {'fields': ['name', 'code', 'type', 'company_id']}
-                                    )[0]
-
-                                    journal = self.env['account.journal'].search(
-                                        [('code', '=', invoice_journal_odoo10['code']), ('company_id', '=', 6)], limit=1
-                                    )
-
-                                    if not journal:
-                                        _logger.info(f"Creando nuevo diario '{invoice_journal_odoo10['name']}' en la compañía 6...")
-                                        journal_vals = {
-                                            'name': invoice_journal_odoo10['name'],
-                                            'code': invoice_journal_odoo10['code'],
-                                            'type': invoice_journal_odoo10['type'],  # Asegúrate de que el tipo sea correcto
-                                            'company_id': 6,
-                                        }
-                                        journal = self.env['account.journal'].create(journal_vals)
-                                    else:
-                                        _logger.info(f"Diario '{journal.name}' ya existe en la compañía 6.")
-                                except Exception as e:
-                                    _logger.error(f"Error al acceder o crear el diario para la factura '{invoice.get('number', '')}': {e}")
-                                    self.env.cr.rollback()
-                                    continue
-                            else:
-                                _logger.error(f"La factura {invoice.get('number', '')} no tiene 'journal_id'. Saltando.")
-                                continue
-
-                            # Obtener o crear la moneda
-                            currency = None
-                            if invoice.get('currency_id'):
-                                currency = self.env['res.currency'].search(
-                                    [('name', '=', invoice['currency_id'][1])], limit=1
-                                )
-                                if not currency:
-                                    currency = self.env.user.company_id.currency_id
-                            else:
-                                currency = self.env.user.company_id.currency_id
-
-                            # Preparar valores de la factura
+                            # Preparar valores de la factura (account.move)
                             invoice_vals = {
                                 'move_type': 'in_invoice',  # Factura de proveedor
                                 'partner_id': partner.id,
-                                'journal_id': journal.id,
                                 'invoice_date': invoice['date_invoice'],
-                                'invoice_line_ids': invoice_lines,
                                 'company_id': 6,
-                                'x_almex_id': invoice_id_odoo10,
+                                'journal_id': journal.id,
+                                'invoice_line_ids': invoice_lines,
                                 'ref': invoice.get('number', ''),
-                                'currency_id': currency.id,
+                                'x_almex_id': invoice_id_odoo10,
+                                'currency_id': self.env.user.company_id.currency_id.id,
                             }
 
                             # Crear la factura
                             try:
-                                account_move = self.env['account.move'].create(invoice_vals)
-                                _logger.info(f"Factura '{account_move.name}' (ID Odoo 10: {invoice_id_odoo10}) creada exitosamente en Odoo 15.")
-                                # Validar la factura si está validada en Odoo 10
-                                if invoice['state'] in ['open', 'paid']:
-                                    account_move.action_post()
+                                move = self.env['account.move'].create(invoice_vals)
+                                _logger.info(f"Factura '{move.name}' creada exitosamente en Odoo 15.")
                             except Exception as e:
                                 _logger.error(f"Error al crear la factura '{invoice.get('number', '')}' en Odoo 15: {e}")
                                 self.env.cr.rollback()
-                                continue
+                                continue  # Saltar esta factura
+
+                            # Validar la factura si es necesario
+                            try:
+                                move.action_post()
+                            except Exception as e:
+                                _logger.error(f"Error al validar la factura '{move.name}' en Odoo 15: {e}")
+                                self.env.cr.rollback()
+                                continue  # Saltar si ocurre un error al validar
 
                 except Exception as e:
                     _logger.error(f"Error al crear la orden de compra '{order['name']}' en Odoo 15: {e}")
