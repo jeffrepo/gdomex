@@ -105,7 +105,7 @@ class StockLandedCost(models.Model):
                                     else:
                                         total_gastos += linea_compra.price_subtotal
                                 else:
-                                    cantidad_productos += linea_compra.product_qty
+                                    cantidad_productos += linea_compra.quantity
 
                 logging.warning('cantidad productos')
                 logging.warning(cantidad_productos)
