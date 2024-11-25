@@ -60,6 +60,21 @@ class AccountMove(models.Model):
                                 'location_dest_id': 5,  # Clientes
                             })
 
+                        # Agregar lógica para productos con lista de materiales (BOM)
+                        if line.product_id.bom_ids:
+                            for bom in line.product_id.bom_ids:
+                                if bom.type == 'kit':  # Solo procesar listas de materiales tipo KIT
+                                    for bom_line in bom.bom_line_ids:
+                                        self.env['stock.move'].create({
+                                            'name': bom_line.product_id.name,
+                                            'product_id': bom_line.product_id.id,
+                                            'product_uom_qty': bom_line.product_qty * line.quantity,
+                                            'product_uom': bom_line.product_uom_id.id,
+                                            'picking_id': picking.id,
+                                            'location_id': 148,  # Ubicación origen
+                                            'location_dest_id': 5,  # Clientes
+                                        })
+
                     # Guardar la referencia del albarán en la factura
                     move.picking_id = picking.id
                     _logger.info(f'Albarán creado: {picking.name} para la factura {move.name}')
@@ -69,6 +84,8 @@ class AccountMove(models.Model):
                 _logger.info(f'No se creó albarán para la factura {move.name}')
         
         return res
+
+
     
 
 
