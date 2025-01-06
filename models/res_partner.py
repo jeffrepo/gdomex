@@ -10,16 +10,16 @@ class ResPartner(models.Model):
 
     x_almex_id = fields.Integer('Almex ID', help="ID de la orden de compra en Odoo 10")
     
-    @api.model_create_multi
-    def create(self, vals_list):
-        if vals_list:
-            for val in vals_list:
-                if 'vat' in val and val['vat']:
-                    partner_id = self.env['res.partner'].search([('vat', '=', val['vat'])])
-                    if len(partner_id) > 0:
-                        raise ValidationError(_('El contacto con el NIT '+ str(val['vat']) + ' ya existe' ))
-        res = super(ResPartner, self).create(vals_list)
-        return res
+    # @api.model_create_multi
+    # def create(self, vals_list):
+    #     if vals_list:
+    #         for val in vals_list:
+    #             if 'vat' in val and val['vat']:
+    #                 partner_id = self.env['res.partner'].search([('vat', '=', val['vat'])])
+    #                 if len(partner_id) > 0:
+    #                     raise ValidationError(_('El contacto con el NIT '+ str(val['vat']) + ' ya existe' ))
+    #     res = super(ResPartner, self).create(vals_list)
+    #     return res
 
     # def write(self, vals):
     #     for partner in self:
