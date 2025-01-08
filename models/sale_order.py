@@ -55,9 +55,9 @@ class SaleOrder(models.Model):
     def create(self, vals):
         if 'date_order' in vals:
             seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
-            if vals['warehouse_id'] == 1:
+            if vals['warehouse_id'] == 15:
                 vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_gdomex_code', sequence_date=seq_date) or _('New')
-            if vals['warehouse_id'] == 10:
+            if vals['warehouse_id'] == 16:
                 vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_almex_code', sequence_date=seq_date) or _('New')
             if vals['warehouse_id'] == 9:
                 vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_bordalas_code', sequence_date=seq_date) or _('New')
@@ -76,9 +76,9 @@ class SaleOrder(models.Model):
     def write(self, values):
         if self.warehouse_id and 'warehouse_id' in values:
             seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(self.date_order))
-            if values['warehouse_id'] == 1:
+            if values['warehouse_id'] == 15:
                 values['name'] = self.env['ir.sequence'].next_by_code('sale_order_gdomex_code', sequence_date=seq_date) or _('New')
-            if values['warehouse_id'] == 10:
+            if values['warehouse_id'] == 16:
                 values['name'] = self.env['ir.sequence'].next_by_code('sale_order_almex_code', sequence_date=seq_date) or _('New')
             if values['warehouse_id'] == 9:
                 values['name'] = self.env['ir.sequence'].next_by_code('sale_order_bordalas_code', sequence_date=seq_date) or _('New')
