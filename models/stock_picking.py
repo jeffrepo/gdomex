@@ -182,7 +182,7 @@ class Picking(models.Model):
     def create_mrp_order(self):
         productos_dic = {}
         for picking in self:
-            if picking.state in ['waiting','confirmed']:
+            if picking.state in ['waiting','confirmed','assigned']:
                 if picking.move_ids_without_package:
                     for line in picking.move_ids_without_package:
 
