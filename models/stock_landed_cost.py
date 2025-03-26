@@ -286,7 +286,7 @@ class StockLandedCost(models.Model):
                             logging.warning('total_moneda')
                             logging.warning(total_moneda)
                     for factura in compra.invoice_ids:
-                        if factura.invoice_line_ids:
+                        if factura.invoice_line_ids and factura.state == "posted":
                             for linea_compra in factura.invoice_line_ids:
                                 existe_linea_compra_id = self.env['stock.landed.cost.lines'].search([('move_line_id','=',linea_compra.id)])
                                 if linea_compra.product_id.detailed_type == "service":
