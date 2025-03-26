@@ -99,7 +99,7 @@ class GdomexCostoUnitarioLineas(models.Model):
 
     cost_id = fields.Many2one('stock.landed.cost',string='Coste destino')
     producto_id = fields.Many2one('product.product','Producto')
-    costo = fields.Float('Costo')
+    costo = fields.Float('Costo', digits=(16, 6))
 
 class Color(models.Model):
     _name = 'domex.color'
