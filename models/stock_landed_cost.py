@@ -120,13 +120,13 @@ class StockLandedCost(models.Model):
 
                                     unidad_usd = linea_compra.price_unit + costo_unitario
                                     unidad_gtq = linea_compra.currency_id._convert(unidad_usd,linea_compra.company_id.currency_id,linea_compra.company_id,coste.date)
-                                    precio_total = unidad_gtq * linea_compra.product_qty
-                                    costo = (total_gastos_otras_compras / linea_compra.product_qty) + unidad_gtq
+                                    precio_total = unidad_gtq * linea_compra.quantity
+                                    costo = (total_gastos_otras_compras / linea_compra.quantity) + unidad_gtq
                                     if factura.move_type == "in_refund":
                                         unidad_usd = (linea_compra.price_unit * -1) + costo_unitario
                                         unidad_gtq = linea_compra.currency_id._convert(unidad_usd,linea_compra.company_id.currency_id,linea_compra.company_id,coste.date)
-                                        precio_total = unidad_gtq * linea_compra.product_qty
-                                        costo = (total_gastos_otras_compras / linea_compra.product_qty) + unidad_gtq
+                                        precio_total = unidad_gtq * linea_compra.quantity
+                                        costo = (total_gastos_otras_compras / linea_compra.quantity) + unidad_gtq
 
                                     logging.warning('gasto_compra')
                                     logging.warning(total_gastos)
