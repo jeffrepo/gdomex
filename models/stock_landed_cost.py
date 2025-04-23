@@ -289,7 +289,7 @@ class StockLandedCost(models.Model):
                         if factura.invoice_line_ids and factura.state == "posted":
                             for linea_compra in factura.invoice_line_ids:
                                 existe_linea_compra_id = self.env['stock.landed.cost.lines'].search([('move_line_id','=',linea_compra.id)])
-                                if linea_compra.product_id.detailed_type == "service":
+                                if linea_compra.product_id.detailed_type == "service" and linea_compra.product_id.landed_cost_ok:
                                     total_linea = linea_compra.price_subtotal
                                     if linea_compra.currency_id.id != linea_compra.company_id.currency_id.id:
                                         total_linea = linea_compra.currency_id._convert(linea_compra.price_subtotal,linea_compra.company_id.currency_id,linea_compra.company_id,importacion.date)
