@@ -19,8 +19,6 @@ class PurchaseOrder(models.Model):
     marks = fields.Text(string="Marks")
     insurance = fields.Char('Insurance')
     delivery = fields.Char('Delivery')
-
-    # Ni idea de que sea esto ---------
     supplier_order_ref = fields.Char(string='Referencia proveedor')
     #bill_to = fields.Many2one('res.partner', string='Bill to')
     #consigned_to = fields.Many2one('res.partner', string='Consigned to')
@@ -33,7 +31,7 @@ class PurchaseOrder(models.Model):
     lugar_entrega = fields.Char('Lugar de entrega')
     incluye_gastos = fields.Boolean('Incluye gastos', tracking=True)
     factura_importacion = fields.Boolean('Factura importacion', tracking=True)
-
+    fecha_tipo_cambio = fields.Date("Fecha tipo cambio")
     x_almex_id = fields.Integer('Almex ID', help="ID de la orden de compra en Odoo 10")
 
     @api.model
