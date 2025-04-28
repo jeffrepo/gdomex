@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models
+from odoo.tools.float_utils import float_compare, float_is_zero, float_round
 
 class StockMove(models.Model):
     _inherit = 'stock.move'
