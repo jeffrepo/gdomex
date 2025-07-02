@@ -65,6 +65,8 @@ class SaleOrder(models.Model):
                 vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_neira_code', sequence_date=seq_date) or _('New')
             if vals['warehouse_id'] == 7:
                 vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_acuario_code', sequence_date=seq_date) or _('New')
+            if vals['warehouse_id'] == 20:
+                vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_armadillo_code', sequence_date=seq_date) or _('New')
 
         result = super(SaleOrder, self).create(vals)
         if 'warehouse_id' in vals:
@@ -86,6 +88,8 @@ class SaleOrder(models.Model):
                 values['name'] = self.env['ir.sequence'].next_by_code('sale_order_neira_code', sequence_date=seq_date) or _('New')
             if values['warehouse_id'] == 7:
                 values['name'] = self.env['ir.sequence'].next_by_code('sale_order_acuario_code', sequence_date=seq_date) or _('New')
+            if values['warehouse_id'] == 20:
+                values['name'] = self.env['ir.sequence'].next_by_code('sale_order_armadillo_code', sequence_date=seq_date) or _('New')
         result = super(SaleOrder, self).write(values)
         return result
 
