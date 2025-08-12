@@ -108,6 +108,22 @@
             <field name="company_id" eval="False"/>
         </record>
 
+        <record id="seq_purchase_order_inversionesk_code" model="ir.sequence">
+            <field name="name">Purchase Order Inversiones Kinetics sequence</field>
+            <field name="code">purchase_order_inversionesk_code</field>
+            <field name="prefix">INVKNTOC</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_purchase_order_corporacionk_code" model="ir.sequence">
+            <field name="name">Purchase Order Coporacion Kinetics sequence</field>
+            <field name="code">purchase_order_corporacionk_code</field>
+            <field name="prefix">CRKNTOC</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
 
         <record id="seq_accont_gt_liquidacion_domex" model="ir.sequence">
             <field name="name">Liquidacion</field>

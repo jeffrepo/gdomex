@@ -91,5 +91,19 @@ class PurchaseOrder(models.Model):
                     if 'date_order' in vals:
                         seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
                     vals['name'] = self_comp.env['ir.sequence'].next_by_code('purchase_order_acuario_code', sequence_date=seq_date) or '/'
+            if vals['picking_type_id'] == 354:
+
+                if vals.get('name', 'New') == 'New':
+                    seq_date = None
+                    if 'date_order' in vals:
+                        seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
+                    vals['name'] = self_comp.env['ir.sequence'].next_by_code('purchase_order_inversionesk_code', sequence_date=seq_date) or '/'
+            if vals['picking_type_id'] == 363:
+
+                if vals.get('name', 'New') == 'New':
+                    seq_date = None
+                    if 'date_order' in vals:
+                        seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
+                    vals['name'] = self_comp.env['ir.sequence'].next_by_code('purchase_order_corporacionk_code', sequence_date=seq_date) or '/'
         result = super(PurchaseOrder, self).create(vals)
         return result
