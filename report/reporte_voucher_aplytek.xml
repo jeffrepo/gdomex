@@ -17,7 +17,7 @@
                   </div>
 
                   <div style="font-size: 110%; position: absolute; top: 3.8cm; left: 5.1cm; width: 15cm">
-                      <span t-esc="o.partner_id.name"/>
+                      <span t-esc="o.nombre_impreso or o.partner_id.name"/>
                   </div>
 
                   <div style="font-size: 110%; position: absolute; top: 4.5cm; left: 5.1cm; width: 15cm">
@@ -35,7 +35,7 @@
                       <span t-esc="'{0:,.2f}'.format(o.amount)"/>
                   </div>
                   <div style="font-size: 110%; position: absolute; top: 12cm; left: 5.1cm; width: 15cm">
-                      <span t-esc="o.partner_id.name"/>
+                      <span t-esc="o.nombre_impreso or o.partner_id.name"/>
                   </div>
                   <div style="font-size: 110%; position: absolute; top: 12.7cm; left: 5.1cm; width: 15cm">
                       <span t-esc="a_letras(o.amount)"/>
