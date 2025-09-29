@@ -47,4 +47,4 @@ class Liquidacion(models.Model):
 class ResCompany(models.Model):
     _inherit = "res.company"
 
-    ft_cuenta_analitica_ids = fields.Many2many('Cuenta analitica flete y transporte')
+    ft_cuenta_analitica_ids = fields.Many2many('account.analytic.account',string='Cuenta analitica flete y transporte')
