@@ -36,6 +36,7 @@
         'views/account_report.xml',
         'report/reporte_cheque_axir_g_t.xml',
         'report/reporte_voucher_aplytek.xml',
+        'report/reporte_voucher_aplytek_antiguo.xml',
         'report/reporte_inter_continuo.xml',
         'security/ir.model.access.csv',
         'views/account_payments_views.xml',

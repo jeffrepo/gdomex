@@ -15,3 +15,4 @@ from . import reporte_voucher_domex_bac
 from . import reporte_voucher_almex_bac
 from . import reporte_voucher_atir_bac
 from . import contrasenia_pago
+from . import reporte_voucher_aplytek_antiguo
