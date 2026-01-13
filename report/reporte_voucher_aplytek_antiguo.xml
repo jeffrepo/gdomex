@@ -5,18 +5,18 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <div class="page">
-                    <div style="font-size: 75%; position: absolute; top: 2.5cm; left: 3.8cm">
+                    <div style="font-size: 75%; position: absolute; top: 2.6cm; left: 3.8cm">
                         GUATEMALA, <span t-field="o.date"/>
                     </div>
-                    <div style="font-size: 75%; position: absolute; top: 2.4cm; left: 16.2cm">
+                    <div style="font-size: 75%; position: absolute; top: 2.4cm; left: 16.9cm">
                         <span t-esc="'{0:,.2f}'.format(o.amount)"/>
                     </div>
 
-                    <div style="font-size: 75%; position: absolute; top: 3.0cm; left: 3.8cm; width: 15cm">
+                    <div style="font-size: 75%; position: absolute; top: 3.1cm; left: 3.8cm; width: 15cm">
                         <span t-esc="o.nombre_impreso or o.partner_id.name"/>
                     </div>
 
-                    <div style="font-size: 75%; position: absolute; top: 3.5cm; left: 3.8cm; width: 15cm">
+                    <div style="font-size: 75%; position: absolute; top: 3.6cm; left: 3.8cm; width: 15cm">
                         <span t-esc="a_letras(o.amount)"/>
                     </div>
 
@@ -41,18 +41,18 @@
                         <table>
                             <tbody>
                                 <tr t-foreach="o.line_ids" t-as="l">
-                                    <td style="width: 1.7cm"></td>
+                                    <td style="width: 1.7cm"/>
                                     <td style="width: 2cm">
                                         <span t-field="l.account_id.code" style="font-size: 12px;"/>
                                     </td>
-                                    <td style="width: 2cm"></td>
+                                    <td style="width: 2cm"/>
                                     <td style="width: 10cm">
                                         <span t-field="l.account_id.name" style="font-size: 12px;"/>
                                     </td>
                                     <td style="width: 0.3cm, left: 10cm">
                                         <span t-field="l.debit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}" style="font-size: 12px;"/>
                                     </td>
-                                    <td style="width: 2.5cm"></td>
+                                    <td style="width: 2.5cm"/>
                                     <td style="width: 0.3cm " class="text-right">
                                         <span t-field="l.credit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}" style="font-size: 12px;"/>
                                     </td>
@@ -65,19 +65,19 @@
                         <table>
                             <tbody>
                                 <tr>
-                                    <td style="width: 5.7cm"></td>
-                                    <td style="width: 2.1cm" class="text-right"></td>
-                                    <td style="width: 2.5cm"></td>
-                                    <td style="width: 0.5cm" class="text-right"></td>
+                                    <td style="width: 5.7cm"/>
+                                    <td style="width: 2.1cm" class="text-right"/>
+                                    <td style="width: 2.5cm"/>
+                                    <td style="width: 0.5cm" class="text-right"/>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <div style="position: absolute; top: 15.8cm; left: 5cm" >
+                    <div style="font-size: 75%;position: absolute; top: 15.8cm; left: 5cm">
                         <span t-field="o.ref"/>
                     </div>
-                    <div style="position: absolute; top: 17cm; left: 5cm">
+                    <div style="font-size: 75%;position: absolute; top: 17cm; left: 5cm">
                         <span t-field="o.descripcion"/><br/>
                         <t t-if="o.journal_id.default_account_id">
                           <span t-field="o.journal_id.default_account_id.name"/>
@@ -93,7 +93,7 @@
                                     <td style="width: 3cm">
                                         <span t-field="user.name"/>
                                     </td>
-                                    <td style="width: 1"></td>
+                                    <td style="width: 1"/>
                                 </tr>
                             </tbody>
                         </table>
