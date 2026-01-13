@@ -100,6 +100,16 @@
             <field name="binding_type">report</field>
         </record>
 
+        <record id="report_sale_order_aplytek" model="ir.actions.report">
+            <field name="name">Cotización aplytek</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gdomex.report_so_aplytek</field>
+            <field name="report_file">gdomex.report_so_aplytek</field>
+            <field name="binding_model_id" ref="model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
         <!-- <record id="report_sale_order_domex" model="ir.actions.report">
             <field name="name">Cotización Domex</field>
             <field name="model">sale.order</field>
@@ -109,19 +119,6 @@
             <field name="binding_model_id" ref="model_sale_order"/>
             <field name="binding_type">report</field>
         </record> -->
-
-        <!-- Bueno -->
-
-        <!-- <record id="report_sale_order_aplytek" model="ir.actions.report">
-            <field name="name">Cotización Aplytek</field>
-            <field name="model">sale.order</field>
-            <field name="report_type">qweb-pdf</field>
-            <field name="report_name">gdomex.report_so_aplytek</field>
-            <field name="report_file">gdomex.report_so_aplytek</field>
-            <field name="binding_model_id" ref="model_sale_order"/>
-            <field name="binding_type">report</field>
-        </record> -->
-
 
         <record id="report_stock_picking_envio_almex" model="ir.actions.report">
             <field name="name">Envío Almex</field>

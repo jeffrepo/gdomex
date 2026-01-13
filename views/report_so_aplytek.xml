@@ -3,10 +3,13 @@
 
   <template id="report_so_aplytek">
     <t t-call="web.html_container">
+    <t t-set="data_report_margin_top" t-value="12"/>
+    <t t-set="data_report_header_spacing" t-value="4"/>
+    <t t-set="data_report_footer_spacing" t-value="4"/>
       <t t-foreach="docs" t-as="o">
         <div class="article">
           <div class="page">
-
+                
               <img src='/gdomex/static/src/img/aplytek_logo_reporte.png' style="max-width: 837px;"/>
 
               <table style="width:100%; margin-bottom:15px">
