@@ -6,15 +6,23 @@
                    <div class="article">
                         <t t-set="info_pago" t-value="_get_facturas(o)"/>
                         <div class="header">
-                            <t t-if="info_pago[1] in ['Almex','Grupo Domex - almex']">
-                                <img src='/gdomex/static/src/img/almex_logo_reporte.png' style="max-width: 837px;"/>
+                            <t t-if="o.company_id.name == 'APLYTEK S.A.'">
+                              <div style="height:3px"/>
+                              <img src="/gdomex/static/src/img/aplytek_logo_reporte.png" style="max-width: 837px;"/>
                             </t>
-                            <t t-elif="info_pago[1] in ['Grupo Domex','DOMEX']">
-                                <img src='/gdomex/static/src/img/domexl.png' style="max-width: 175px;"/>
+                            <t t-else="">
+                              <div style="height:5px"/>
+                              <t t-if="info_pago[1] in ['Almex','Grupo Domex - almex']">
+                                  <img src="/gdomex/static/src/img/almex_logo_reporte.png" style="max-width: 837px;"/>
+                              </t>
+                              <t t-elif="info_pago[1] in ['Grupo Domex','DOMEX']">
+                                  <img src="/gdomex/static/src/img/domexl.png" style="max-width: 175px;"/>
+                              </t>
+                              <t t-elif="info_pago[1] == 'APLYTEK,S.A.'">
+                                  <img src="/gdomex/static/src/img/aplytek_logo_reporte.png" style="max-width: 837px;"/>
+                              </t>
                             </t>
-                            <t t-elif="info_pago[1] == 'APLYTEK,S.A.'">
-                                <img src='/gdomex/static/src/img/aplytek_logo_reporte.png' style="max-width: 837px;"/>
-                            </t>
+
                             <!-- <t t-if="o.company_id.name in ['Grupo Domex S.AAA.']">
                                 <img src='/gdomex/static/src/img/almex_logo_reporte.png' style="max-width: 837px;"/>
                             </t>
@@ -37,7 +45,7 @@
                             <t t-elif="o.company_id.name == 'LEJAIM, S.A.'">
                                 <img src='/domex/static/src/img/lejaim_logo.png' style="max-width: 837px;"/>
                             </t> -->
-                            <div style="height:5px"></div>
+
                             <table class="table table-condensed">
                                 <tr>
                                     <td style="border-left: 2px solid grey;border-top: 2px solid grey;">
@@ -47,34 +55,52 @@
                                         <br/>PBX <span t-esc="o.company_id.phone"/>
                                         <br/>NIT <span t-esc="o.company_id.vat"/>
                                     </td>
-                                    <t t-if="info_pago[1] in ['Grupo Domex','DOMEX']">
-                                        <td style="border-left: 2px solid grey;border-top: 3px solid #e36d2d;">
-                                         <br/><br/>
-                                            <h4>CONTRASEÑA DE PAGO</h4>
-                                        </td>
-                                    </t>
-                                    <t t-else="">
+                                    <t t-if="o.company_id.name == 'APLYTEK S.A.'">
                                         <td style="border-left: 2px solid grey;border-top: 2px solid grey;">
                                          <br/><br/>
                                             <h4>CONTRASEÑA DE PAGO</h4>
                                         </td>
                                     </t>
+                                    <t t-else="">
+                                        <t t-if="info_pago[1] in ['Grupo Domex','DOMEX']">
+                                            <td style="border-left: 2px solid grey;border-top: 3px solid #e36d2d;">
+                                             <br/><br/>
+                                                <h4>CONTRASEÑA DE PAGO</h4>
+                                            </td>
+                                        </t>
+                                        <t t-else="">
+                                            <td style="border-left: 2px solid grey;border-top: 2px solid grey;">
+                                             <br/><br/>
+                                                <h4>CONTRASEÑA DE PAGO</h4>
+                                            </td>
+                                        </t>
+                                    </t>
 
-
-                                    <t t-if="info_pago[1] in ['Grupo Domex','DOMEX']">
-                                        <td style="border-top: 3px solid #e36d2d;">
+                                    <t t-if="o.company_id.name == 'APLYTEK S.A.'">
+                                        <td style="border-top: 2px solid grey;">
                                             <br/>
-                                            <b>FECHA DE EMISIÓN</b> <span t-esc="fecha_impresion()" t-options='{"widget": "date"}'/>
+                                            <b>FECHA DE EMISIÓN</b> <span t-esc="fecha_impresion()" t-options="{&quot;widget&quot;: &quot;date&quot;}"/>
                                             <br/><b>CONTRASEÑA NO.</b> <span t-field="o.name"/>
                                         </td>
                                     </t>
                                     <t t-else="">
-                                        <td style="border-top: 2px solid grey;">
-                                            <br/>
-                                            <b>FECHA DE EMISIÓN</b> <span t-esc="fecha_impresion()" t-options='{"widget": "date"}'/>
-                                            <br/><b>CONTRASEÑA NO.</b> <span t-field="o.name"/>
-                                        </td>
+                                        <t t-if="info_pago[1] in ['Grupo Domex','DOMEX']">
+                                            <td style="border-top: 3px solid #e36d2d;">
+                                                <br/>
+                                                <b>FECHA DE EMISIÓN</b> <span t-esc="fecha_impresion()" t-options="{&quot;widget&quot;: &quot;date&quot;}"/>
+                                                <br/><b>CONTRASEÑA NO.</b> <span t-field="o.name"/>
+                                            </td>
+                                        </t>
+                                        <t t-else="">
+                                            <td style="border-top: 2px solid grey;">
+                                                <br/>
+                                                <b>FECHA DE EMISIÓN</b> <span t-esc="fecha_impresion()" t-options="{&quot;widget&quot;: &quot;date&quot;}"/>
+                                                <br/><b>CONTRASEÑA NO.</b> <span t-field="o.name"/>
+                                            </td>
+                                        </t>
+                                      
                                     </t>
+
                                 </tr>
                             </table>
                         </div>
@@ -82,7 +108,7 @@
                         <div class="page">
                             <br/><br/><br/><br/>
                             <t t-set="factura" t-value="info_pago[0]"/>
-                            <table  class="table table-condensed" style="border-style: none;">
+                            <table class="table table-condensed" style="border-style: none;">
                                 <tr style="vertical-align: bottom;">
                                     <td style="border-top: none; width:180px;">A FAVOR DE </td>
                                     <td style="border-bottom: 1px solid grey;border-top: none"><span t-esc="factura['nombre']"/></td>
@@ -115,27 +141,27 @@
                                 <tbody>
                                     <t t-foreach="factura['facturas']" t-as="fac">
                                         <tr style="border-bottom: 1px solid grey;vertical-align: middle;height:35px;">
-                                            <td style="border-left: 1px solid grey;"><span t-esc="fac.invoice_date" t-options='{"widget": "date"}'/></td>
+                                            <td style="border-left: 1px solid grey;"><span t-esc="fac.invoice_date" t-options="{&quot;widget&quot;: &quot;date&quot;}"/></td>
                                             <td><span t-esc="factura['serie']"/></td>
                                             <td><span t-esc="factura['numero']"/></td>
                                             <td style="text-align: center;"><span t-esc="fac.invoice_line_ids[0].purchase_order_id.name"/></td>
                                             <td style="text-align: center;">
                                                 <t t-if="fac.invoice_date_due">
-                                                    <span t-esc="fac.invoice_date_due" t-options='{"widget": "date"}'/>
+                                                    <span t-esc="fac.invoice_date_due" t-options="{&quot;widget&quot;: &quot;date&quot;}"/>
                                                 </t>
                                                 <t t-else="">
 
                                                 </t>
                                             </td>
-                                            <td style="text-align: right;"><span t-esc="fac.amount_total" t-options='{"widget": "monetary", "display_currency": fac.currency_id}'/></td>
+                                            <td style="text-align: right;"><span t-esc="fac.amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: fac.currency_id}"/></td>
                                             <td style="border-right: 1px solid grey;text-align: center;"><span t-esc="fac.state"/></td>
                                         </tr>
                                     </t>
                                     <tr style="border-bottom: 1px solid grey;vertical-align: middle;height:20px;">
-                                        <td colspan="4" style="border-left: 1px solid grey;border-top: 1px solid grey;"></td>
+                                        <td colspan="4" style="border-left: 1px solid grey;border-top: 1px solid grey;"/>
                                         <td style="text-align: right;border-top: 1px solid grey;"><b>TOTAL</b></td>
-                                        <td style="text-align: right;border-top: 1px solid grey;"><span t-esc="factura['total']" t-options='{"widget": "monetary", "display_currency": factura["currency"]}'/></td>
-                                        <td style="border-right: 1px solid grey;border-top: 1px solid grey;"></td>
+                                        <td style="text-align: right;border-top: 1px solid grey;"><span t-esc="factura['total']" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: factura[&quot;currency&quot;]}"/></td>
+                                        <td style="border-right: 1px solid grey;border-top: 1px solid grey;"/>
                                     </tr>
                                 </tbody>
                             </table>
