@@ -9,11 +9,25 @@
            <div class="article">
 
                 <div class="page" style="padding-top:20px">
+                  <style>
+                    table.info_compact td, table.info_compact th{
+                      padding: 3px 6px !important;   /* menos alto sin quedar apretado */
+                      font-size: 18px !important;    /* tamaño normal */
+                      line-height: 1.2 !important;   /* compacto pero legible */
+                    }
 
+                    table.info_compact{
+                      margin: 0 !important;
+                    }
+
+                    table.info_compact tr{
+                      height: auto !important;
+                    }
+                  </style>
                     <t t-if="o.picking_type_id.warehouse_id.name in ['Almex','Grupo Domex - almex']">
                         <img src='/gdomex/static/src/img/almex_logo_reporte.png' style="max-width: 837px;"/>
                     </t>
-                    <t t-elif="o.company_id.name == 'APLYTEK, S.A.'">
+                    <t t-elif="o.company_id.name == 'APLYTEK S.A.'">
                         <img src='/gdomex/static/src/img/aplytek_logo_reporte.png' style="max-width: 837px;"/>
                     </t>
 
@@ -67,7 +81,7 @@
                         </tr>
                     </table>
                     <br/>
-                        <table  class="table table-condensed" style="border-collapse: collapse;width:100%">
+                        <table  class="table table-condensed info_compact" style="border-collapse: collapse;width:100%">
                             <tr style="border: 1px solid grey;height:37px;vertical-align: middle;">
                                 <td style="border: 1px solid grey;width:180px;">NAME OF THE PROJECT</td>
                                 <td style="border: 1px solid grey;"><span t-field="o.proyecto"/></td>

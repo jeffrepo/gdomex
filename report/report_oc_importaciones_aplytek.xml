@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 <template id="report_oc_importaciones_aplytek">
-
+            <t t-set="data_report_margin_top" t-value="12"/>
+            <t t-set="data_report_header_spacing" t-value="4"/>
+            <t t-set="data_report_footer_spacing" t-value="4"/>
             <t t-foreach="docs" t-as="o">
 
                 <div class="header" style="width:100%">
@@ -25,6 +27,28 @@
                     </table>
                 </div>
 
+                <style>
+                    /* La página será el “contenedor” del bloque pegado abajo */
+                    .page {
+                        position: relative;
+                        /* Reserva espacio para que no se encime con el contenido de arriba */
+                        padding-bottom: 130px; /* ajusta según tu cuadro */
+                    }
+                
+                    /* Pegarlo al fondo de la página */
+                    .marks_notes{
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        width: 100%;
+                    }
+                
+                    /* Evita que se parta el cuadro si cae al final */
+                    .marks_notes, .marks_notes table, .marks_notes tr, .marks_notes td{
+                        page-break-inside: avoid;
+                    }
+                </style>
 
                 <t t-call="web.html_container">
                     <div class="page" style="padding-top:20px">
@@ -118,15 +142,15 @@
                         </table>
 
                     </div>
-                    <div class="footer text-center">
-                        <table class="table table-condensed" style="border-collapse: collapse;">
+                    <div class="marks_notes">
+                        <table class="table table-condensed" style="border-collapse: collapse; width:100%; margin:0;">
                             <tr style="vertical-align: middle;">
-                                <td style="text-align: left; font-weight: bold;height:40px;width:85px; border: 1px solid grey;">MARKS:</td>
-                                <td style="padding-left:5px; border: 1px solid grey;"><span t-field="o.marks"/></td>
+                                <td style="text-align:left; font-weight:bold; height:40px; width:85px; border:1px solid grey;">MARKS:</td>
+                                <td style="padding-left:5px; border:1px solid grey;"><span t-field="o.marks"/></td>
                             </tr>
                             <tr>
-                                <td style="text-align: left;font-weight: bold;height:70px;width:85px; border: 1px solid grey;">NOTES:</td>
-                                <td style="padding-left:5px; border: 1px solid grey;"><span t-field="o.notes"/></td>
+                                <td style="text-align:left; font-weight:bold; height:70px; width:85px; border:1px solid grey;">NOTES:</td>
+                                <td style="padding-left:5px; border:1px solid grey;"><span t-field="o.notes"/></td>
                             </tr>
                         </table>
                     </div>
