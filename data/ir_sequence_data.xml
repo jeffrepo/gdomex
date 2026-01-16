@@ -124,6 +124,14 @@
             <field name="company_id" eval="False"/>
         </record>
 
+        <record id="seq_purchase_order_aply_code" model="ir.sequence">
+            <field name="name">Purchase Order Aply sequence</field>
+            <field name="code">purchase_order_aply_code</field>
+            <field name="prefix">APLOC</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
         <record id="seq_purchase_order_aply_imp_code" model="ir.sequence">
             <field name="name">Purchase Order Aply imp sequence</field>
             <field name="code">purchase_order_aply_imp_code</field>
