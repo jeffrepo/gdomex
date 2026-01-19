@@ -38,7 +38,10 @@ class Liquidacion(models.Model):
             'account_gt.liquidacion_vinyasa', sequence_date=seq_date) or _('New')                  
         if company_id == 12:
             vals['name'] = self.env['ir.sequence'].next_by_code(
-            'account_gt.liquidacion_galmex', sequence_date=seq_date) or _('New')         
+            'account_gt.liquidacion_galmex', sequence_date=seq_date) or _('New')
+        if company_id == 38:
+            vals['name'] = self.env['ir.sequence'].next_by_code(
+            'account_gt.liquidacion_aply', sequence_date=seq_date) or _('New') 
         logging.warning('vals')
         logging.warning(vals)
         result = super(Liquidacion, self).create(vals)
