@@ -208,5 +208,14 @@
             <field name="padding">5</field>
             <field name="company_id" eval="False"/>
         </record>
+        
+        <record id="seq_accont_gt_liquidacion_aply" model="ir.sequence">
+            <field name="name">Liquidacion APL</field>
+            <field name="code">account_gt.liquidacion_aply</field>
+            <field name="prefix">Liquidacion APL</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
     </data>
 </odoo>
