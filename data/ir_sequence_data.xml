@@ -51,6 +51,14 @@
             <field name="company_id" eval="False"/>
         </record>
 
+        <record id="seq_sale_order_armadillot_code" model="ir.sequence">
+            <field name="name">Sales Order Armadillot sequence</field>
+            <field name="code">sale_order_armadillot_code</field>
+            <field name="prefix">GDARMZSO</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
         <!-- Sequences for purchase.order -->
         <record id="seq_purchase_order_gdomex_code" model="ir.sequence">
             <field name="name">Purchase Order Gdomex sequence</field>
