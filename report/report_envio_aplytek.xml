@@ -3,53 +3,87 @@
 
   <template id="report_envio_aplytek">
     <t t-call="web.html_container">
+      <t t-set="data_report_margin_top" t-value="12"/>
+      <t t-set="data_report_header_spacing" t-value="4"/>
       <t t-foreach="docs" t-as="o">
         <div class="article">
 
           <div class="page">
-              <img src='/gdomex/static/src/img/aplytek_logo_reporte.png' style="max-width: 837px;"/>
 
-              <table class="table table-condensed">
-                  <tr>
-                      <td style="border-left: 2px solid grey;font-size: 13px;">
-                          <h4>APLYTEK S.A.</h4>
-                          Planta Urbanización del Sur, Bodega #36
-                          <br/>km 30.5, Carretera al Pacífico Amatitlán.
-                          <br/>Guatemala, Guatemala
-                          <br/>PBX 2304-7777
-                          <br/>NIT 710022-1
-                      </td>
-                      <td style="border-left: 2px solid grey;">
-                          <br/>
-                          <h4>ENVIO: <span t-esc="o.name"/>
-                          <br/>COTIZACIÓN: <span t-esc="o.origin"/> </h4>
-                      </td>
-                  </tr>
-              </table>
+              <div style="height:130px;width:100%">
+
+                <div style="height:130px;width:30%;float:left">
+                  <img src="/gdomex/static/src/img/aplytek_logo.png" style="width:90%;max-height:99px"/>
+                </div>
+
+                <div style="height:140px;width:70%;float:right">
+                  <div style="background:#2f74b5; width:95%;height:15px;float:right"/>
+                </div>
+
+              </div>
+
+              <div style="width:100%; height:200px; border-bottom: 4px solid #c1dcf6;">
+                <div style="width:50%;height:200px;float:left;border-right: 4px solid #E5E7E9;">
+                  <p style="font-family: 'Poppins'">
+                      <h4>APLYTEK S.A.</h4>
+                      Planta Urbanización del Sur, Bodega #36
+                      <br/>km 30.5, Carretera al Pacífico Amatitlán.
+                      <br/>Guatemala, Guatemala
+                      <br/>PBX 2304-7777
+                      <br/>NIT 710022-1
+                  </p>
+                </div>
+                <div style="width:50%;height:150px;float:right;">
+                  <p style="font-family: 'Poppins'">
+                    <br/>
+                    <b>ENVIO:</b> <span t-esc="o.name"/><br/>
+                    <br/>
+                    <b>COTIZACIÓN:</b>
+                          <t t-if="o.project_id">
+                              <span t-esc="o.project_id.sale_order_id.name"/><br/>
+                          </t>
+                          <t t-if="o.sale_id">
+                              <span t-esc="o.sale_id.name"/><br/>
+                          </t>
+                      <br/>
+                    <br/>
+
+                  </p>
+                </div>
+              </div>
+
               <br/>
-              <div>
-                  <b>FECHA:</b> <span t-field="o.date"/>
-                  <br/><b>DE:</b> <span t-esc="o.company_id.name"/>
+              <div style="width:100%; height:120px;">
+                  <b>FECHA:</b> <span t-field="o.scheduled_date" t-field-options="{&quot;format&quot;: &quot;d/m/Y&quot;}"/>
+                  <br/><b>DE:</b> <span t-if="o.picking_type_id.warehouse_id" t-esc="o.picking_type_id.warehouse_id.name"/>
                   <br/><b>PARA:</b> <span t-esc="o.partner_id.name"/>
                   <br/><b>PROYETO:</b>
+                      <t t-if="o.project_id">
+                          <span t-esc="o.project_id.sale_order_id.proyecto"/>
+                      </t>
+                      <t t-if="o.sale_id">
+                          <span t-esc="o.sale_id.proyecto"/>
+                      </t>
+                  <br/>
                   <!-- <span t-esc="o.sale_id.proyecto"/> -->
               </div>
               <br/>
-              Por este medio se hace constar la entrega de los materiales descritos a continuación en perfecto estado y se exime a Aplytek, S.A. de cualquier reclamo posterior
+              Por este medio se hace constar la entrega de los materiales descritos a continuación en perfecto estado y se exime a <b>Grupo Domex, S.A.</b> de cualquier reclamo posterior
               <br/><br/>
-              <table class="table table-condensed" style="border-collapse: collapse;">
-                  <tr style="border: 1px solid grey;height:35px;vertical-align: middle;">
-                      <b><th style="border: 1px solid grey;vertical-align: middle;text-align: center;">NO.</th>
-                      <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">CANTIDAD</th>
-                      <th style="border: 1px solid grey;vertical-align: middle;text-align: center;">LONGITUD</th>
-                      <th class="text-right" style="border: 1px solid grey;vertical-align: middle;text-align: center;">DESCRIPCION</th></b>
+              <table class="table table-condensed" style="border-collapse: collapse;margin-bottom:0px">
+                  <tr style="border: 1px solid;height:35px;text-align:center;border-bottom: 1px solid">
+                      <b><th style="border: 1px solid;vertical-align: middle"><FONT color="black">NO.</FONT></th>
+                      <th style="border: 1px solid;vertical-align: middle"><FONT color="black">CANTIDAD</FONT></th>
+                      <th style="border: 1px solid;vertical-align: middle"><FONT color="black">UNIDAD DE MEDIDA</FONT></th>
+                      <th style="border: 1px solid;vertical-align: middle"><FONT color="black">DESCRIPCION</FONT></th></b>
                   </tr>
                   <tbody>
                       <t t-set="numero" t-value="1"/>
                       <t t-foreach="o.move_lines" t-as="l">
-                          <tr style="border-bottom: 1px solid grey;vertical-align: middle;height:35px;">
-                              <td style="border-left: 1px solid grey;"><span t-esc="numero"/></td>
+                          <tr style="border-top: 1px solid;border-bottom: 1px solid;vertical-align: middle;height:35px;">
+                              <td style="border-left: 1px solid;"><span t-esc="numero"/></td>
                               <td style="text-align: center;">
+                                <span t-esc="l.product_uom_qty"/>
                                   <!-- <t t-if="l.quant_ids">
                                       <t t-foreach="o.obtener_medidas(l.quant_ids)" t-as="res">
                                           <span t-esc="res['cantidad']"/><br/>
@@ -57,41 +91,52 @@
                                   </t> -->
                               </td>
                               <td style="text-align: center;">
+                                <span t-if="l.product_uom" t-esc="l.product_uom.name"/>
+                                <!-- <FONT color="white"><span t-esc="l."/></FONT> -->
                                   <!-- <t t-if="l.quant_ids">
                                       <t t-foreach="o.obtener_medidas(l.quant_ids)" t-as="res">
                                           <span t-esc="res['medida']"/><br/>
                                       </t>
                                   </t> -->
                               </td>
-                              <td style="border-right: 1px solid grey;text-align: center;"><span t-esc="l.product_id.name"/></td>
+                              <td style="border-right: 1px solid #FAE5D3;text-align: center;">
+                                <span t-esc="l.product_id.name"/>
+                              </td>
                           </tr>
                           <t t-set="numero" t-value="numero + 1"/>
                       </t>
-                      <tr>
-                          <td colspan="4" style="border: 1px solid grey; height: 50px">OBSERVACIONES:</td>
-                      </tr>
                   </tbody>
               </table>
-
-              <table class="table table-condensed" style="border-collapse: collapse;">
+              <div style="width:100%; height:auto;border:1px solid;word-break:break-all;font-size:12px">
+                <br/>
+                <p>
+                  <b>OBSERVACIONES:</b> <span t-esc="o.note"/>
+                </p>
+              </div>
+              <table class="table table-condensed" style="border-collapse: collapse;border:1px solid #FAE5D3;font-size:12px">
                   <tr>
-                      <td style="border: 1px solid grey;">RECIBE: <span t-field="o.recibe"/> <br/>DPI: <br/>PLACAS: <span t-field="o.placas"/> </td>
-                      <td style="border: 1px solid grey;">FIRMA:</td>
+                      <td style="border: 1px solid;">RECIBE: <span t-field="o.recibe"/> <br/>DPI: <span t-if="o.dpi" t-esc="o.dpi"/>
+                          <br/>PLACAS: <span t-field="o.placas"/> </td>
+                      <td style="border: 1px solid;">FIRMA:</td>
                   </tr>
                   <tr>
-                      <td style="border: 1px solid grey;">ENTREGA: <span t-field="o.encargado_entrega.name"/><br/>FECHA: <span t-field="o.date_done" t-options="{'widget': 'date', 'format': 'dd/MM/yyyy'}"/> <br/>HORA: <span t-field="o.date_done"  t-options="{'format': 'HH:mm:ss '}"/> </td>
-                      <td style="border: 1px solid grey;">FIRMA:</td>
+                     <td style="border: 1px solid;">ENTREGA: <span t-field="o.entrega"/><br/>
+                         FECHA Y HORA: <span t-field="o.fecha_hora_entrega"/> <br/> </td>
+                     <td style="border: 1px solid;">FIRMA:</td>
                   </tr>
               </table>
-              <br/><br/><br/>
-              <table class="table table-condensed" style="border-collapse: collapse;">
+              <br/><br/>
+              <!-- <table class="table table-condensed" style="border-collapse: collapse;">
                   <tr>
-                      <td style="border: 1px solid grey; padding-left:550px; height: 75px">FIRMA AUTORIZACIÓN:</td>
+                      <td style="border: 1px solid grey;height: 150px">AUTORIZA:</td>
+                      <td style="border: 1px solid grey;vertical-align: middle">FIRMA:</td>
                   </tr>
-              </table>
+              </table> -->
           </div>
 
         </div>
+
+
 
       </t>
     </t>

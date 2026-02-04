@@ -7,7 +7,7 @@
                     <div style="font-size: 80%; position: absolute; top: 2.1cm; left: 2cm">
                         GUATEMALA, <span t-field="o.date"/>
                     </div>
-                    <div style="font-size: 80%; position: absolute; top: 2.1cm; left: 11.8cm">
+                    <div style="font-size: 80%; position: absolute; top: 2.1cm; left: 13.0cm">
                         <span t-esc="'{0:,.2f}'.format(o.amount)"/>
                     </div>
                     <div style="font-size: 80%; position: absolute; top: 2.7cm; left: 3.4cm; width: 15cm">
@@ -24,22 +24,22 @@
                         <table style="font-size: 80%;">
                             <tbody>
                                 <tr t-foreach="o.line_ids" t-as="l">
-                                    <td style="width: 1.7cm"></td>
+                                    <td style="width: 1.7cm"/>
                                     <td style="width: 2cm">
                                         <span t-field="l.account_id.code"/>
                                     </td>
-                                    <td style="width: 2cm"></td>
+                                    <td style="width: 2cm"/>
                                     <td style="width: 11.2cm">
                                         <span t-field="l.account_id.name"/>
                                     </td>
                                     <td style="width: 0.7cm" class="text-right">
                                         <span t-field="l.debit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                     </td>
-                                    <td style="width: 2.5cm"></td>
+                                    <td style="width: 2.5cm"/>
                                     <td style="width: 0.5cm" class="text-right">
                                         <span t-field="l.credit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                     </td>
-                                    <td style="width: 0.9cm"></td>
+                                    <td style="width: 0.9cm"/>
                                 </tr>
                             </tbody>
                         </table>
@@ -49,15 +49,15 @@
                         <table style="font-size: 80%;">
                             <tbody>
                                 <tr>
-                                    <td style="width: 16.3cm"></td>
+                                    <td style="width: 16.3cm"/>
                                     <td style="width: 2.1cm" class="text-right">
                                         <span t-esc="totales(o)['debito']" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                     </td>
-                                    <td style="width: 2.5cm"></td>
+                                    <td style="width: 2.5cm"/>
                                     <td style="width: 0.5cm" class="text-right">
                                         <span t-esc="totales(o)['credito']" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                     </td>
-                                    <td style="width: 0.9cm"></td>
+                                    <td style="width: 0.9cm"/>
                                 </tr>
                             </tbody>
                         </table>
@@ -107,7 +107,7 @@
                                     <td style="width: 0cm">
                                         <span t-field="user.name"/>
                                     </td>
-                                    <td style="width: 1"></td>
+                                    <td style="width: 1"/>
                                 </tr>
                             </tbody>
                         </table>
