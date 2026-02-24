@@ -34,7 +34,7 @@ class AccountMove(models.Model):
         res = super(AccountMove, self).action_post()
         
         for move in self:
-            if move.company_id.id == 11 and move.move_type == 'out_invoice':
+            if move.company_id.id == 40 and move.move_type == 'out_invoice':
                 has_storable_product = any(line.product_id.type == 'product' for line in move.invoice_line_ids)
 
                 if has_storable_product:
