@@ -41,9 +41,9 @@ class AccountMove(models.Model):
                     # Crear el albarán
                     picking = self.env['stock.picking'].create({
                         'partner_id': move.partner_id.id,
-                        'location_id': 148,  # Ubicación origen
+                        'location_id': 536,  # Ubicación origen
                         'location_dest_id': 5,  # Clientes
-                        'picking_type_id': 110,  # Tipo de picking
+                        'picking_type_id': 401,  # Tipo de picking
                         'origin': move.name,
                         'move_type': 'direct',  # Tipo de movimiento
                     })
@@ -56,7 +56,7 @@ class AccountMove(models.Model):
                                 'product_uom_qty': line.quantity,
                                 'product_uom': line.product_uom_id.id,
                                 'picking_id': picking.id,
-                                'location_id': 148,  # Ubicación origen
+                                'location_id': 536,  # Ubicación origen
                                 'location_dest_id': 5,  # Clientes
                             })
 
@@ -71,7 +71,7 @@ class AccountMove(models.Model):
                                             'product_uom_qty': bom_line.product_qty * line.quantity,
                                             'product_uom': bom_line.product_uom_id.id,
                                             'picking_id': picking.id,
-                                            'location_id': 148,  # Ubicación origen
+                                            'location_id': 536,  # Ubicación origen
                                             'location_dest_id': 5,  # Clientes
                                         })
 
