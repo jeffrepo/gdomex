@@ -181,8 +181,10 @@ class Picking(models.Model):
 
     def create_mrp_order(self):
         productos_dic = {}
+        tipo_operacion = False
         for picking in self:
             if picking.state in ['waiting','confirmed','assigned']:
+                tipo_operacion = self.env['stock.picking.type'].search([("name","=","Fabricación"),("warehouse_id","=",picking.location_id.warehouse_id.id)])
                 if picking.move_ids_without_package:
                     for line in picking.move_ids_without_package:
 
@@ -203,15 +205,17 @@ class Picking(models.Model):
                             productos_dic[line.product_id.id]['qty'] += line.product_uom_qty
                             productos_dic[line.product_id.id]['lines'].append(line)
 
-        if productos_dic:
+        if productos_dic and tipo_operacion:
             for p in productos_dic:
                 mrp_order = {
+                    'picking_type_id': tipo_operacion.id,
                     'product_id':  productos_dic[p]['product_id'],
                     'product_uom_id': productos_dic[p]['product_uom_id'],
                     'qty_producing': productos_dic[p]['qty'],
                     'product_qty': productos_dic[p]['qty'],
                     'bom_id': productos_dic[p]['bom_id'],
                     'origin': productos_dic[p]['origin'],
+                    'location_dest_id': tipo_operacion.default_location_dest_id.id,
                 }
                 mrp_order_id = self.env['mrp.production'].create(mrp_order)
                 #mrp_order_id._onchange_product_id()

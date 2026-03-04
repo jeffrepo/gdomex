@@ -1,13 +1,6 @@
 # -*- coding: utf-8 -*-
-from markupsafe import Markup
-from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models, SUPERUSER_ID, _
-from odoo.tools.float_utils import float_compare, float_is_zero, float_round
-from odoo.exceptions import UserError
-
-from odoo.addons.purchase.models.purchase import PurchaseOrder as Purchase
-
 
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'

@@ -7,8 +7,9 @@
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="arch" type="xml">
 
-            <xpath expr="//button[@name='action_confirm']" position="replace">
+            <!-- <xpath expr="//button[@name='action_confirm']" position="replace">
                 <button name="action_confirm"
+                  invisible
                   attrs="{'invisible': [('state', 'in', ['done', 'cancel', 'assigned', 'confirmed'])]}"
                   string="Mark as Todo"
                   type="object"
@@ -34,7 +35,7 @@
                   groups="base.group_user"
                   data-hotkey="f"
                   />
-            </xpath>
+            </xpath> -->
             <field name="user_id" position="after">
               <field name="recibe"/>
               <field name="dpi"/>
@@ -43,7 +44,7 @@
               <field name="fecha_hora_entrega"/>
             </field>
 
-            <field name="quantity_done" position="after">
+            <field name="quantity" position="after">
               <field name="unidad"/>
               <field name="largo_gdomex"/>
               <field name="ancho_gdomex"/>

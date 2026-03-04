@@ -1,12 +1,6 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-
-from ast import literal_eval
 
 from odoo import api, fields, models, _, _lt
-from odoo.exceptions import ValidationError, UserError
-from odoo.osv import expression
-from odoo.osv.query import Query
 import logging
 
 class Project(models.Model):

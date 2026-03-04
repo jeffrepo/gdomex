@@ -11,7 +11,7 @@ class AccountPayment(models.Model):
     nombre_impreso = fields.Char(string='Nombre impreso')
     cuenta_transitoria_id = fields.Many2one('account.account', 'Cuenta transitoria')
 
-    @api.depends('journal_id', 'partner_id', 'partner_type', 'is_internal_transfer')
+    @api.depends('journal_id', 'partner_id', 'partner_type')
     def _compute_destination_account_id(self):
         super(AccountPayment, self)._compute_destination_account_id()
         if self.cuenta_transitoria_id:

@@ -12,7 +12,7 @@
                             type="object"
                             class="oe_stat_button"
                             icon="fa-archive"
-                            attrs="{'invisible': [('picking_id', '=', False)]}">
+                            invisible="picking_id == False">
                             <field name="picking_id" widget="statinfo" string="Albarán"/>
                         </button>
                     </div>

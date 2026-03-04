@@ -250,7 +250,14 @@
             </field>
         </record>
 
-        <act_window id="window_reporte_costos" name="Costo de inventario en metros" res_model="domex.asistente_reporte_costo_metros" view_mode="form" target="new"/>
+            <record id="window_reporte_costos" model="ir.actions.act_window">
+                <field name="name">Costo de inventario en metros</field>
+                <field name="res_model">domex.asistente_reporte_costo_metros</field>
+                <field name="view_mode">form</field>
+                <field name="target">new</field>
+            </record>
+        
+        <!-- <act_window id="window_reporte_costos" name="Costo de inventario en metros" res_model="domex.asistente_reporte_costo_metros" view_mode="form" target="new"/> -->
         <menuitem action="window_reporte_costos" id="menu_asistente_reporte_costos" parent="stock.menu_warehouse_report"/>
 
     </data>

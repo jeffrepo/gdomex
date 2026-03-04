@@ -113,8 +113,8 @@ class DomexPresupuestoProductoLinea(models.Model):
     producto_id = fields.Many2one('product.product', string='Producto')
     cantidad = fields.Float('Cantidad')
 
-class ProductionLot(models.Model):
-    _inherit = 'stock.production.lot'
+class StockLot(models.Model):
+    _inherit = 'stock.lot'
 
     largo = fields.Float('Largo')
     ancho = fields.Float('Ancho')

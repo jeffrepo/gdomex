@@ -1,7 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-from openerp import models, fields, api, _
-# from openerp.exceptions import UserError, ValidationError
+from odoo import api, fields, models, SUPERUSER_ID, _
 import xlwt
 import base64
 try:

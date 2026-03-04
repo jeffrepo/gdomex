@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from . import stock_quant
-from . import stock_production_lot
+from . import stock_lot
 from . import domex
 from . import account_payment
 from . import project

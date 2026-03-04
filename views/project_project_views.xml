@@ -12,10 +12,10 @@
                 </page>
                 <page name="presupuesto_productos" string="Presupuesto por producto" groups="gdomex.group_presupuesto_proyecto">
                   <field name="presupuesto_producto_ids">
-                      <tree editable="bottom">
+                      <list editable="bottom">
                           <field name="producto_id"/>
                           <field name="cantidad"/>
-                      </tree>
+                      </list>
                   </field>
                 </page>
             </xpath>
