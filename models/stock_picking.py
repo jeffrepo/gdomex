@@ -183,7 +183,7 @@ class Picking(models.Model):
         productos_dic = {}
         tipo_operacion = False
         for picking in self:
-            if picking.state in ['waiting','confirmed','assigned']:
+            if picking.state in ['waiting','confirmed','assigned','done']:
                 tipo_operacion = self.env['stock.picking.type'].search([("name","=","Fabricación"),("warehouse_id","=",picking.location_id.warehouse_id.id)])
                 if picking.move_ids_without_package:
                     for line in picking.move_ids_without_package:
