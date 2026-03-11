@@ -139,7 +139,7 @@
             <field name="padding">5</field>
             <field name="company_id" eval="False"/>
         </record>
-        
+
         <record id="seq_purchase_order_aply_imp_code" model="ir.sequence">
             <field name="name">Purchase Order Aply imp sequence</field>
             <field name="code">purchase_order_aply_imp_code</field>
@@ -152,6 +152,22 @@
             <field name="name">Purchase Order Sachar sequence</field>
             <field name="code">purchase_order_sach_code</field>
             <field name="prefix">SACHOC0001</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_purchase_order_armadillo_code" model="ir.sequence">
+            <field name="name">Purchase Order Armadillo sequence</field>
+            <field name="code">purchase_order_armadillo_code</field>
+            <field name="prefix">GDARMOC</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_purchase_order_armadilloz_code" model="ir.sequence">
+            <field name="name">Purchase Order Armadillo Z sequence</field>
+            <field name="code">purchase_order_armadilloz_code</field>
+            <field name="prefix">GDARMZOC</field>
             <field name="padding">5</field>
             <field name="company_id" eval="False"/>
         </record>
@@ -216,7 +232,7 @@
             <field name="padding">5</field>
             <field name="company_id" eval="False"/>
         </record>
-        
+
         <record id="seq_accont_gt_liquidacion_aply" model="ir.sequence">
             <field name="name">Liquidacion APL</field>
             <field name="code">account_gt.liquidacion_aply</field>
@@ -224,6 +240,6 @@
             <field name="padding">5</field>
             <field name="company_id" eval="False"/>
         </record>
-        
+
     </data>
 </odoo>
