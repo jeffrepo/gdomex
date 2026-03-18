@@ -143,6 +143,21 @@ class PurchaseOrder(models.Model):
                     if 'date_order' in vals:
                         seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
                     vals['name'] = self_comp.env['ir.sequence'].next_by_code('purchase_order_armadilloz_code', sequence_date=seq_date) or '/'
+            if vals['picking_type_id'] == 419:
+
+                if vals.get('name', 'New') == 'New':
+                    seq_date = None
+                    if 'date_order' in vals:
+                        seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
+                    vals['name'] = self_comp.env['ir.sequence'].next_by_code('purchase_order_armadillo_imp_code', sequence_date=seq_date) or '/'
+
+            if vals['picking_type_id'] == 418:
+
+                if vals.get('name', 'New') == 'New':
+                    seq_date = None
+                    if 'date_order' in vals:
+                        seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
+                    vals['name'] = self_comp.env['ir.sequence'].next_by_code('purchase_order_armadilloz_imp_code', sequence_date=seq_date) or '/'
 
         result = super(PurchaseOrder, self).create(vals)
         return result
