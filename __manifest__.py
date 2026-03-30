@@ -1,26 +1,27 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "GDOMEX",
-
-    'summary': """ Módulo de GDOMEX """,
-
-    'description': """
-         Módulo para GDOMEX
-    """,
-
-    'author': "Silva technologies",
-    'website': "",
-
-    'category': 'Uncategorized',
-    'version': '19.01',
-
-    'depends': ['stock','project', 'sale','mrp', 'stock_landed_costs', 'account','account_gt','hr'],
-
+    'name': 'GDOMEX',
+    'summary': 'Módulo de GDOMEX',
+    'description': 'Módulo para GDOMEX',
+    'author': 'Silva technologies',
+    'website': '',
+    'category': 'Inventory',
+    'version': '19.0.1.0.0',
+    'license': 'LGPL-3',
+    'depends': [
+        'stock',
+        'project',
+        'sale',
+        'mrp',
+        'stock_landed_costs',
+        'account',
+        'hr',
+        'account_gt',
+    ],
     'data': [
-    	'report/venta_cotizacion_grupodomex.xml',
-    	'report/instalacion_cotizacion_grupodomex.xml',
+        'report/venta_cotizacion_grupodomex.xml',
+        'report/instalacion_cotizacion_grupodomex.xml',
         'data/report_paperformat_data.xml',
-        #'data/ir_cron_data.xml',
         'report/report_oc_importaciones_almex.xml',
         'report/report_oc_importaciones_aplytek.xml',
         'report/report_orden_trabajo.xml',
@@ -58,7 +59,6 @@
         'report/report_envio_aplytek.xml',
         'report/report_stockpicking_domex.xml',
         'report/report_envio_almex.xml',
-        'report/report_orden_trabajo.xml',
         'views/mrp_production_views.xml',
         'wizard/project_orden_trabajo.xml',
         'views/stock_landed_cost_views.xml',
@@ -66,4 +66,6 @@
         'views/account_journal_views.xml',
         'views/account_move_views.xml',
     ],
+    'installable': True,
+    'application': False,
 }
