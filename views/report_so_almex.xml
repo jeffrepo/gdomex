@@ -73,7 +73,7 @@
                           <tr style="border-bottom: 1px solid grey;vertical-align: middle;height:35px;">
                               <td style="border-left: 1px solid grey;"><span t-esc="l.product_id.code"/></td>
                               <td><span t-esc="l.product_id.name"/></td>
-                              <td><span t-esc="l.product_uom.name"/></td>
+                              <td><span t-esc="l.product_uom_id.name"/></td>
                               <td style="text-align: center;"><span t-esc="l.product_uom_qty"/></td>
                               <td style="text-align: right;"><span t-esc="l.price_unit"  t-options='{"widget":"float","precision":2}'/></td>
                               <td style="border-right: 1px solid grey;text-align: right;"><span t-esc="l.price_total"  t-options='{"widget":"float","precision":2}'/></td>

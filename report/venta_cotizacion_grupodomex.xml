@@ -79,7 +79,7 @@
                               <td><span t-esc="l.unidad"/></td>
                               <td><span t-esc="l.ancho"/></td>
                               <td><span t-esc="l.largo"/></td>
-                              <td><span t-esc="l.product_uom.name"/></td>
+                              <td><span t-esc="l.product_uom_id.name"/></td>
                               <td style="text-align: center;"><span t-esc="l.product_uom_qty" t-options='{"widget":"float","precision":2}'/></td>
                               <td style="text-align: right;"><span t-esc="l.price_unit"  t-options='{"widget":"float","precision":2}'/></td>
                               <td style="border-right: 1px solid grey;text-align: right;"><span t-esc="l.price_subtotal"  t-options='{"widget":"float","precision":2}'/></td>

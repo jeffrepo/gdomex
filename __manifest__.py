@@ -12,7 +12,7 @@
     'website': "",
 
     'category': 'Uncategorized',
-    'version': '0.1',
+    'version': '19.01',
 
     'depends': ['stock','project', 'sale','mrp', 'stock_landed_costs', 'account','account_gt','hr'],
 

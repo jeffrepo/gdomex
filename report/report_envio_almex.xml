@@ -66,10 +66,10 @@
                     </tr>
                     <tbody style="border: 1px solid #99A3A4;background:#E5E7E9">
                         <t t-set="numero" t-value="1"/>
-                        <t t-foreach="o.move_ids_without_package" t-as="l">
+                        <t t-foreach="o.move_ids" t-as="l">
                             <tr style="border: 1px solid #99A3A4; vertical-align: middle;height:35px;">
                                 <td style="border-left: 1px solid grey; text-align:right"><span t-esc="numero"/></td>
-                                <td style="text-align: center;"><span t-esc="l.product_uom_qty"/></td>
+                                <td style="text-align: center;"><span t-esc="l.quantity"/></td>
                                 <td style="text-align: center;">
                                   <span t-if="l.product_uom" t-esc="l.product_uom.name"/>
                                 </td>

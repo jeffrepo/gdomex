@@ -105,7 +105,7 @@
                                     <t t-foreach="o.order_line" t-as="l">
                                         <tr style="border-bottom: 1px solid grey;vertical-align: middle;height:35px;">
                                             <td style="border-left: 1px solid grey;"> <span t-esc="l.product_qty"/></td>
-                                            <td> <span t-esc="l.product_uom.name"/></td>
+                                            <td> <span t-esc="l.product_uom_id.name"/></td>
                                             <td> <span t-esc="l.name"/></td>
                                             <td style="text-align: center;"><span t-esc="l.price_unit"  t-options='{"widget":"float","precision":5}'/></td>
                                             <td style="border-right: 1px solid grey;text-align: center;"><span t-esc="l.price_total"  t-options='{"widget":"float","precision":5}'/></td>
@@ -136,7 +136,7 @@
                             <table class="table table-condensed" style="border-collapse: collapse;">
                                 <tr style="border: 1px solid grey;height:50px;vertical-align: middle;">
                                     <b><th style="border: 1px solid grey;vertical-align: middle;text-align: left;width:410px">OBSERVACIONES</th></b>
-                                    <th class="text-right" style="border: 1px solid grey;vertical-align: middle;text-align: center;font-size: 12px"> <span t-field="o.notes"/></th>
+                                    <th class="text-right" style="border: 1px solid grey;vertical-align: middle;text-align: center;font-size: 12px"> <span t-field="o.note"/></th>
 
                                 </tr>
                             </table>

@@ -97,11 +97,11 @@
                   </tr>
                   <tbody>
                       <t t-set="numero" t-value="1"/>
-                      <t t-foreach="o.move_lines" t-as="l">
+                      <t t-foreach="o.move_ids" t-as="l">
                           <tr style="border-top: 1px solid #EB984E;border-bottom: 1px solid #EB984E;vertical-align: middle;height:35px;">
                               <td style="border-left: 1px solid #EB984E;"><span t-esc="numero"/></td>
                               <td style="text-align: center;">
-                                <span t-esc="l.product_uom_qty"/>
+                                <span t-esc="l.quantity"/>
                                   <!-- <t t-if="l.quant_ids">
                                       <t t-foreach="o.obtener_medidas(l.quant_ids)" t-as="res">
                                           <span t-esc="res['cantidad']"/><br/>
