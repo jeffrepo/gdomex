@@ -51,29 +51,30 @@ class SaleOrder(models.Model):
                 line.price_unit = line.price_unit * line.largo
         return True
 
-    @api.model
-    def create(self, vals):
-        if 'date_order' in vals:
-            seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
-            if vals['warehouse_id'] == 15:
-                vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_gdomex_code', sequence_date=seq_date) or _('New')
-            if vals['warehouse_id'] == 16:
-                vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_almex_code', sequence_date=seq_date) or _('New')
-            if vals['warehouse_id'] == 9:
-                vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_bordalas_code', sequence_date=seq_date) or _('New')
-            if vals['warehouse_id'] == 8:
-                vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_neira_code', sequence_date=seq_date) or _('New')
-            if vals['warehouse_id'] == 7:
-                vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_acuario_code', sequence_date=seq_date) or _('New')
-            if vals['warehouse_id'] == 20:
-                vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_armadillo_code', sequence_date=seq_date) or _('New')
-            if vals['warehouse_id'] == 47:
-                vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_armadillot_code', sequence_date=seq_date) or _('New')
-        result = super(SaleOrder, self).create(vals)
-        if 'warehouse_id' in vals:
-            warehouse_id = self.env['stock.warehouse'].search([('id','=', vals['warehouse_id'])])
-            if warehouse_id:
-                result.message_post(body=_("Almacen %s ", warehouse_id.name))
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if 'date_order' in vals:
+                seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
+                if vals['warehouse_id'] == 15:
+                    vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_gdomex_code', sequence_date=seq_date) or _('New')
+                if vals['warehouse_id'] == 16:
+                    vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_almex_code', sequence_date=seq_date) or _('New')
+                if vals['warehouse_id'] == 9:
+                    vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_bordalas_code', sequence_date=seq_date) or _('New')
+                if vals['warehouse_id'] == 8:
+                    vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_neira_code', sequence_date=seq_date) or _('New')
+                if vals['warehouse_id'] == 7:
+                    vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_acuario_code', sequence_date=seq_date) or _('New')
+                if vals['warehouse_id'] == 20:
+                    vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_armadillo_code', sequence_date=seq_date) or _('New')
+                if vals['warehouse_id'] == 47:
+                    vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_armadillot_code', sequence_date=seq_date) or _('New')
+            result = super(SaleOrder, self).create(vals)
+            if 'warehouse_id' in vals:
+                warehouse_id = self.env['stock.warehouse'].search([('id','=', vals['warehouse_id'])])
+                if warehouse_id:
+                    result.message_post(body=_("Almacen %s ", warehouse_id.name))
         return result
 
     def write(self, values):
