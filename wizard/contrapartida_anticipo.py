@@ -63,7 +63,7 @@ class gdomex_contrapartida_wizard(models.TransientModel):
         dict['line_ids'] = lineas
 
         move = self.env['account.move'].create(dict)
-        move.post()
+        move.action_post()
 
         return {'type': 'ir.actions.act_window_close'}
     
