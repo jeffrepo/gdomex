@@ -8,8 +8,8 @@ class AccountPaymentRegister(models.TransientModel):
 
     nombre_impreso = fields.Char(string='Nombre impreso')
 
-    def _create_payment_vals_from_wizard(self):
-        vals = super()._create_payment_vals_from_wizard()
+    def _create_payment_vals_from_wizard(self, batch_result):
+        vals = super()._create_payment_vals_from_wizard(batch_result)
         if self.nombre_impreso:
             vals.update({'nombre_impreso': self.nombre_impreso})
         return vals
