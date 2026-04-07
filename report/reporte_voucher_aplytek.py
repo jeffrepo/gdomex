@@ -154,7 +154,7 @@ class ReportAplytek(models.AbstractModel):
 
     def totales(self, o):
         t = {'debito': 0, 'credito': 0}
-        for l in o.line_ids:
+        for l in o.move_id.line_ids:
             t['debito'] += l.debit
             t['credito'] += l.credit
         return t
