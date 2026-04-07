@@ -44,7 +44,7 @@
                   <div style="position: absolute; top: 17.5cm; left: 0.5cm">
                       <table>
                          <tbody>
-                              <tr t-foreach="o.line_ids" t-as="l">
+                              <tr t-foreach="o.move_id.line_ids" t-as="l">
                                   <td style="width: 1.7cm">
                                   </td>
                                   <td style="width: 2cm">

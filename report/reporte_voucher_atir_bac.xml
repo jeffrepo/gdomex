@@ -46,7 +46,7 @@
                     <div style="position: absolute; top: 14.5cm; right: 1.5 cm">
                         <table>
                            <tbody>
-                                <tr t-foreach="o.line_ids" t-as="l">
+                                <tr t-foreach="o.move_id.line_ids" t-as="l">
                                     <td style="width: 1.7cm">
                                     </td>
                                     <td style="width: 2cm">
@@ -91,7 +91,7 @@
 
 
                     <div style="font-size: 75%; position: absolute; top: 15.8cm; left: 5cm">
-                         <span t-field="o.ref"></span>
+                         <span t-field="o.memo"></span>
                     </div>
 	                <div style="font-size: 75%; position: absolute; top: 17cm; left: 5cm">
                         <span t-field="o.descripcion"/><br/>

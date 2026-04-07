@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-
         <record id="gdomex_venta_cotizacion_grupodomex" model="ir.actions.report">
             <field name="name">Venta Cotización Domex</field>
             <field name="model">sale.order</field>
@@ -81,14 +79,15 @@
           <field name="binding_type">report</field>
         </record> -->
 
-        <report
-            id="report_sale_order_shipping_domex"
-            string="Envios de ventas Domex"
-            model="sale.order"
-            report_type="qweb-pdf"
-            file="gdomex.report_saleordershipping_domex"
-            name="gdomex.report_saleordershipping_domex"
-        />
+        <record id="report_sale_order_shipping_domex" model="ir.actions.report">
+            <field name="name">Envios de ventas Domex</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gdomex.report_saleordershipping_domex</field>
+            <field name="report_file">gdomex.report_saleordershipping_domex</field>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
 
         <record id="report_sale_order_almex" model="ir.actions.report">
             <field name="name">Cotización Almex</field>
@@ -99,6 +98,7 @@
             <field name="binding_model_id" ref="model_sale_order"/>
             <field name="binding_type">report</field>
         </record>
+
 
         <record id="report_sale_order_aplytek" model="ir.actions.report">
             <field name="name">Cotización aplytek</field>
@@ -199,15 +199,7 @@
             <field name="binding_model_id" ref="model_purchase_order"/>
             <field name="binding_type">report</field>
         </record> -->
-        <record id="report_sale_order_almex" model="ir.actions.report">
-            <field name="name">Cotización Almex</field>
-            <field name="model">sale.order</field>
-            <field name="report_type">qweb-pdf</field>
-            <field name="report_name">gdomex.report_so_almex</field>
-            <field name="report_file">gdomex.report_so_almex</field>
-            <field name="binding_model_id" ref="model_sale_order"/>
-            <field name="binding_type">report</field>
-        </record>
+
         <!-- <record id="report_sale_order_domex" model="ir.actions.report">
             <field name="name">Cotización Domex</field>
             <field name="model">sale.order</field>
@@ -260,5 +252,4 @@
         <!-- <act_window id="window_reporte_costos" name="Costo de inventario en metros" res_model="domex.asistente_reporte_costo_metros" view_mode="form" target="new"/> -->
         <menuitem action="window_reporte_costos" id="menu_asistente_reporte_costos" parent="stock.menu_warehouse_report"/>
 
-    </data>
 </odoo>

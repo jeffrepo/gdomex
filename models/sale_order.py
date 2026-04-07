@@ -111,7 +111,7 @@ class SaleOrder(models.Model):
                                 mrp_order_d = {
                                     'sale': [],
                                     'product_id': line.product_id,
-                                    'product_uom_id': line.product_uom.id,
+                                    #'product_uom_id': line.product_uom.id,
                                     'product_qty': 0,
                                     'qty_producing': 0,
                                     'bom_id': line.product_id.bom_ids.id,
@@ -132,7 +132,7 @@ class SaleOrder(models.Model):
                 origin =  ','.join(productos_dic[p]['sale']) + ' '+ productos_dic[p]['product_id'].name
                 mrp_order = {
                     'product_id':  productos_dic[p]['product_id'].id,
-                    'product_uom_id': productos_dic[p]['product_uom_id'],
+                    #'product_uom_id': productos_dic[p]['product_uom_id'],
                     'product_qty': productos_dic[p]['product_qty'],
                     'qty_producing': productos_dic[p]['qty_producing'],
                     'origin': origin,
