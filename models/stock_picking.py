@@ -153,13 +153,13 @@ class Picking(models.Model):
 
             margen_bruto = self.env['account.analytic.line'].search([('picking_line_id', 'in', lst_stock_move)])
 
-            for linea_cambio in self.move_ids_without_package:
+            for linea_cambio in self.move_ids:
                 nueva_cantidad = 0
                 nuevo_precio = 0
                 for linea_cuenta_analitica in margen_bruto:
                     if linea_cambio.product_id.id == linea_cuenta_analitica.product_id.id:
-                        if linea_cambio.product_uom_qty <= linea_cuenta_analitica.unit_amount:
-                            nueva_cantidad = linea_cuenta_analitica.unit_amount - linea_cambio.product_uom_qty
+                        if linea_cambio.quantity <= linea_cuenta_analitica.unit_amount:
+                            nueva_cantidad = linea_cuenta_analitica.unit_amount - linea_cambio.quantity
                             nuevo_precio = nueva_cantidad * linea_cambio.product_id.standard_price
 
                             if nueva_cantidad > 0:
@@ -220,7 +220,7 @@ class Picking(models.Model):
                 mrp_order_id = self.env['mrp.production'].create(mrp_order)
                 #mrp_order_id._onchange_product_id()
                 #mrp_order_id._onchange_bom_id()
-                mrp_order_id._onchange_move_raw()
+                #mrp_order_id._onchange_move_raw()
                 # mrp_order_id._onchange_move_finished()
                 for l in productos_dic[p]['lines']:
                     l.mrp_id = mrp_order_id.id

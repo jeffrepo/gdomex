@@ -143,12 +143,7 @@ class SaleOrder(models.Model):
 
                 }
                 mrp_order_id = self.env['mrp.production'].create(mrp_order)
-                #mrp_order_id._onchange_product_id()
-                #mrp_order_id._onchange_bom_id()
-                mrp_order_id._onchange_move_raw()
-                mrp_order_id._onchange_move_finished()
-                # for l in productos_dic[p]['lines']:
-                #     l.mrp_id = mrp_order_id.id
+
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
