@@ -27,7 +27,7 @@
               <field name="ancho"/>
               <field name="largo"/>
           </xpath>
-          <field name="require_payment" position="after">
+          <field name="client_order_ref" position="before">
               <field name="proyecto"/>
               <field name="forma_pago"/>
               <field name="atencion"/>
@@ -40,7 +40,6 @@
               <field name="no_incluyen"/>
               <field name="incluyen"/>
               <field name="tiempo_instalacion"/>
-
           </field>
       </field>
   </record>
