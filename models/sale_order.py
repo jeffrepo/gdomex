@@ -133,7 +133,7 @@ class SaleOrder(models.Model):
                         'product_id':  productos_dic[p]['product_id'].id,
                         #'product_uom_id': productos_dic[p]['product_uom_id'],
                         'product_qty': productos_dic[p]['product_qty'],
-                        'qty_producing': productos_dic[p]['qty_producing'],
+                        #'qty_producing': productos_dic[p]['qty_producing'],
                         'origin': origin,
                         'unidad': productos_dic[p]['unidad'],
                         'bom_id': productos_dic[p]['bom_id'],
