@@ -104,18 +104,15 @@ class SaleOrder(models.Model):
                 if sale.order_line:
                     for line in sale.order_line:
                         if len(line.product_id.bom_ids) > 0 and line.product_uom_qty > 0:
-                        # if len(line.product_id.bom_ids) > 0 and len(line.mrp_id) == 0:
                             if line.product_id.id not in productos_dic:
                                 logging.warning(line)
                                 sale_name = sale.name
                                 mrp_order_d = {
                                     'sale': [],
                                     'product_id': line.product_id,
-                                    #'product_uom_id': line.product_uom.id,
                                     'product_qty': 0,
                                     'qty_producing': 0,
                                     'bom_id': line.product_id.bom_ids.id,
-                                    # 'origin': line.order_id.name,
                                     'unidad': line.unidad,
                                     'largo': line.largo,
                                     'lines': [],
@@ -125,24 +122,26 @@ class SaleOrder(models.Model):
                             productos_dic[line.product_id.id]['qty_producing'] += line.product_uom_qty
                             productos_dic[line.product_id.id]['sale'].append(sale.name)
                             productos_dic[line.product_id.id]['lines'].append(line)
-        logging.warning('productos')
-        logging.warning(productos_dic)
-        if productos_dic:
-            for p in productos_dic:
-                origin =  ','.join(productos_dic[p]['sale']) + ' '+ productos_dic[p]['product_id'].name
-                mrp_order = {
-                    'product_id':  productos_dic[p]['product_id'].id,
-                    #'product_uom_id': productos_dic[p]['product_uom_id'],
-                    'product_qty': productos_dic[p]['product_qty'],
-                    'qty_producing': productos_dic[p]['qty_producing'],
-                    'origin': origin,
-                    'unidad': productos_dic[p]['unidad'],
-                    'bom_id': productos_dic[p]['bom_id'],
-                    'largo': productos_dic[p]['largo'],
+
+            if productos_dic:
+                tipo_operacion = self.env['stock.picking.type'].search([("name","=","Fabricación"),("warehouse_id","=", sale.warehouse_id.id)])
+                for p in productos_dic:
+                    origin =  ','.join(productos_dic[p]['sale']) + ' '+ productos_dic[p]['product_id'].name
+                    mrp_order = {
+                        'picking_type_id': tipo_operacion.id,
+                        'location_dest_id': tipo_operacion.default_location_dest_id.id,
+                        'product_id':  productos_dic[p]['product_id'].id,
+                        #'product_uom_id': productos_dic[p]['product_uom_id'],
+                        'product_qty': productos_dic[p]['product_qty'],
+                        'qty_producing': productos_dic[p]['qty_producing'],
+                        'origin': origin,
+                        'unidad': productos_dic[p]['unidad'],
+                        'bom_id': productos_dic[p]['bom_id'],
+                        'largo': productos_dic[p]['largo'],
 
 
-                }
-                mrp_order_id = self.env['mrp.production'].create(mrp_order)
+                    }
+                    mrp_order_id = self.env['mrp.production'].create(mrp_order)
 
 
 class SaleOrderLine(models.Model):
