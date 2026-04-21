@@ -49,7 +49,7 @@
                     <b>FECHA:</b> <span t-field="o.scheduled_date" t-field-options='{"format": "d/m/Y"}'/>
                     <br/><b>DE:</b> <span t-if="o.picking_type_id.warehouse_id" t-esc="o.picking_type_id.warehouse_id.name"/>
                     <br/><b>PARA:</b> <span t-esc="o.partner_id.name"/>
-                    <br/><b>PROYETO:</b> <span t-esc="o.project_id.name"/>
+                    <br/><b>PROYECTO:</b> <span t-esc="o.project_id.name"/>
                     <br/>
                     <!-- <span t-esc="o.sale_id.proyecto"/> -->
                 </div>

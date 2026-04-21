@@ -11,7 +11,7 @@
                 <div class="page">
 
                     <div style="font-size: 75%; position: absolute; top: 2.5cm; left: 3.8cm">
-                        GUATEMALA, <span t-field="o.date"/>
+                        GUATEMALA, <span t-esc="o.date.strftime('%d/%m/%Y')"/>
                     </div>
                     <div style="font-size: 75%; position: absolute; top: 2.5cm; left: 16.3cm">
                         <span t-esc="'{0:,.2f}'.format(o.amount)"/>
