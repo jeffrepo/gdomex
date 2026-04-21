@@ -26,132 +26,44 @@ class PurchaseOrder(models.Model):
     factura_importacion = fields.Boolean('Factura importacion', tracking=True)
     fecha_tipo_cambio = fields.Date("Fecha tipo cambio")
     x_almex_id = fields.Integer('Almex ID', help="ID de la orden de compra en Odoo 10")
-    
+
     @api.model_create_multi
     def create(self, vals_list):
+        sequence_by_picking_type = {
+            127: 'purchase_order_gdomex_code',
+            136: 'purchase_order_almex_code',
+            155: 'purchase_order_domex_imp_code',
+            154: 'purchase_order_almex_imp_code',
+            73: 'purchase_order_bordalas_code',
+            64: 'purchase_order_neira_code',
+            55: 'purchase_order_acuario_code',
+            354: 'purchase_order_inversionesk_code',
+            363: 'purchase_order_corporacionk_code',
+            399: 'purchase_order_aply_imp_code',
+            390: 'purchase_order_sach_code',
+            381: 'purchase_order_aply_code',
+            165: 'purchase_order_armadillo_code',
+            409: 'purchase_order_armadilloz_code',
+            419: 'purchase_order_armadillo_imp_code',
+            418: 'purchase_order_armadilloz_imp_code',
+        }
+
         for vals in vals_list:
             company_id = vals.get('company_id', self.default_get(['company_id'])['company_id'])
-            # Ensures default picking type and currency are taken from the right company.
             self_comp = self.with_company(company_id)
-            if 'picking_type_id' in vals:
-                if vals['picking_type_id'] == 127:
-    
-                    if vals.get('name', 'New') == 'New':
-                        seq_date = None
-                        if 'date_order' in vals:
-                            seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
-                        vals['name'] = self_comp.env['ir.sequence'].next_by_code('purchase_order_gdomex_code', sequence_date=seq_date) or '/'
-                if vals['picking_type_id'] == 136:
-    
-                    if vals.get('name', 'New') == 'New':
-                        seq_date = None
-                        if 'date_order' in vals:
-                            seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
-                        vals['name'] = self_comp.env['ir.sequence'].next_by_code('purchase_order_almex_code', sequence_date=seq_date) or '/'
-    
-                if vals['picking_type_id'] == 155:
-    
-                    if vals.get('name', 'New') == 'New':
-                        seq_date = None
-                        if 'date_order' in vals:
-                            seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
-                        vals['name'] = self_comp.env['ir.sequence'].next_by_code('purchase_order_domex_imp_code', sequence_date=seq_date) or '/'
-    
-                if vals['picking_type_id'] == 154:
-    
-                    if vals.get('name', 'New') == 'New':
-                        seq_date = None
-                        if 'date_order' in vals:
-                            seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
-                        vals['name'] = self_comp.env['ir.sequence'].next_by_code('purchase_order_almex_imp_code', sequence_date=seq_date) or '/'
-                if vals['picking_type_id'] == 73:
-    
-                    if vals.get('name', 'New') == 'New':
-                        seq_date = None
-                        if 'date_order' in vals:
-                            seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
-                        vals['name'] = self_comp.env['ir.sequence'].next_by_code('purchase_order_bordalas_code', sequence_date=seq_date) or '/'
-                if vals['picking_type_id'] == 64:
-    
-                    if vals.get('name', 'New') == 'New':
-                        seq_date = None
-                        if 'date_order' in vals:
-                            seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
-                        vals['name'] = self_comp.env['ir.sequence'].next_by_code('purchase_order_neira_code', sequence_date=seq_date) or '/'
-                if vals['picking_type_id'] == 55:
-    
-                    if vals.get('name', 'New') == 'New':
-                        seq_date = None
-                        if 'date_order' in vals:
-                            seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
-                        vals['name'] = self_comp.env['ir.sequence'].next_by_code('purchase_order_acuario_code', sequence_date=seq_date) or '/'
-                if vals['picking_type_id'] == 354:
-    
-                    if vals.get('name', 'New') == 'New':
-                        seq_date = None
-                        if 'date_order' in vals:
-                            seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
-                        vals['name'] = self_comp.env['ir.sequence'].next_by_code('purchase_order_inversionesk_code', sequence_date=seq_date) or '/'
-                if vals['picking_type_id'] == 363:
-    
-                    if vals.get('name', 'New') == 'New':
-                        seq_date = None
-                        if 'date_order' in vals:
-                            seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
-                        vals['name'] = self_comp.env['ir.sequence'].next_by_code('purchase_order_corporacionk_code', sequence_date=seq_date) or '/'
-    
-                if vals['picking_type_id'] == 399:
-    
-                    if vals.get('name', 'New') == 'New':
-                        seq_date = None
-                        if 'date_order' in vals:
-                            seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
-                        vals['name'] = self_comp.env['ir.sequence'].next_by_code('purchase_order_aply_imp_code', sequence_date=seq_date) or '/'
-                if vals['picking_type_id'] == 390:
-    
-                    if vals.get('name', 'New') == 'New':
-                        seq_date = None
-                        if 'date_order' in vals:
-                            seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
-                        vals['name'] = self_comp.env['ir.sequence'].next_by_code('purchase_order_sach_code', sequence_date=seq_date) or '/'
-    
-                if vals['picking_type_id'] == 381:
-    
-                    if vals.get('name', 'New') == 'New':
-                        seq_date = None
-                        if 'date_order' in vals:
-                            seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
-                        vals['name'] = self_comp.env['ir.sequence'].next_by_code('purchase_order_aply_code', sequence_date=seq_date) or '/'
-    
-                if vals['picking_type_id'] == 165:
-    
-                    if vals.get('name', 'New') == 'New':
-                        seq_date = None
-                        if 'date_order' in vals:
-                            seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
-                        vals['name'] = self_comp.env['ir.sequence'].next_by_code('purchase_order_armadillo_code', sequence_date=seq_date) or '/'
-                if vals['picking_type_id'] == 409:
-    
-                    if vals.get('name', 'New') == 'New':
-                        seq_date = None
-                        if 'date_order' in vals:
-                            seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
-                        vals['name'] = self_comp.env['ir.sequence'].next_by_code('purchase_order_armadilloz_code', sequence_date=seq_date) or '/'
-                if vals['picking_type_id'] == 419:
-    
-                    if vals.get('name', 'New') == 'New':
-                        seq_date = None
-                        if 'date_order' in vals:
-                            seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
-                        vals['name'] = self_comp.env['ir.sequence'].next_by_code('purchase_order_armadillo_imp_code', sequence_date=seq_date) or '/'
-    
-                if vals['picking_type_id'] == 418:
-    
-                    if vals.get('name', 'New') == 'New':
-                        seq_date = None
-                        if 'date_order' in vals:
-                            seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
-                        vals['name'] = self_comp.env['ir.sequence'].next_by_code('purchase_order_armadilloz_imp_code', sequence_date=seq_date) or '/'
 
-        result = super(PurchaseOrder, self).create(vals)
-        return result
+            picking_type_id = vals.get('picking_type_id')
+            sequence_code = sequence_by_picking_type.get(picking_type_id)
+
+            if sequence_code and vals.get('name', 'New') == 'New':
+                seq_date = None
+                if vals.get('date_order'):
+                    seq_date = fields.Datetime.context_timestamp(
+                        self, fields.Datetime.to_datetime(vals['date_order'])
+                    )
+                vals['name'] = self_comp.env['ir.sequence'].next_by_code(
+                    sequence_code,
+                    sequence_date=seq_date
+                ) or '/'
+
+        return super().create(vals_list)
