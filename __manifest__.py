@@ -19,6 +19,7 @@
         'account_gt',
     ],
     'data': [
+        'data/informe_costo_ventas.xml',
         'report/venta_cotizacion_grupodomex.xml',
         'report/instalacion_cotizacion_grupodomex.xml',
         'data/report_paperformat_data.xml',

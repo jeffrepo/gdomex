@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo auto_sequence="1">
+    <!--
+        Reporte migrado desde Odoo 15 hacia el esquema de account.report/account.report.line/account.report.expression.
+        NOTAS IMPORTANTES:
+        1) Se respetó la estructura del reporte original "Informe de costo de ventas".
+        2) Las líneas que en Odoo 15 usaban IDs internos (account_id, analytic_account_id, journal_id, product_id)
+           quedaron migradas con esos mismos valores para que tengas una base directa.
+        3) En Odoo 19 esos IDs pueden haber cambiado por la migración. Revisa especialmente:
+           CDM, CLOC, GSC, DRC, IMP, DAI, FYT, GA, SM, II.
+        4) Odoo 19 no acepta analytic_account_id directo en account.move.line para estas formulas.
+           Se quitaron esos filtros analiticos para que el modulo cargue.
+           Si necesitas el filtro analitico exacto, ajustarlo luego con analytic_distribution,
+           tags, cuentas, diarios o un handler custom.
+    -->
+
+    <record id="gdomex_report_informe_costo_ventas" model="account.report">
+        <field name="name">Informe de costo de ventas</field>
+        <field name="filter_date_range" eval="True"/>
+        <field name="filter_period_comparison" eval="True"/>
+        <field name="filter_journals" eval="True"/>
+        <field name="filter_analytic" eval="True"/>
+        <field name="filter_unfold_all" eval="True"/>
+        <field name="filter_multi_company">selector</field>
+        <field name="default_opening_date_filter">this_year</field>
+
+        <field name="column_ids">
+            <record id="gdomex_report_informe_costo_ventas_balance" model="account.report.column">
+                <field name="name">Balance</field>
+                <field name="expression_label">balance</field>
+            </record>
+        </field>
+
+        <field name="line_ids">
+            <!-- COMPRAS -->
+            <record id="gdomex_report_line_comp" model="account.report.line">
+                <field name="name">Compras</field>
+                <field name="code">COMP</field>
+                <field name="hierarchy_level">0</field>
+                <field name="foldable" eval="True"/>
+                <field name="expression_ids">
+                    <record id="gdomex_report_line_comp_balance" model="account.report.expression">
+                        <field name="label">balance</field>
+                        <field name="engine">aggregation</field>
+                        <field name="formula">CDM.balance + CLOC.balance + GSC.balance + AI.balance + DRC.balance + IMP.balance + DAI.balance + FYT.balance + GA.balance + SM.balance</field>
+                    </record>
+                </field>
+                <field name="children_ids">
+                    <record id="gdomex_report_line_cdm" model="account.report.line">
+                        <field name="name">Costo de mercaderias</field>
+                        <field name="code">CDM</field>
+                        <field name="groupby">partner_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_report_line_cdm_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id', '=', 4270)]"/>
+                                <field name="subformula">sum</field>
+                            </record>
+                        </field>
+                    </record>
+
+                    <record id="gdomex_report_line_cloc" model="account.report.line">
+                        <field name="name">Compras locales</field>
+                        <field name="code">CLOC</field>
+                        <field name="groupby">partner_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_report_line_cloc_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('debit', '&gt;', 0)]"/>
+                                <field name="subformula">sum</field>
+                            </record>
+                        </field>
+                    </record>
+
+                    <record id="gdomex_report_line_gsc" model="account.report.line">
+                        <field name="name">Gastos S/Compras</field>
+                        <field name="code">GSC</field>
+                        <field name="groupby">partner_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_report_line_gsc_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('product_id', 'in', [8775, 11670]), ('debit', '&gt;', 0)]"/>
+                                <field name="subformula">sum</field>
+                            </record>
+                        </field>
+                    </record>
+
+                    <record id="gdomex_report_line_ai" model="account.report.line">
+                        <field name="name">Aportacion Inventario</field>
+                        <field name="code">AI</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_report_line_ai_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">aggregation</field>
+                                <field name="formula">0</field>
+                            </record>
+                        </field>
+                    </record>
+
+                    <record id="gdomex_report_line_drc" model="account.report.line">
+                        <field name="name">Dev y Rebajas S/Compras</field>
+                        <field name="code">DRC</field>
+                        <field name="groupby">partner_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_report_line_drc_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id', '=', 4668)]"/>
+                                <field name="subformula">sum</field>
+                            </record>
+                        </field>
+                    </record>
+
+                    <record id="gdomex_report_line_imp" model="account.report.line">
+                        <field name="name">Importaciones</field>
+                        <field name="code">IMP</field>
+                        <field name="groupby">partner_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_report_line_imp_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('journal_id', 'in', [1650, 2315]), ('debit', '&gt;', 0)]"/>
+                                <field name="subformula">sum</field>
+                            </record>
+                        </field>
+                    </record>
+
+                    <record id="gdomex_report_line_dai" model="account.report.line">
+                        <field name="name">DAI</field>
+                        <field name="code">DAI</field>
+                        <field name="groupby">partner_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_report_line_dai_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id', 'in', [4666, 8007])]"/>
+                                <field name="subformula">sum</field>
+                            </record>
+                        </field>
+                    </record>
+
+                    <record id="gdomex_report_line_fyt" model="account.report.line">
+                        <field name="name">Fletes y transportes</field>
+                        <field name="code">FYT</field>
+                        <field name="groupby">partner_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_report_line_fyt_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('debit', '&gt;', 0)]"/>
+                                <field name="subformula">sum</field>
+                            </record>
+                        </field>
+                    </record>
+
+                    <record id="gdomex_report_line_ga" model="account.report.line">
+                        <field name="name">Gastos Aduanales</field>
+                        <field name="code">GA</field>
+                        <field name="groupby">partner_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_report_line_ga_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id', '=', 4665)]"/>
+                                <field name="subformula">sum</field>
+                            </record>
+                        </field>
+                    </record>
+
+                    <record id="gdomex_report_line_sm" model="account.report.line">
+                        <field name="name">Seguros Mercadria</field>
+                        <field name="code">SM</field>
+                        <field name="groupby">partner_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_report_line_sm_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('debit', '&gt;', 0)]"/>
+                                <field name="subformula">sum</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+            </record>
+
+            <!-- INVENTARIO INICIAL -->
+            <record id="gdomex_report_line_invi" model="account.report.line">
+                <field name="name">Inventario inicial D</field>
+                <field name="code">INVI</field>
+                <field name="hierarchy_level">0</field>
+                <field name="foldable" eval="True"/>
+                <field name="expression_ids">
+                    <record id="gdomex_report_line_invi_balance" model="account.report.expression">
+                        <field name="label">balance</field>
+                        <field name="engine">aggregation</field>
+                        <field name="formula">II.balance</field>
+                    </record>
+                </field>
+                <field name="children_ids">
+                    <record id="gdomex_report_line_ii" model="account.report.line">
+                        <field name="name">Inventario Inicial</field>
+                        <field name="code">II</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_report_line_ii_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id', '=', 4660)]"/>
+                                <field name="subformula">sum</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+            </record>
+
+            <!-- DISPONIBILIDAD -->
+            <record id="gdomex_report_line_dipo" model="account.report.line">
+                <field name="name">Disponibilidad</field>
+                <field name="code">DIPO</field>
+                <field name="hierarchy_level">0</field>
+                <field name="foldable" eval="True"/>
+                <field name="expression_ids">
+                    <record id="gdomex_report_line_dipo_balance" model="account.report.expression">
+                        <field name="label">balance</field>
+                        <field name="engine">aggregation</field>
+                        <field name="formula">COMP.balance + INVI.balance</field>
+                    </record>
+                </field>
+            </record>
+
+            <!-- INVENTARIO FINAL ALMEX -->
+            <record id="gdomex_report_line_ifa" model="account.report.line">
+                <field name="name">Inventario Final Almex</field>
+                <field name="code">IFA</field>
+                <field name="hierarchy_level">0</field>
+                <field name="foldable" eval="True"/>
+                <field name="expression_ids">
+                    <record id="gdomex_report_line_ifa_balance" model="account.report.expression">
+                        <field name="label">balance</field>
+                        <field name="engine">domain</field>
+                        <field name="formula" eval="[('name', 'like', 'ALMX')]"/>
+                        <field name="subformula">sum</field>
+                    </record>
+                </field>
+            </record>
+
+            <!-- INVENTARIO FINAL DOMEX -->
+            <record id="gdomex_report_line_ifd" model="account.report.line">
+                <field name="name">Inventario Final Domex</field>
+                <field name="code">IFD</field>
+                <field name="hierarchy_level">0</field>
+                <field name="foldable" eval="True"/>
+                <field name="expression_ids">
+                    <record id="gdomex_report_line_ifd_balance" model="account.report.expression">
+                        <field name="label">balance</field>
+                        <field name="engine">domain</field>
+                        <field name="formula" eval="[('name', 'like', 'GD')]"/>
+                        <field name="subformula">sum</field>
+                    </record>
+                </field>
+            </record>
+        </field>
+    </record>
+
+    <!-- Accion cliente para abrir el reporte desde Contabilidad > Informes -->
+    <record id="gdomex_action_informe_costo_ventas" model="ir.actions.client">
+        <field name="name">Informe de costo de ventas</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'report_id': ref('gdomex_report_informe_costo_ventas')}"/>
+    </record>
+
+    <!-- Menu visible en Contabilidad > Informes -->
+    <menuitem
+        id="gdomex_menu_informe_costo_ventas"
+        name="Informe de costo de ventas"
+        parent="account.menu_finance_reports"
+        action="gdomex_action_informe_costo_ventas"
+        sequence="95"/>
+
+</odoo>
