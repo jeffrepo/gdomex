@@ -92,7 +92,7 @@ class StockLandedCost(models.Model):
                         for factura in compra.invoice_ids:
 
                             for linea_compra in factura.invoice_line_ids:
-                                if linea_compra.product_id.detailed_type == "service":
+                                if linea_compra.product_id.type == "service":
                                     if factura.move_type == "in_refund":
                                         total_gastos += (linea_compra.price_subtotal * -1)
                                     else:
@@ -104,7 +104,7 @@ class StockLandedCost(models.Model):
                     costo_unitario = total_gastos / cantidad_productos
                     for factura in compra.invoice_ids:
                         for linea_compra in factura.invoice_line_ids:
-                            if linea_compra.product_id.detailed_type == "product":
+                            if linea_compra.product_id.is_storable:
                                 llave = linea_compra.product_id.id
                                 if llave in productos:
 
