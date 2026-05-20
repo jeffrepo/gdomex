@@ -48,11 +48,6 @@ class StockLandedCost(models.Model):
                                 porcentaje = linea_compra.price_subtotal / compra.amount_total
                                 gasto = total_gastos * porcentaje
                                 costo = (gasto / linea_compra.quantity) + unidad_gtq
-                                logging.warning(unidad_gtq)
-                                logging.warning(precio_total)
-                                logging.warning(porcentaje)
-                                logging.warning(gasto)
-                                logging.warning(costo)
                                 productos[llave]['unidad_gtq'] = unidad_gtq
                                 productos[llave]['precio_total'] = precio_total
                                 productos[llave]['porcentaje'] = porcentaje
@@ -76,7 +71,6 @@ class StockLandedCost(models.Model):
                     #         productos[llave]['porcentaje'] = porcentaje
                     #         productos[llave]['costo'] = costo
             else:
-                logging.warning('no incliue')
                 total_gastos_otras_compras = 0
                 for compra in coste.compra_ids:
                     if compra.incluye_gastos == False:
@@ -98,7 +92,6 @@ class StockLandedCost(models.Model):
                         for factura in compra.invoice_ids:
 
                             for linea_compra in factura.invoice_line_ids:
-                                logging.warning(linea_compra.product_id.detailed_type)
                                 if linea_compra.product_id.detailed_type == "service":
                                     if factura.move_type == "in_refund":
                                         total_gastos += (linea_compra.price_subtotal * -1)
@@ -107,9 +100,6 @@ class StockLandedCost(models.Model):
                                 else:
                                     cantidad_productos += linea_compra.quantity
 
-                logging.warning('cantidad productos')
-                logging.warning(cantidad_productos)
-                logging.warning(total_gastos_otras_compras)
                 for compra in coste.compra_ids:
                     costo_unitario = total_gastos / cantidad_productos
                     for factura in compra.invoice_ids:
@@ -128,13 +118,6 @@ class StockLandedCost(models.Model):
                                         precio_total = unidad_gtq * linea_compra.quantity
                                         costo = (total_gastos_otras_compras / linea_compra.quantity) + unidad_gtq
 
-                                    logging.warning('gasto_compra')
-                                    logging.warning(total_gastos)
-                                    logging.warning('unidad_usd')
-                                    logging.warning(unidad_usd)
-
-                                    logging.warning('unidad_gtq')
-                                    logging.warning(unidad_gtq)
                                     productos[llave]['unidad_usd'] = unidad_usd
                                     productos[llave]['unidad_gtq'] = unidad_gtq
                                     productos[llave]['precio_total'] = precio_total
@@ -283,8 +266,7 @@ class StockLandedCost(models.Model):
                         listas_compras.append(compra.id)
                         for factura in compra.invoice_ids:
                             total_moneda += factura.amount_total / compra.currency_rate
-                            logging.warning('total_moneda')
-                            logging.warning(total_moneda)
+
                     for factura in compra.invoice_ids:
                         if factura.invoice_line_ids and factura.state == "posted":
                             for linea_compra in factura.invoice_line_ids:
