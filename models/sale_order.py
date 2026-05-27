@@ -70,6 +70,8 @@ class SaleOrder(models.Model):
                     vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_armadillo_code', sequence_date=seq_date) or _('New')
                 if vals['warehouse_id'] == 47:
                     vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_armadillot_code', sequence_date=seq_date) or _('New')
+                if vals['warehouse_id'] == 17:
+                    vals['name'] = self.env['ir.sequence'].next_by_code('sale_order_apl_domex_code', sequence_date=seq_date) or _('New')
             result = super(SaleOrder, self).create(vals)
             if 'warehouse_id' in vals:
                 warehouse_id = self.env['stock.warehouse'].search([('id','=', vals['warehouse_id'])])
@@ -94,6 +96,8 @@ class SaleOrder(models.Model):
                 values['name'] = self.env['ir.sequence'].next_by_code('sale_order_armadillo_code', sequence_date=seq_date) or _('New')
             if values['warehouse_id'] == 47:
                 values['name'] = self.env['ir.sequence'].next_by_code('sale_order_armadillot_code', sequence_date=seq_date) or _('New')
+            if values['warehouse_id'] == 17:
+                values['name'] = self.env['ir.sequence'].next_by_code('sale_order_apl_domex_code', sequence_date=seq_date) or _('New')
         result = super(SaleOrder, self).write(values)
         return result
 

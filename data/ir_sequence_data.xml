@@ -59,6 +59,14 @@
             <field name="company_id" eval="False"/>
         </record>
 
+        <record id="seq_sale_order_apl_domex_code" model="ir.sequence">
+            <field name="name">Sales Order Aplytek domex sequence</field>
+            <field name="code">sale_order_apl_domex_code</field>
+            <field name="prefix">APLSO</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
         <!-- Sequences for purchase.order -->
         <record id="seq_purchase_order_gdomex_code" model="ir.sequence">
             <field name="name">Purchase Order Gdomex sequence</field>
@@ -128,6 +136,14 @@
             <field name="name">Purchase Order Coporacion Kinetics sequence</field>
             <field name="code">purchase_order_corporacionk_code</field>
             <field name="prefix">CRKNTOC</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_purchase_order_apl_code" model="ir.sequence">
+            <field name="name">Purchase Order Aplytek domex sequence</field>
+            <field name="code">purchase_order_apl_domex_code</field>
+            <field name="prefix">APL</field>
             <field name="padding">5</field>
             <field name="company_id" eval="False"/>
         </record>
