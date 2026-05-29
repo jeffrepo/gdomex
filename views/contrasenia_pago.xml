@@ -18,7 +18,7 @@
                               <t t-elif="info_pago[1] in ['Grupo Domex','DOMEX']">
                                   <img src="/gdomex/static/src/img/domexl.png" style="max-width: 175px;"/>
                               </t>
-                              <t t-elif="info_pago[1] == 'APLYTEK,S.A.'">
+                              <t t-elif="info_pago[1] in ['APLYTEK,S.A.', 'APLYTEK']">
                                   <img src="/gdomex/static/src/img/aplytek_logo_reporte.png" style="max-width: 837px;"/>
                               </t>
                             </t>
