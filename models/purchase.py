@@ -47,6 +47,7 @@ class PurchaseOrder(models.Model):
             419: 'purchase_order_armadillo_imp_code',
             418: 'purchase_order_armadilloz_imp_code',
             145: 'purchase_order_apl_domex_code',
+            486: 'purchase_order_aply_dom_imp_code',
         }
 
         for vals in vals_list:
