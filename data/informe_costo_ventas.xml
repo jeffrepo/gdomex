@@ -83,7 +83,7 @@
                             <record id="gdomex_report_line_gsc_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
-                                <field name="formula" eval="[('product_id', 'in', [8775, 11670]), ('analytic_distribution', 'in', ['64', '152', '65', '149']), ('debit', '&gt;', 0)]"/>
+                                <field name="formula" eval="[('product_id', 'in', [8775, 11670]), ('analytic_distribution', 'in', ['64', '152', '65', '149', '152','161']), ('debit', '&gt;', 0)]"/>
                                 <field name="subformula">sum</field>
                             </record>
                         </field>
@@ -126,7 +126,7 @@
                             <record id="gdomex_report_line_imp_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
-                                <field name="formula" eval="[('journal_id', 'in', [1650, 2315]), ('analytic_distribution', 'in', ['73', '75', '153', '74', '145']), ('debit', '&gt;', 0)]"/>
+                                <field name="formula" eval="[('journal_id', 'in', [1650, 2315]), ('analytic_distribution', 'in', ['73', '75', '153', '74', '145','153','162']]), ('debit', '&gt;', 0)]"/>
                                 <field name="subformula">sum</field>
                             </record>
                         </field>
