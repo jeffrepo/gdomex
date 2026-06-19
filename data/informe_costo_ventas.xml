@@ -156,7 +156,7 @@
                             <record id="gdomex_report_line_fyt_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
-                                <field name="formula" eval="[('analytic_distribution', 'in', ['61', '62', '63', '66', '67', '69', '72', '146']), ('debit', '&gt;', 0)]"/>
+                                <field name="formula" eval="[('analytic_distribution', 'in', ['61', '62', '63', '66', '67', '69', '72', '146','151']), ('debit', '&gt;', 0)]"/>
                                 <field name="subformula">sum</field>
                             </record>
                         </field>
