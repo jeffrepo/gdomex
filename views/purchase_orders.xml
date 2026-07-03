@@ -34,7 +34,14 @@
                             <table class="table table-condensed">
                                 <tr>
                                     <td style="border-left: 2px solid grey;border-top: 3px solid grey;">
-                                        <h3><span t-esc="o.company_id.name"/></h3>
+                                        <h3>
+                                            <t t-if="o.company_id.name == 'APLYTEK S.A.' or o.picking_type_id.warehouse_id.name in ['APLYTEK']">
+                                                APLYTEK
+                                            </t>
+                                            <t t-else="">
+                                                <span t-esc="o.company_id.name"/>
+                                            </t>
+                                        </h3>
                                         <span t-esc="o.picking_type_id.warehouse_id.partner_id.street"/> <span t-esc="o.picking_type_id.warehouse_id.partner_id.street2"/>
                                         <br/>Guatemala, Guatemala
                                         <br/>PBX <span t-esc="o.company_id.phone"/>

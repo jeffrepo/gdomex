@@ -49,7 +49,14 @@
                             <table class="table table-condensed">
                                 <tr>
                                     <td style="border-left: 2px solid grey;border-top: 2px solid grey;">
-                                        <h3><span t-esc="o.company_id.name"/></h3>
+                                        <h3>
+                                            <t t-if="info_pago[1] in ['APLYTEK,S.A.', 'APLYTEK']">
+                                                APLYTEK
+                                            </t>
+                                            <t t-else="">
+                                                <span t-esc="o.company_id.name"/>
+                                            </t>
+                                        </h3>
                                         <span t-esc="o.company_id.street"/>
                                         <br/>Guatemala, Guatemala
                                         <br/>PBX <span t-esc="o.company_id.phone"/>
