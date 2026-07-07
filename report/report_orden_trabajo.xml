@@ -56,7 +56,7 @@
 
 
                       <t t-foreach="transferencias_ids" t-as="transferencia">
-                        <t t-foreach="transferencia.move_ids_without_package" t-as="op">
+                        <t t-foreach="transferencia.move_ids" t-as="op">
                           <t t-if="op.product_id.tipo_gdomex == '3' or op.product_id.tipo_gdomex == '4'">
                             <tr style="border: black 1px solid">
                               <td style="border: black 1px solid"><t t-esc="op.unidad"/></td>
@@ -97,12 +97,12 @@
 
 
                       <t t-foreach="transferencias_ids" t-as="transferencia">
-                        <t t-if="transferencia.move_ids_without_package">
-                          <t t-foreach="transferencia.move_ids_without_package" t-as="op">
+                        <t t-if="transferencia.move_ids">
+                          <t t-foreach="transferencia.move_ids" t-as="op">
                             <t t-if="op.product_id.tipo_gdomex == '1'">
 
                               <tr style="border: black 1px solid">
-                                <td style="border: black 1px solid; text-align:right"><t t-esc="op.product_uom_qty"/></td>
+                                <td style="border: black 1px solid; text-align:right"><t t-esc="op.quantity"/></td>
                                 <td style="border: black 1px solid"><t t-esc="op.product_id.default_code"/></td>
                                 <td style="border: black 1px solid; text-align:center"><t t-esc="op.product_id.name"/></td>
                               </tr>
@@ -134,11 +134,11 @@
                       </tr>
 
                       <t t-foreach="transferencias_ids" t-as="transferencia">
-                        <t t-if="transferencia.move_ids_without_package">
-                          <t t-foreach="transferencia.move_ids_without_package" t-as="op">
+                        <t t-if="transferencia.move_ids">
+                          <t t-foreach="transferencia.move_ids" t-as="op">
                             <t t-if="op.product_id.tipo_gdomex == '2'">
                               <tr style="border: black 1px solid">
-                                <td style="border: black 1px solid; text-align:right"><t t-esc="op.product_uom_qty"/></td>
+                                <td style="border: black 1px solid; text-align:right"><t t-esc="op.quantity"/></td>
                                 <td style="border: black 1px solid"><t t-esc="op.product_id.default_code"/></td>
                                 <td style="border: black 1px solid; text-align:center"><t t-esc="op.product_id.name"/></td>
                                 <td style="border: black 1px solid"><t t-esc="op.largo_gdomex"/></td>

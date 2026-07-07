@@ -15,10 +15,10 @@ class ReportOrdenTrabajo(models.AbstractModel):
         cantidad = 0
         largo_gdomex = 0
         for trans in transferencias_ids:
-            if trans.move_ids_without_package:
-                for linea_operacion in trans.move_ids_without_package:
+            if trans.move_ids:
+                for linea_operacion in trans.move_ids:
                     if linea_operacion.product_id.tipo_gdomex == '3':
-                        cantidad += linea_operacion.product_uom_qty
+                        cantidad += linea_operacion.quantity
                         largo_gdomex += linea_operacion.largo_gdomex
 
         total_metros_lineales = cantidad * largo_gdomex
@@ -31,8 +31,8 @@ class ReportOrdenTrabajo(models.AbstractModel):
         largo_gdomex = 0
         total_metros_lineales = 0
         for trans in transferencias_ids:
-            if trans.move_ids_without_package:
-                for linea_operacion in trans.move_ids_without_package:
+            if trans.move_ids:
+                for linea_operacion in trans.move_ids:
                     if linea_operacion.product_id.tipo_gdomex == '3' or linea_operacion.product_id.tipo_gdomex == '4':
                         #cantidad += linea_operacion.product_uom_qty
                         #largo_gdomex += linea_operacion.largo_gdomex
