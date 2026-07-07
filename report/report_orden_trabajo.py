@@ -37,7 +37,7 @@ class ReportOrdenTrabajo(models.AbstractModel):
                         #cantidad += linea_operacion.product_uom_qty
                         #largo_gdomex += linea_operacion.largo_gdomex
                        # total_metros_lineales += linea_operacion.product_uom_qty
-                        total_metros_lineales += linea_operacion.quantity_done * linea_operacion.largo_gdomex
+                        total_metros_lineales += linea_operacion.quantity * linea_operacion.largo_gdomex
         #total_metros_lineales = cantidad * largo_gdomex
         return total_metros_lineales
 
