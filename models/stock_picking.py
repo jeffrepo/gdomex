@@ -146,8 +146,8 @@ class Picking(models.Model):
                 transferencias = self.env['stock.picking'].search([('name', '=', doc_origin)])
 
                 if transferencias:
-                    for linea_retorno in self.move_ids_without_package:
-                        for linea_transferencia in transferencias.move_ids_without_package:
+                    for linea_retorno in self.move_ids:
+                        for linea_transferencia in transferencias.move_ids:
                             if linea_retorno.product_id.id == linea_transferencia.product_id.id:
                                 lst_stock_move.append(linea_transferencia.id)
 
