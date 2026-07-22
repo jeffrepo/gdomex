@@ -141,7 +141,7 @@
                             <record id="gdomex_report_line_dai_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
-                                <field name="formula" eval="[('account_id', 'in', [4666, 8007])]"/>
+                                <field name="formula" eval="[('analytic_distribution', 'in', ['147']), ('debit', '>', 0)]"/>
                                 <field name="subformula">sum</field>
                             </record>
                         </field>
