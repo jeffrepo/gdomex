@@ -47,7 +47,8 @@
                     <record id="gdomex_report_line_cdm" model="account.report.line">
                         <field name="name">Costo de mercaderias</field>
                         <field name="code">CDM</field>
-                        <field name="groupby">partner_id</field>
+                        <field name="groupby" eval="False"/>
+                        <field name="user_groupby" eval="False"/>
                         <field name="foldable" eval="True"/>
                         <field name="expression_ids">
                             <record id="gdomex_report_line_cdm_balance" model="account.report.expression">
@@ -62,13 +63,14 @@
                     <record id="gdomex_report_line_cloc" model="account.report.line">
                         <field name="name">Compras locales</field>
                         <field name="code">CLOC</field>
-                        <field name="groupby">partner_id</field>
+                        <field name="groupby" eval="False"/>
+                        <field name="user_groupby" eval="False"/>
                         <field name="foldable" eval="True"/>
                         <field name="expression_ids">
                             <record id="gdomex_report_line_cloc_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
-                                <field name="formula" eval="[('analytic_distribution', 'in', ['70', '71', '72', '144']), ('debit', '&gt;', 0)]"/>
+                                <field name="formula" eval="[('analytic_distribution', 'in', ['70', '71', '72', '150', '159']), ('debit', '&gt;', 0)]"/>
                                 <field name="subformula">sum</field>
                             </record>
                         </field>
@@ -77,13 +79,14 @@
                     <record id="gdomex_report_line_gsc" model="account.report.line">
                         <field name="name">Gastos S/Compras</field>
                         <field name="code">GSC</field>
-                        <field name="groupby">partner_id</field>
+                        <field name="groupby" eval="False"/>
+                        <field name="user_groupby" eval="False"/>
                         <field name="foldable" eval="True"/>
                         <field name="expression_ids">
                             <record id="gdomex_report_line_gsc_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
-                                <field name="formula" eval="[('product_id', 'in', [8775, 11670]), ('analytic_distribution', 'in', ['64', '152', '65', '149', '152','161']), ('debit', '&gt;', 0)]"/>
+                                <field name="formula" eval="[('product_id', 'in', [8775, 11670]), ('analytic_distribution', 'in', ['65', '64', '66', '152', '161']), ('debit', '&gt;', 0)]"/>
                                 <field name="subformula">sum</field>
                             </record>
                         </field>
@@ -105,7 +108,8 @@
                     <record id="gdomex_report_line_drc" model="account.report.line">
                         <field name="name">Dev y Rebajas S/Compras</field>
                         <field name="code">DRC</field>
-                        <field name="groupby">partner_id</field>
+                        <field name="groupby" eval="False"/>
+                        <field name="user_groupby" eval="False"/>
                         <field name="foldable" eval="True"/>
                         <field name="expression_ids">
                             <record id="gdomex_report_line_drc_balance" model="account.report.expression">
@@ -120,13 +124,14 @@
                     <record id="gdomex_report_line_imp" model="account.report.line">
                         <field name="name">Importaciones</field>
                         <field name="code">IMP</field>
-                        <field name="groupby">partner_id</field>
+                        <field name="groupby" eval="False"/>
+                        <field name="user_groupby" eval="False"/>
                         <field name="foldable" eval="True"/>
                         <field name="expression_ids">
                             <record id="gdomex_report_line_imp_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
-                                <field name="formula" eval="[('journal_id', 'in', [1650, 2315]), ('analytic_distribution', 'in', ['73', '75', '153', '74', '145','153','162']), ('debit', '&gt;', 0)]"/>
+                                <field name="formula" eval="[('journal_id', 'in', [1650, 2315]), ('analytic_distribution', 'in', ['74', '73', '75', '153', '162']), ('debit', '&gt;', 0)]"/>
                                 <field name="subformula">sum</field>
                             </record>
                         </field>
@@ -135,13 +140,14 @@
                     <record id="gdomex_report_line_dai" model="account.report.line">
                         <field name="name">DAI</field>
                         <field name="code">DAI</field>
-                        <field name="groupby">partner_id</field>
+                        <field name="groupby" eval="False"/>
+                        <field name="user_groupby" eval="False"/>
                         <field name="foldable" eval="True"/>
                         <field name="expression_ids">
                             <record id="gdomex_report_line_dai_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
-                                <field name="formula" eval="[('analytic_distribution', 'in', ['147']), ('debit', '>', 0)]"/>
+                                <field name="formula" eval="[('analytic_distribution', 'in', ['213', '214', '212', '211', '215']), ('debit', '&gt;', 0)]"/>
                                 <field name="subformula">sum</field>
                             </record>
                         </field>
@@ -150,13 +156,14 @@
                     <record id="gdomex_report_line_fyt" model="account.report.line">
                         <field name="name">Fletes y transportes</field>
                         <field name="code">FYT</field>
-                        <field name="groupby">partner_id</field>
+                        <field name="groupby" eval="False"/>
+                        <field name="user_groupby" eval="False"/>
                         <field name="foldable" eval="True"/>
                         <field name="expression_ids">
                             <record id="gdomex_report_line_fyt_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
-                                <field name="formula" eval="[('analytic_distribution', 'in', ['61', '62', '63', '66', '67', '69', '72', '146','151']), ('debit', '&gt;', 0)]"/>
+                                <field name="formula" eval="[('analytic_distribution', 'in', ['62', '61', '63', '151', '160']), ('debit', '&gt;', 0)]"/>
                                 <field name="subformula">sum</field>
                             </record>
                         </field>
@@ -165,7 +172,8 @@
                     <record id="gdomex_report_line_ga" model="account.report.line">
                         <field name="name">Gastos Aduanales</field>
                         <field name="code">GA</field>
-                        <field name="groupby">partner_id</field>
+                        <field name="groupby" eval="False"/>
+                        <field name="user_groupby" eval="False"/>
                         <field name="foldable" eval="True"/>
                         <field name="expression_ids">
                             <record id="gdomex_report_line_ga_balance" model="account.report.expression">
@@ -180,13 +188,14 @@
                     <record id="gdomex_report_line_sm" model="account.report.line">
                         <field name="name">Seguros Mercadria</field>
                         <field name="code">SM</field>
-                        <field name="groupby">partner_id</field>
+                        <field name="groupby" eval="False"/>
+                        <field name="user_groupby" eval="False"/>
                         <field name="foldable" eval="True"/>
                         <field name="expression_ids">
                             <record id="gdomex_report_line_sm_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
-                                <field name="formula" eval="[('analytic_distribution', 'in', ['67', '68', '69', '148']), ('debit', '&gt;', 0)]"/>
+                                <field name="formula" eval="[('analytic_distribution', 'in', ['68', '67', '69', '154', '163']), ('debit', '&gt;', 0)]"/>
                                 <field name="subformula">sum</field>
                             </record>
                         </field>
@@ -269,6 +278,1044 @@
                         <field name="subformula">sum</field>
                     </record>
                 </field>
+            </record>
+        </field>
+    </record>
+
+    <!--
+        Desglose intermedio por sucursal antes del detalle contable.
+        Mapeo tomado del XLSX de cuentas analiticas (ID/nombre):
+        DOMEX/DMX, ALMEX/ALX, APLYTEK/APL, ARMADILLO/ARM y ARMADILLO-Z/ARM-Z.
+        ARMADILLO-Z se evalua de forma especifica para no mezclarlo con ARMADILLO.
+    -->
+    <!-- Sucursales de CDM -->
+    <record id="gdomex_report_line_cdm_domex" model="account.report.line">
+        <field name="name">DOMEX</field>
+        <field name="code">CDM_DOMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_cdm"/>
+        <field name="sequence">10</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_cdm_domex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('account_id', '=', 4270), ('analytic_distribution', 'in', ['70', '213', '62', '210', '227', '65', '74', '68', '58'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_cdm_almex" model="account.report.line">
+        <field name="name">ALMEX</field>
+        <field name="code">CDM_ALMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_cdm"/>
+        <field name="sequence">20</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_cdm_almex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('account_id', '=', 4270), ('analytic_distribution', 'in', ['71', '214', '61', '64', '73', '67', '57'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_cdm_aplytek" model="account.report.line">
+        <field name="name">APLYTEK</field>
+        <field name="code">CDM_APLYTEK</field>
+        <field name="parent_id" ref="gdomex_report_line_cdm"/>
+        <field name="sequence">30</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_cdm_aplytek_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('account_id', '=', 4270), ('analytic_distribution', 'in', ['72', '212', '63', '225', '226', '66', '75', '69', '191'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_cdm_armadillo" model="account.report.line">
+        <field name="name">ARMADILLO</field>
+        <field name="code">CDM_ARMADILLO</field>
+        <field name="parent_id" ref="gdomex_report_line_cdm"/>
+        <field name="sequence">40</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_cdm_armadillo_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('account_id', '=', 4270), ('analytic_distribution', 'in', ['150', '211', '151', '152', '153', '154', '59'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_cdm_armadillo_z" model="account.report.line">
+        <field name="name">ARMADILLO-Z</field>
+        <field name="code">CDM_ARMADILLO_Z</field>
+        <field name="parent_id" ref="gdomex_report_line_cdm"/>
+        <field name="sequence">50</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_cdm_armadillo_z_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('account_id', '=', 4270), ('analytic_distribution', 'in', ['159', '215', '160', '161', '162', '163', '157'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <!-- Sucursales de CLOC -->
+    <record id="gdomex_report_line_cloc_domex" model="account.report.line">
+        <field name="name">DOMEX</field>
+        <field name="code">CLOC_DOMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_cloc"/>
+        <field name="sequence">10</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_cloc_domex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('analytic_distribution', 'in', ['70']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_cloc_almex" model="account.report.line">
+        <field name="name">ALMEX</field>
+        <field name="code">CLOC_ALMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_cloc"/>
+        <field name="sequence">20</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_cloc_almex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('analytic_distribution', 'in', ['71']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_cloc_aplytek" model="account.report.line">
+        <field name="name">APLYTEK</field>
+        <field name="code">CLOC_APLYTEK</field>
+        <field name="parent_id" ref="gdomex_report_line_cloc"/>
+        <field name="sequence">30</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_cloc_aplytek_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('analytic_distribution', 'in', ['72']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_cloc_armadillo" model="account.report.line">
+        <field name="name">ARMADILLO</field>
+        <field name="code">CLOC_ARMADILLO</field>
+        <field name="parent_id" ref="gdomex_report_line_cloc"/>
+        <field name="sequence">40</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_cloc_armadillo_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('analytic_distribution', 'in', ['150']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_cloc_armadillo_z" model="account.report.line">
+        <field name="name">ARMADILLO-Z</field>
+        <field name="code">CLOC_ARMADILLO_Z</field>
+        <field name="parent_id" ref="gdomex_report_line_cloc"/>
+        <field name="sequence">50</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_cloc_armadillo_z_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('analytic_distribution', 'in', ['159']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <!-- Sucursales de GSC -->
+    <record id="gdomex_report_line_gsc_domex" model="account.report.line">
+        <field name="name">DOMEX</field>
+        <field name="code">GSC_DOMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_gsc"/>
+        <field name="sequence">10</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_gsc_domex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('product_id', 'in', [8775, 11670]), ('analytic_distribution', 'in', ['65']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_gsc_almex" model="account.report.line">
+        <field name="name">ALMEX</field>
+        <field name="code">GSC_ALMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_gsc"/>
+        <field name="sequence">20</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_gsc_almex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('product_id', 'in', [8775, 11670]), ('analytic_distribution', 'in', ['64']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_gsc_aplytek" model="account.report.line">
+        <field name="name">APLYTEK</field>
+        <field name="code">GSC_APLYTEK</field>
+        <field name="parent_id" ref="gdomex_report_line_gsc"/>
+        <field name="sequence">30</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_gsc_aplytek_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('product_id', 'in', [8775, 11670]), ('analytic_distribution', 'in', ['66']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_gsc_armadillo" model="account.report.line">
+        <field name="name">ARMADILLO</field>
+        <field name="code">GSC_ARMADILLO</field>
+        <field name="parent_id" ref="gdomex_report_line_gsc"/>
+        <field name="sequence">40</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_gsc_armadillo_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('product_id', 'in', [8775, 11670]), ('analytic_distribution', 'in', ['152']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_gsc_armadillo_z" model="account.report.line">
+        <field name="name">ARMADILLO-Z</field>
+        <field name="code">GSC_ARMADILLO_Z</field>
+        <field name="parent_id" ref="gdomex_report_line_gsc"/>
+        <field name="sequence">50</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_gsc_armadillo_z_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('product_id', 'in', [8775, 11670]), ('analytic_distribution', 'in', ['161']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <!-- Sucursales de DRC -->
+    <record id="gdomex_report_line_drc_domex" model="account.report.line">
+        <field name="name">DOMEX</field>
+        <field name="code">DRC_DOMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_drc"/>
+        <field name="sequence">10</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_drc_domex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('account_id', '=', 4668), ('analytic_distribution', 'in', ['70', '213', '62', '210', '227', '65', '74', '68', '58'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_drc_almex" model="account.report.line">
+        <field name="name">ALMEX</field>
+        <field name="code">DRC_ALMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_drc"/>
+        <field name="sequence">20</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_drc_almex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('account_id', '=', 4668), ('analytic_distribution', 'in', ['71', '214', '61', '64', '73', '67', '57'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_drc_aplytek" model="account.report.line">
+        <field name="name">APLYTEK</field>
+        <field name="code">DRC_APLYTEK</field>
+        <field name="parent_id" ref="gdomex_report_line_drc"/>
+        <field name="sequence">30</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_drc_aplytek_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('account_id', '=', 4668), ('analytic_distribution', 'in', ['72', '212', '63', '225', '226', '66', '75', '69', '191'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_drc_armadillo" model="account.report.line">
+        <field name="name">ARMADILLO</field>
+        <field name="code">DRC_ARMADILLO</field>
+        <field name="parent_id" ref="gdomex_report_line_drc"/>
+        <field name="sequence">40</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_drc_armadillo_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('account_id', '=', 4668), ('analytic_distribution', 'in', ['150', '211', '151', '152', '153', '154', '59'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_drc_armadillo_z" model="account.report.line">
+        <field name="name">ARMADILLO-Z</field>
+        <field name="code">DRC_ARMADILLO_Z</field>
+        <field name="parent_id" ref="gdomex_report_line_drc"/>
+        <field name="sequence">50</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_drc_armadillo_z_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('account_id', '=', 4668), ('analytic_distribution', 'in', ['159', '215', '160', '161', '162', '163', '157'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <!-- Sucursales de IMP -->
+    <record id="gdomex_report_line_imp_domex" model="account.report.line">
+        <field name="name">DOMEX</field>
+        <field name="code">IMP_DOMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_imp"/>
+        <field name="sequence">10</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_imp_domex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('journal_id', 'in', [1650, 2315]), ('analytic_distribution', 'in', ['74']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_imp_almex" model="account.report.line">
+        <field name="name">ALMEX</field>
+        <field name="code">IMP_ALMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_imp"/>
+        <field name="sequence">20</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_imp_almex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('journal_id', 'in', [1650, 2315]), ('analytic_distribution', 'in', ['73']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_imp_aplytek" model="account.report.line">
+        <field name="name">APLYTEK</field>
+        <field name="code">IMP_APLYTEK</field>
+        <field name="parent_id" ref="gdomex_report_line_imp"/>
+        <field name="sequence">30</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_imp_aplytek_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('journal_id', 'in', [1650, 2315]), ('analytic_distribution', 'in', ['75']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_imp_armadillo" model="account.report.line">
+        <field name="name">ARMADILLO</field>
+        <field name="code">IMP_ARMADILLO</field>
+        <field name="parent_id" ref="gdomex_report_line_imp"/>
+        <field name="sequence">40</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_imp_armadillo_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('journal_id', 'in', [1650, 2315]), ('analytic_distribution', 'in', ['153']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_imp_armadillo_z" model="account.report.line">
+        <field name="name">ARMADILLO-Z</field>
+        <field name="code">IMP_ARMADILLO_Z</field>
+        <field name="parent_id" ref="gdomex_report_line_imp"/>
+        <field name="sequence">50</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_imp_armadillo_z_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('journal_id', 'in', [1650, 2315]), ('analytic_distribution', 'in', ['162']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <!-- Sucursales de DAI -->
+    <record id="gdomex_report_line_dai_domex" model="account.report.line">
+        <field name="name">DOMEX</field>
+        <field name="code">DAI_DOMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_dai"/>
+        <field name="sequence">10</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_dai_domex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('analytic_distribution', 'in', ['213']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_dai_almex" model="account.report.line">
+        <field name="name">ALMEX</field>
+        <field name="code">DAI_ALMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_dai"/>
+        <field name="sequence">20</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_dai_almex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('analytic_distribution', 'in', ['214']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_dai_aplytek" model="account.report.line">
+        <field name="name">APLYTEK</field>
+        <field name="code">DAI_APLYTEK</field>
+        <field name="parent_id" ref="gdomex_report_line_dai"/>
+        <field name="sequence">30</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_dai_aplytek_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('analytic_distribution', 'in', ['212']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_dai_armadillo" model="account.report.line">
+        <field name="name">ARMADILLO</field>
+        <field name="code">DAI_ARMADILLO</field>
+        <field name="parent_id" ref="gdomex_report_line_dai"/>
+        <field name="sequence">40</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_dai_armadillo_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('analytic_distribution', 'in', ['211']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_dai_armadillo_z" model="account.report.line">
+        <field name="name">ARMADILLO-Z</field>
+        <field name="code">DAI_ARMADILLO_Z</field>
+        <field name="parent_id" ref="gdomex_report_line_dai"/>
+        <field name="sequence">50</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_dai_armadillo_z_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('analytic_distribution', 'in', ['215']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <!-- Sucursales de FYT -->
+    <record id="gdomex_report_line_fyt_domex" model="account.report.line">
+        <field name="name">DOMEX</field>
+        <field name="code">FYT_DOMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_fyt"/>
+        <field name="sequence">10</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_fyt_domex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('analytic_distribution', 'in', ['62']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_fyt_almex" model="account.report.line">
+        <field name="name">ALMEX</field>
+        <field name="code">FYT_ALMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_fyt"/>
+        <field name="sequence">20</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_fyt_almex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('analytic_distribution', 'in', ['61']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_fyt_aplytek" model="account.report.line">
+        <field name="name">APLYTEK</field>
+        <field name="code">FYT_APLYTEK</field>
+        <field name="parent_id" ref="gdomex_report_line_fyt"/>
+        <field name="sequence">30</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_fyt_aplytek_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('analytic_distribution', 'in', ['63']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_fyt_armadillo" model="account.report.line">
+        <field name="name">ARMADILLO</field>
+        <field name="code">FYT_ARMADILLO</field>
+        <field name="parent_id" ref="gdomex_report_line_fyt"/>
+        <field name="sequence">40</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_fyt_armadillo_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('analytic_distribution', 'in', ['151']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_fyt_armadillo_z" model="account.report.line">
+        <field name="name">ARMADILLO-Z</field>
+        <field name="code">FYT_ARMADILLO_Z</field>
+        <field name="parent_id" ref="gdomex_report_line_fyt"/>
+        <field name="sequence">50</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_fyt_armadillo_z_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('analytic_distribution', 'in', ['160']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <!-- Sucursales de GA -->
+    <record id="gdomex_report_line_ga_domex" model="account.report.line">
+        <field name="name">DOMEX</field>
+        <field name="code">GA_DOMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_ga"/>
+        <field name="sequence">10</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_ga_domex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('account_id', '=', 4665), ('analytic_distribution', 'in', ['70', '213', '62', '210', '227', '65', '74', '68', '58'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_ga_almex" model="account.report.line">
+        <field name="name">ALMEX</field>
+        <field name="code">GA_ALMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_ga"/>
+        <field name="sequence">20</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_ga_almex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('account_id', '=', 4665), ('analytic_distribution', 'in', ['71', '214', '61', '64', '73', '67', '57'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_ga_aplytek" model="account.report.line">
+        <field name="name">APLYTEK</field>
+        <field name="code">GA_APLYTEK</field>
+        <field name="parent_id" ref="gdomex_report_line_ga"/>
+        <field name="sequence">30</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_ga_aplytek_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('account_id', '=', 4665), ('analytic_distribution', 'in', ['72', '212', '63', '225', '226', '66', '75', '69', '191'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_ga_armadillo" model="account.report.line">
+        <field name="name">ARMADILLO</field>
+        <field name="code">GA_ARMADILLO</field>
+        <field name="parent_id" ref="gdomex_report_line_ga"/>
+        <field name="sequence">40</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_ga_armadillo_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('account_id', '=', 4665), ('analytic_distribution', 'in', ['150', '211', '151', '152', '153', '154', '59'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_ga_armadillo_z" model="account.report.line">
+        <field name="name">ARMADILLO-Z</field>
+        <field name="code">GA_ARMADILLO_Z</field>
+        <field name="parent_id" ref="gdomex_report_line_ga"/>
+        <field name="sequence">50</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_ga_armadillo_z_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('account_id', '=', 4665), ('analytic_distribution', 'in', ['159', '215', '160', '161', '162', '163', '157'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <!-- Sucursales de SM -->
+    <record id="gdomex_report_line_sm_domex" model="account.report.line">
+        <field name="name">DOMEX</field>
+        <field name="code">SM_DOMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_sm"/>
+        <field name="sequence">10</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_sm_domex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('analytic_distribution', 'in', ['68']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_sm_almex" model="account.report.line">
+        <field name="name">ALMEX</field>
+        <field name="code">SM_ALMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_sm"/>
+        <field name="sequence">20</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_sm_almex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('analytic_distribution', 'in', ['67']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_sm_aplytek" model="account.report.line">
+        <field name="name">APLYTEK</field>
+        <field name="code">SM_APLYTEK</field>
+        <field name="parent_id" ref="gdomex_report_line_sm"/>
+        <field name="sequence">30</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_sm_aplytek_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('analytic_distribution', 'in', ['69']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_sm_armadillo" model="account.report.line">
+        <field name="name">ARMADILLO</field>
+        <field name="code">SM_ARMADILLO</field>
+        <field name="parent_id" ref="gdomex_report_line_sm"/>
+        <field name="sequence">40</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_sm_armadillo_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('analytic_distribution', 'in', ['154']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_sm_armadillo_z" model="account.report.line">
+        <field name="name">ARMADILLO-Z</field>
+        <field name="code">SM_ARMADILLO_Z</field>
+        <field name="parent_id" ref="gdomex_report_line_sm"/>
+        <field name="sequence">50</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_sm_armadillo_z_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('analytic_distribution', 'in', ['163']), ('debit', '&gt;', 0)]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <!-- Sucursales de II -->
+    <record id="gdomex_report_line_ii_domex" model="account.report.line">
+        <field name="name">DOMEX</field>
+        <field name="code">II_DOMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_ii"/>
+        <field name="sequence">10</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_ii_domex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('account_id', '=', 4660), ('analytic_distribution', 'in', ['70', '213', '62', '210', '227', '65', '74', '68', '58'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_ii_almex" model="account.report.line">
+        <field name="name">ALMEX</field>
+        <field name="code">II_ALMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_ii"/>
+        <field name="sequence">20</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_ii_almex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('account_id', '=', 4660), ('analytic_distribution', 'in', ['71', '214', '61', '64', '73', '67', '57'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_ii_aplytek" model="account.report.line">
+        <field name="name">APLYTEK</field>
+        <field name="code">II_APLYTEK</field>
+        <field name="parent_id" ref="gdomex_report_line_ii"/>
+        <field name="sequence">30</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_ii_aplytek_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('account_id', '=', 4660), ('analytic_distribution', 'in', ['72', '212', '63', '225', '226', '66', '75', '69', '191'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_ii_armadillo" model="account.report.line">
+        <field name="name">ARMADILLO</field>
+        <field name="code">II_ARMADILLO</field>
+        <field name="parent_id" ref="gdomex_report_line_ii"/>
+        <field name="sequence">40</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_ii_armadillo_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('account_id', '=', 4660), ('analytic_distribution', 'in', ['150', '211', '151', '152', '153', '154', '59'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_ii_armadillo_z" model="account.report.line">
+        <field name="name">ARMADILLO-Z</field>
+        <field name="code">II_ARMADILLO_Z</field>
+        <field name="parent_id" ref="gdomex_report_line_ii"/>
+        <field name="sequence">50</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_ii_armadillo_z_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('account_id', '=', 4660), ('analytic_distribution', 'in', ['159', '215', '160', '161', '162', '163', '157'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <!-- Sucursales de IFA -->
+    <record id="gdomex_report_line_ifa_domex" model="account.report.line">
+        <field name="name">DOMEX</field>
+        <field name="code">IFA_DOMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_ifa"/>
+        <field name="sequence">10</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_ifa_domex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('name', 'like', 'ALMX'), ('analytic_distribution', 'in', ['70', '213', '62', '210', '227', '65', '74', '68', '58'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_ifa_almex" model="account.report.line">
+        <field name="name">ALMEX</field>
+        <field name="code">IFA_ALMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_ifa"/>
+        <field name="sequence">20</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_ifa_almex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('name', 'like', 'ALMX'), ('analytic_distribution', 'in', ['71', '214', '61', '64', '73', '67', '57'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_ifa_aplytek" model="account.report.line">
+        <field name="name">APLYTEK</field>
+        <field name="code">IFA_APLYTEK</field>
+        <field name="parent_id" ref="gdomex_report_line_ifa"/>
+        <field name="sequence">30</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_ifa_aplytek_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('name', 'like', 'ALMX'), ('analytic_distribution', 'in', ['72', '212', '63', '225', '226', '66', '75', '69', '191'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_ifa_armadillo" model="account.report.line">
+        <field name="name">ARMADILLO</field>
+        <field name="code">IFA_ARMADILLO</field>
+        <field name="parent_id" ref="gdomex_report_line_ifa"/>
+        <field name="sequence">40</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_ifa_armadillo_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('name', 'like', 'ALMX'), ('analytic_distribution', 'in', ['150', '211', '151', '152', '153', '154', '59'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_ifa_armadillo_z" model="account.report.line">
+        <field name="name">ARMADILLO-Z</field>
+        <field name="code">IFA_ARMADILLO_Z</field>
+        <field name="parent_id" ref="gdomex_report_line_ifa"/>
+        <field name="sequence">50</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_ifa_armadillo_z_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('name', 'like', 'ALMX'), ('analytic_distribution', 'in', ['159', '215', '160', '161', '162', '163', '157'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <!-- Sucursales de IFD -->
+    <record id="gdomex_report_line_ifd_domex" model="account.report.line">
+        <field name="name">DOMEX</field>
+        <field name="code">IFD_DOMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_ifd"/>
+        <field name="sequence">10</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_ifd_domex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('name', 'like', 'GD'), ('analytic_distribution', 'in', ['70', '213', '62', '210', '227', '65', '74', '68', '58'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_ifd_almex" model="account.report.line">
+        <field name="name">ALMEX</field>
+        <field name="code">IFD_ALMEX</field>
+        <field name="parent_id" ref="gdomex_report_line_ifd"/>
+        <field name="sequence">20</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_ifd_almex_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('name', 'like', 'GD'), ('analytic_distribution', 'in', ['71', '214', '61', '64', '73', '67', '57'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_ifd_aplytek" model="account.report.line">
+        <field name="name">APLYTEK</field>
+        <field name="code">IFD_APLYTEK</field>
+        <field name="parent_id" ref="gdomex_report_line_ifd"/>
+        <field name="sequence">30</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_ifd_aplytek_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('name', 'like', 'GD'), ('analytic_distribution', 'in', ['72', '212', '63', '225', '226', '66', '75', '69', '191'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_ifd_armadillo" model="account.report.line">
+        <field name="name">ARMADILLO</field>
+        <field name="code">IFD_ARMADILLO</field>
+        <field name="parent_id" ref="gdomex_report_line_ifd"/>
+        <field name="sequence">40</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_ifd_armadillo_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('name', 'like', 'GD'), ('analytic_distribution', 'in', ['150', '211', '151', '152', '153', '154', '59'])]"/>
+                <field name="subformula">sum</field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_report_line_ifd_armadillo_z" model="account.report.line">
+        <field name="name">ARMADILLO-Z</field>
+        <field name="code">IFD_ARMADILLO_Z</field>
+        <field name="parent_id" ref="gdomex_report_line_ifd"/>
+        <field name="sequence">50</field>
+        <field name="groupby">account_id</field>
+        <field name="foldable" eval="True"/>
+        <field name="expression_ids">
+            <record id="gdomex_report_line_ifd_armadillo_z_balance" model="account.report.expression">
+                <field name="label">balance</field>
+                <field name="engine">domain</field>
+                <field name="formula" eval="[('name', 'like', 'GD'), ('analytic_distribution', 'in', ['159', '215', '160', '161', '162', '163', '157'])]"/>
+                <field name="subformula">sum</field>
             </record>
         </field>
     </record>
