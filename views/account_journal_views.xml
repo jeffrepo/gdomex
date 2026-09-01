@@ -9,7 +9,8 @@
             <field name="arch" type="xml">
                 <field name="refund_sequence" position="after">
                     <field name="cuenta_default"/>
-                </field>    
+                    <field name="analytic_account_id"/>
+                </field>
             </field>
         </record>
 

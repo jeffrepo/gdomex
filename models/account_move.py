@@ -5,7 +5,7 @@ import logging
 
 import pytz
 
-from odoo import fields, models, _
+from odoo import api, fields, models, _
 from odoo.exceptions import UserError, ValidationError
 
 
@@ -393,6 +393,75 @@ class StockPicking(models.Model):
 
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
+
+    @api.model
+    def _merge_journal_analytic_distribution(self, distribution, journal):
+        """Apply the journal account without removing unrelated plans."""
+        analytic_account = journal.analytic_account_id
+        if not analytic_account:
+            return distribution
+
+        journal_distribution = {
+            str(analytic_account.id): 100.0,
+            "__update__": [analytic_account.root_plan_id._column_name()],
+        }
+        return self.env["analytic.mixin"]._merge_distribution(
+            dict(distribution or {}),
+            journal_distribution,
+        )
+
+    @api.depends(
+        "account_id",
+        "partner_id",
+        "product_id",
+        "move_id.journal_id",
+    )
+    def _compute_analytic_distribution(self):
+        """Reapply the journal default when a line or its journal changes."""
+        super()._compute_analytic_distribution()
+        for line in self:
+            if (
+                line.display_type == "product"
+                and line.move_id.is_invoice(include_receipts=True)
+                and line.move_id.journal_id.analytic_account_id
+            ):
+                line.analytic_distribution = (
+                    line._merge_journal_analytic_distribution(
+                        line.analytic_distribution,
+                        line.move_id.journal_id,
+                    )
+                )
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        """Cover generated/imported invoice lines with explicit analytics."""
+        prepared_vals_list = [dict(vals) for vals in vals_list]
+        move_ids = {
+            vals.get("move_id")
+            for vals in prepared_vals_list
+            if vals.get("move_id")
+        }
+        moves_by_id = {
+            move.id: move
+            for move in self.env["account.move"].browse(list(move_ids)).exists()
+        }
+
+        for vals in prepared_vals_list:
+            move = moves_by_id.get(vals.get("move_id"))
+            if (
+                move
+                and move.is_invoice(include_receipts=True)
+                and vals.get("display_type") in (None, False, "product")
+                and move.journal_id.analytic_account_id
+            ):
+                vals["analytic_distribution"] = (
+                    self._merge_journal_analytic_distribution(
+                        vals.get("analytic_distribution"),
+                        move.journal_id,
+                    )
+                )
+
+        return super().create(prepared_vals_list)
 
     def _compute_account_id(self):
         """Port of the former _get_computed_account customization."""
