@@ -316,7 +316,7 @@
             <record id="gdomex_report_line_cdm_domex_balance" model="account.report.expression">
                 <field name="label">balance</field>
                 <field name="engine">domain</field>
-                <field name="formula" eval="[('account_id', '=', 4270), ('analytic_distribution', 'in', ['70', '213', '62', '210', '227', '65', '74', '68', '58'])]"/>
+                <field name="formula" eval="[('account_id', '=', 4270), ('analytic_distribution', 'in', ['230'])]"/>
                 <field name="subformula">sum</field>
             </record>
         </field>
@@ -333,7 +333,7 @@
             <record id="gdomex_report_line_cdm_almex_balance" model="account.report.expression">
                 <field name="label">balance</field>
                 <field name="engine">domain</field>
-                <field name="formula" eval="[('account_id', '=', 4270), ('analytic_distribution', 'in', ['71', '214', '61', '64', '73', '67', '57'])]"/>
+                <field name="formula" eval="[('account_id', '=', 4270), ('analytic_distribution', 'in', ['229'])]"/>
                 <field name="subformula">sum</field>
             </record>
         </field>
@@ -350,7 +350,7 @@
             <record id="gdomex_report_line_cdm_aplytek_balance" model="account.report.expression">
                 <field name="label">balance</field>
                 <field name="engine">domain</field>
-                <field name="formula" eval="[('account_id', '=', 4270), ('analytic_distribution', 'in', ['72', '212', '63', '225', '226', '66', '75', '69', '191'])]"/>
+                <field name="formula" eval="[('account_id', '=', 4270), ('analytic_distribution', 'in', ['231'])]"/>
                 <field name="subformula">sum</field>
             </record>
         </field>
@@ -367,7 +367,7 @@
             <record id="gdomex_report_line_cdm_armadillo_balance" model="account.report.expression">
                 <field name="label">balance</field>
                 <field name="engine">domain</field>
-                <field name="formula" eval="[('account_id', '=', 4270), ('analytic_distribution', 'in', ['150', '211', '151', '152', '153', '154', '59'])]"/>
+                <field name="formula" eval="[('account_id', '=', 4270), ('analytic_distribution', 'in', ['232'])]"/>
                 <field name="subformula">sum</field>
             </record>
         </field>
@@ -384,7 +384,7 @@
             <record id="gdomex_report_line_cdm_armadillo_z_balance" model="account.report.expression">
                 <field name="label">balance</field>
                 <field name="engine">domain</field>
-                <field name="formula" eval="[('account_id', '=', 4270), ('analytic_distribution', 'in', ['159', '215', '160', '161', '162', '163', '157'])]"/>
+                <field name="formula" eval="[('account_id', '=', 4270), ('analytic_distribution', 'in', ['233'])]"/>
                 <field name="subformula">sum</field>
             </record>
         </field>
