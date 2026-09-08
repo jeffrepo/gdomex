@@ -6,7 +6,7 @@
     'author': 'Silva technologies',
     'website': '',
     'category': 'Inventory',
-    'version': '19.0.1.0.5',
+    'version': '19.0.1.0.6',
     'license': 'LGPL-3',
     'depends': [
         'stock',
@@ -15,11 +15,13 @@
         'mrp',
         'stock_landed_costs',
         'account',
+        'account_reports',
         'hr',
         'account_gt',
     ],
     'data': [
         'data/informe_costo_ventas.xml',
+        'data/perdidas_ganancias_grupo_domex.xml',
         'report/venta_cotizacion_grupodomex.xml',
         'report/instalacion_cotizacion_grupodomex.xml',
         'data/report_paperformat_data.xml',

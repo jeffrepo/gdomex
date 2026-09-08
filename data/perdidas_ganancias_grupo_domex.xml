@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo auto_sequence="1">
+    <!--
+        Variante por sucursal basada en la estructura del profit_and_loss.xml
+        suministrado para Odoo 19.
+
+        El total de Ingreso incluye los diarios de tipo Ventas. Su desglose se
+        clasifica dinamicamente por el nombre del diario; "Facturas de cliente"
+        es la unica excepcion fija y pertenece a DOMEX.
+
+        Mapeo analitico tomado del informe de costo de ventas:
+        COSTO:    DOMEX 230, ALMEX 229, APLYTEK 231, ARMADILLO 232, ARMADILLO-Z 233.
+        SUCURSAL: DOMEX 58,  ALMEX 57,  APLYTEK 191, ARMADILLO 59,  ARMADILLO-Z 157.
+    -->
+    <record id="gdomex_report_profit_and_loss" model="account.report">
+        <field name="name">Pérdidas y ganancias Grupo Domex</field>
+        <field name="root_report_id" ref="account_reports.profit_and_loss"/>
+        <field name="sequence">20</field>
+        <field name="filter_analytic_groupby" eval="True"/>
+        <field name="filter_unfold_all" eval="True"/>
+        <field name="filter_journals" eval="True"/>
+        <field name="filter_multi_company">selector</field>
+        <field name="filter_budgets" eval="True"/>
+        <field name="allow_account_audit_status_on_lines" eval="True"/>
+        <field name="default_opening_date_filter">this_year</field>
+
+        <field name="column_ids">
+            <record id="gdomex_report_profit_and_loss_column" model="account.report.column">
+                <field name="name">Balance</field>
+                <field name="expression_label">balance</field>
+            </record>
+        </field>
+
+        <field name="line_ids">
+            <!-- INGRESO -->
+            <record id="gdomex_pnl_line_revenue" model="account.report.line">
+                <field name="name">Ingreso</field>
+                <field name="code">REV</field>
+                <field name="sequence">100</field>
+                <field name="hierarchy_level">1</field>
+                <field name="foldable" eval="True"/>
+                <field name="expression_ids">
+                    <record id="gdomex_pnl_line_revenue_balance" model="account.report.expression">
+                        <field name="label">balance</field>
+                        <field name="engine">domain</field>
+                        <field name="formula" eval="[('account_id.account_type', '=', 'income'), ('journal_id.type', '=', 'sale')]"/>
+                        <field name="subformula">-sum</field>
+                    </record>
+                </field>
+                <field name="children_ids">
+                    <record id="gdomex_pnl_line_revenue_domex" model="account.report.line">
+                        <field name="name">DOMEX</field>
+                        <field name="code">REV_DOMEX</field>
+                        <field name="sequence">101</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_pnl_line_revenue_domex_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="['&amp;', '&amp;', ('account_id.account_type', '=', 'income'), ('journal_id.type', '=', 'sale'), '|', '|', ('journal_id.name', 'ilike', 'DOMEX'), ('journal_id.name', 'ilike', 'DMX'), ('journal_id.name', '=ilike', 'Facturas de cliente')]"/>
+                                <field name="subformula">-sum</field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="gdomex_pnl_line_revenue_almex" model="account.report.line">
+                        <field name="name">ALMEX</field>
+                        <field name="code">REV_ALMEX</field>
+                        <field name="sequence">102</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_pnl_line_revenue_almex_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="['&amp;', '&amp;', ('account_id.account_type', '=', 'income'), ('journal_id.type', '=', 'sale'), '|', ('journal_id.name', 'ilike', 'ALMEX'), ('journal_id.name', 'ilike', 'ALX')]"/>
+                                <field name="subformula">-sum</field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="gdomex_pnl_line_revenue_aplytek" model="account.report.line">
+                        <field name="name">APLYTEK</field>
+                        <field name="code">REV_APLYTEK</field>
+                        <field name="sequence">103</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_pnl_line_revenue_aplytek_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="['&amp;', '&amp;', ('account_id.account_type', '=', 'income'), ('journal_id.type', '=', 'sale'), '|', ('journal_id.name', 'ilike', 'APLYTEK'), ('journal_id.name', 'ilike', 'APL')]"/>
+                                <field name="subformula">-sum</field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="gdomex_pnl_line_revenue_armadillo" model="account.report.line">
+                        <field name="name">ARMADILLO</field>
+                        <field name="code">REV_ARMADILLO</field>
+                        <field name="sequence">104</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_pnl_line_revenue_armadillo_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id.account_type', '=', 'income'), ('journal_id.type', '=', 'sale'), ('journal_id.name', 'ilike', 'ARMADILLO'), ('journal_id.name', 'not ilike', 'ARMADILLO-Z'), ('journal_id.name', 'not ilike', 'ARMADILLO Z')]"/>
+                                <field name="subformula">-sum</field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="gdomex_pnl_line_revenue_armadillo_z" model="account.report.line">
+                        <field name="name">ARMADILLO-Z</field>
+                        <field name="code">REV_ARMADILLO_Z</field>
+                        <field name="sequence">105</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_pnl_line_revenue_armadillo_z_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="['&amp;', '&amp;', ('account_id.account_type', '=', 'income'), ('journal_id.type', '=', 'sale'), '|', '|', ('journal_id.name', 'ilike', 'ARMADILLO-Z'), ('journal_id.name', 'ilike', 'ARMADILLO Z'), ('journal_id.name', 'ilike', 'ARM-Z')]"/>
+                                <field name="subformula">-sum</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+            </record>
+
+            <!-- COSTE DE INGRESOS -->
+            <record id="gdomex_pnl_line_cost_of_revenue" model="account.report.line">
+                <field name="name">Coste de ingresos</field>
+                <field name="code">COS</field>
+                <field name="sequence">200</field>
+                <field name="hierarchy_level">1</field>
+                <field name="foldable" eval="True"/>
+                <field name="expression_ids">
+                    <record id="gdomex_pnl_line_cost_of_revenue_balance" model="account.report.expression">
+                        <field name="label">balance</field>
+                        <field name="engine">domain</field>
+                        <field name="formula" eval="[('account_id.account_type', '=', 'expense_direct_cost'), ('analytic_distribution', 'in', ['230', '229', '231', '232', '233'])]"/>
+                        <field name="subformula">sum</field>
+                        <field name="green_on_positive" eval="False"/>
+                    </record>
+                </field>
+                <field name="children_ids">
+                    <record id="gdomex_pnl_line_cost_of_revenue_domex" model="account.report.line">
+                        <field name="name">DOMEX</field>
+                        <field name="code">COS_DOMEX</field>
+                        <field name="sequence">201</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_pnl_line_cost_of_revenue_domex_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id.account_type', '=', 'expense_direct_cost'), ('analytic_distribution', 'in', ['230'])]"/>
+                                <field name="subformula">sum</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="gdomex_pnl_line_cost_of_revenue_almex" model="account.report.line">
+                        <field name="name">ALMEX</field>
+                        <field name="code">COS_ALMEX</field>
+                        <field name="sequence">202</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_pnl_line_cost_of_revenue_almex_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id.account_type', '=', 'expense_direct_cost'), ('analytic_distribution', 'in', ['229'])]"/>
+                                <field name="subformula">sum</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="gdomex_pnl_line_cost_of_revenue_aplytek" model="account.report.line">
+                        <field name="name">APLYTEK</field>
+                        <field name="code">COS_APLYTEK</field>
+                        <field name="sequence">203</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_pnl_line_cost_of_revenue_aplytek_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id.account_type', '=', 'expense_direct_cost'), ('analytic_distribution', 'in', ['231'])]"/>
+                                <field name="subformula">sum</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="gdomex_pnl_line_cost_of_revenue_armadillo" model="account.report.line">
+                        <field name="name">ARMADILLO</field>
+                        <field name="code">COS_ARMADILLO</field>
+                        <field name="sequence">204</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_pnl_line_cost_of_revenue_armadillo_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id.account_type', '=', 'expense_direct_cost'), ('analytic_distribution', 'in', ['232'])]"/>
+                                <field name="subformula">sum</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="gdomex_pnl_line_cost_of_revenue_armadillo_z" model="account.report.line">
+                        <field name="name">ARMADILLO-Z</field>
+                        <field name="code">COS_ARMADILLO_Z</field>
+                        <field name="sequence">205</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_pnl_line_cost_of_revenue_armadillo_z_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id.account_type', '=', 'expense_direct_cost'), ('analytic_distribution', 'in', ['233'])]"/>
+                                <field name="subformula">sum</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+            </record>
+
+            <!-- RESULTADO BRUTO: misma formula del informe estandar -->
+            <record id="gdomex_pnl_line_gross_profit" model="account.report.line">
+                <field name="name">Resultado bruto</field>
+                <field name="code">GRP</field>
+                <field name="sequence">300</field>
+                <field name="hierarchy_level">0</field>
+                <field name="expression_ids">
+                    <record id="gdomex_pnl_line_gross_profit_balance" model="account.report.expression">
+                        <field name="label">balance</field>
+                        <field name="engine">aggregation</field>
+                        <field name="formula">REV.balance - COS.balance</field>
+                    </record>
+                </field>
+            </record>
+
+            <!-- GASTOS -->
+            <record id="gdomex_pnl_line_expenses" model="account.report.line">
+                <field name="name">Gastos</field>
+                <field name="code">EXP</field>
+                <field name="sequence">400</field>
+                <field name="hierarchy_level">1</field>
+                <field name="foldable" eval="True"/>
+                <field name="expression_ids">
+                    <record id="gdomex_pnl_line_expenses_balance" model="account.report.expression">
+                        <field name="label">balance</field>
+                        <field name="engine">domain</field>
+                        <field name="formula" eval="[('account_id.account_type', '=', 'expense'), ('account_id', 'not in', [4852, 4280, 4854]), ('analytic_distribution', 'in', ['58', '57', '191', '59', '157'])]"/>
+                        <field name="subformula">sum</field>
+                        <field name="green_on_positive" eval="False"/>
+                    </record>
+                </field>
+                <field name="children_ids">
+                    <record id="gdomex_pnl_line_expenses_domex" model="account.report.line">
+                        <field name="name">DOMEX</field>
+                        <field name="code">EXP_DOMEX</field>
+                        <field name="sequence">401</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_pnl_line_expenses_domex_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id.account_type', '=', 'expense'), ('account_id', 'not in', [4852, 4280, 4854]), ('analytic_distribution', 'in', ['58'])]"/>
+                                <field name="subformula">sum</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="gdomex_pnl_line_expenses_almex" model="account.report.line">
+                        <field name="name">ALMEX</field>
+                        <field name="code">EXP_ALMEX</field>
+                        <field name="sequence">402</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_pnl_line_expenses_almex_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id.account_type', '=', 'expense'), ('account_id', 'not in', [4852, 4280, 4854]), ('analytic_distribution', 'in', ['57'])]"/>
+                                <field name="subformula">sum</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="gdomex_pnl_line_expenses_aplytek" model="account.report.line">
+                        <field name="name">APLYTEK</field>
+                        <field name="code">EXP_APLYTEK</field>
+                        <field name="sequence">403</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_pnl_line_expenses_aplytek_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id.account_type', '=', 'expense'), ('account_id', 'not in', [4852, 4280, 4854]), ('analytic_distribution', 'in', ['191'])]"/>
+                                <field name="subformula">sum</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="gdomex_pnl_line_expenses_armadillo" model="account.report.line">
+                        <field name="name">ARMADILLO</field>
+                        <field name="code">EXP_ARMADILLO</field>
+                        <field name="sequence">404</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_pnl_line_expenses_armadillo_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id.account_type', '=', 'expense'), ('account_id', 'not in', [4852, 4280, 4854]), ('analytic_distribution', 'in', ['59'])]"/>
+                                <field name="subformula">sum</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="gdomex_pnl_line_expenses_armadillo_z" model="account.report.line">
+                        <field name="name">ARMADILLO-Z</field>
+                        <field name="code">EXP_ARMADILLO_Z</field>
+                        <field name="sequence">405</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_pnl_line_expenses_armadillo_z_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id.account_type', '=', 'expense'), ('account_id', 'not in', [4852, 4280, 4854]), ('analytic_distribution', 'in', ['157'])]"/>
+                                <field name="subformula">sum</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+            </record>
+
+            <!-- RESULTADO OPERATIVO: misma formula del informe estandar -->
+            <record id="gdomex_pnl_line_operating_income" model="account.report.line">
+                <field name="name">Resultado operativo (o pérdida)</field>
+                <field name="code">INC</field>
+                <field name="sequence">500</field>
+                <field name="hierarchy_level">0</field>
+                <field name="expression_ids">
+                    <record id="gdomex_pnl_line_operating_income_balance" model="account.report.expression">
+                        <field name="label">balance</field>
+                        <field name="engine">aggregation</field>
+                        <field name="formula">REV.balance - COS.balance - EXP.balance</field>
+                    </record>
+                </field>
+            </record>
+
+            <!-- OTROS INGRESOS: sin cambios -->
+            <record id="gdomex_pnl_line_other_income" model="account.report.line">
+                <field name="name">Otros ingresos</field>
+                <field name="code">OIN</field>
+                <field name="sequence">600</field>
+                <field name="hierarchy_level">1</field>
+                <field name="groupby">account_id</field>
+                <field name="foldable" eval="True"/>
+                <field name="expression_ids">
+                    <record id="gdomex_pnl_line_other_income_balance" model="account.report.expression">
+                        <field name="label">balance</field>
+                        <field name="engine">domain</field>
+                        <field name="formula" eval="[('account_id.account_type', '=', 'income_other')]"/>
+                        <field name="subformula">-sum</field>
+                    </record>
+                </field>
+            </record>
+
+            <!-- OTROS GASTOS -->
+            <record id="gdomex_pnl_line_other_expenses" model="account.report.line">
+                <field name="name">Otros gastos</field>
+                <field name="code">OEXP</field>
+                <field name="sequence">700</field>
+                <field name="hierarchy_level">1</field>
+                <field name="foldable" eval="True"/>
+                <field name="expression_ids">
+                    <record id="gdomex_pnl_line_other_expenses_balance" model="account.report.expression">
+                        <field name="label">balance</field>
+                        <field name="engine">domain</field>
+                        <field name="formula" eval="[('account_id', 'in', [4852, 4280, 4854]), ('analytic_distribution', 'in', ['58', '57', '191', '59', '157'])]"/>
+                        <field name="subformula">sum</field>
+                        <field name="green_on_positive" eval="False"/>
+                    </record>
+                </field>
+                <field name="children_ids">
+                    <record id="gdomex_pnl_line_other_expenses_domex" model="account.report.line">
+                        <field name="name">DOMEX</field>
+                        <field name="code">OEXP_DOMEX</field>
+                        <field name="sequence">701</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_pnl_line_other_expenses_domex_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id', 'in', [4852, 4280, 4854]), ('analytic_distribution', 'in', ['58'])]"/>
+                                <field name="subformula">sum</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="gdomex_pnl_line_other_expenses_almex" model="account.report.line">
+                        <field name="name">ALMEX</field>
+                        <field name="code">OEXP_ALMEX</field>
+                        <field name="sequence">702</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_pnl_line_other_expenses_almex_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id', 'in', [4852, 4280, 4854]), ('analytic_distribution', 'in', ['57'])]"/>
+                                <field name="subformula">sum</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="gdomex_pnl_line_other_expenses_aplytek" model="account.report.line">
+                        <field name="name">APLYTEK</field>
+                        <field name="code">OEXP_APLYTEK</field>
+                        <field name="sequence">703</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_pnl_line_other_expenses_aplytek_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id', 'in', [4852, 4280, 4854]), ('analytic_distribution', 'in', ['191'])]"/>
+                                <field name="subformula">sum</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="gdomex_pnl_line_other_expenses_armadillo" model="account.report.line">
+                        <field name="name">ARMADILLO</field>
+                        <field name="code">OEXP_ARMADILLO</field>
+                        <field name="sequence">704</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_pnl_line_other_expenses_armadillo_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id', 'in', [4852, 4280, 4854]), ('analytic_distribution', 'in', ['59'])]"/>
+                                <field name="subformula">sum</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="gdomex_pnl_line_other_expenses_armadillo_z" model="account.report.line">
+                        <field name="name">ARMADILLO-Z</field>
+                        <field name="code">OEXP_ARMADILLO_Z</field>
+                        <field name="sequence">705</field>
+                        <field name="groupby">account_id</field>
+                        <field name="foldable" eval="True"/>
+                        <field name="expression_ids">
+                            <record id="gdomex_pnl_line_other_expenses_armadillo_z_balance" model="account.report.expression">
+                                <field name="label">balance</field>
+                                <field name="engine">domain</field>
+                                <field name="formula" eval="[('account_id', 'in', [4852, 4280, 4854]), ('analytic_distribution', 'in', ['157'])]"/>
+                                <field name="subformula">sum</field>
+                                <field name="green_on_positive" eval="False"/>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+            </record>
+
+            <!-- RESULTADO NETO: misma formula del informe estandar -->
+            <record id="gdomex_pnl_line_net_profit" model="account.report.line">
+                <field name="name">Resultado neto</field>
+                <field name="code">NEP</field>
+                <field name="sequence">800</field>
+                <field name="hierarchy_level">0</field>
+                <field name="expression_ids">
+                    <record id="gdomex_pnl_line_net_profit_balance" model="account.report.expression">
+                        <field name="label">balance</field>
+                        <field name="engine">aggregation</field>
+                        <field name="formula">REV.balance + OIN.balance - COS.balance - EXP.balance - OEXP.balance</field>
+                    </record>
+                </field>
+            </record>
+
+            <!-- DISTRIBUCIONES Y RETIROS: sin cambios -->
+            <record id="gdomex_pnl_line_allocations_withdrawals" model="account.report.line">
+                <field name="name">Distribuciones y retiros</field>
+                <field name="code">ALLOC</field>
+                <field name="sequence">900</field>
+                <field name="hierarchy_level">1</field>
+                <field name="groupby">account_id</field>
+                <field name="foldable" eval="True"/>
+                <field name="expression_ids">
+                    <record id="gdomex_pnl_line_allocations_withdrawals_balance" model="account.report.expression">
+                        <field name="label">balance</field>
+                        <field name="engine">domain</field>
+                        <field name="formula" eval="[('account_id.account_type', '=', 'equity_unaffected')]"/>
+                        <field name="subformula">sum</field>
+                    </record>
+                </field>
+            </record>
+
+            <!-- RESULTADO DESPUES DE DISTRIBUCIONES: sin cambios -->
+            <record id="gdomex_pnl_line_net_profit_after_allocations" model="account.report.line">
+                <field name="name">Resultado neto después de distribuciones y retiros</field>
+                <field name="code">NEPAL</field>
+                <field name="sequence">1000</field>
+                <field name="hierarchy_level">0</field>
+                <field name="expression_ids">
+                    <record id="gdomex_pnl_line_net_profit_after_allocations_balance" model="account.report.expression">
+                        <field name="label">balance</field>
+                        <field name="engine">aggregation</field>
+                        <field name="formula">NEP.balance - ALLOC.balance</field>
+                    </record>
+                </field>
+            </record>
+        </field>
+    </record>
+
+    <record id="gdomex_action_profit_and_loss" model="ir.actions.client">
+        <field name="name">Pérdidas y ganancias Grupo Domex</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'report_id': ref('gdomex_report_profit_and_loss')}"/>
+    </record>
+
+    <menuitem
+        id="gdomex_menu_profit_and_loss"
+        name="Pérdidas y ganancias Grupo Domex"
+        parent="account.menu_finance_reports"
+        action="gdomex_action_profit_and_loss"
+        sequence="96"/>
+</odoo>
