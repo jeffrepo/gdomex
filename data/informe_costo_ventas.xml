@@ -299,7 +299,7 @@
     </record>
 
     <!--
-        Desglose intermedio por sucursal antes del detalle contable.
+        Desglose intermedio por sucursal antes del detalle por proveedor/contacto.
         Mapeo tomado del XLSX de cuentas analiticas (ID/nombre):
         DOMEX/DMX, ALMEX/ALX, APLYTEK/APL, ARMADILLO/ARM y ARMADILLO-Z/ARM-Z.
         ARMADILLO-Z se evalua de forma especifica para no mezclarlo con ARMADILLO.
@@ -310,7 +310,8 @@
         <field name="code">CDM_DOMEX</field>
         <field name="parent_id" ref="gdomex_report_line_cdm"/>
         <field name="sequence">111</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_cdm_domex_balance" model="account.report.expression">
@@ -327,7 +328,8 @@
         <field name="code">CDM_ALMEX</field>
         <field name="parent_id" ref="gdomex_report_line_cdm"/>
         <field name="sequence">112</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_cdm_almex_balance" model="account.report.expression">
@@ -344,7 +346,8 @@
         <field name="code">CDM_APLYTEK</field>
         <field name="parent_id" ref="gdomex_report_line_cdm"/>
         <field name="sequence">113</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_cdm_aplytek_balance" model="account.report.expression">
@@ -361,7 +364,8 @@
         <field name="code">CDM_ARMADILLO</field>
         <field name="parent_id" ref="gdomex_report_line_cdm"/>
         <field name="sequence">114</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_cdm_armadillo_balance" model="account.report.expression">
@@ -378,7 +382,8 @@
         <field name="code">CDM_ARMADILLO_Z</field>
         <field name="parent_id" ref="gdomex_report_line_cdm"/>
         <field name="sequence">115</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_cdm_armadillo_z_balance" model="account.report.expression">
@@ -396,7 +401,8 @@
         <field name="code">CLOC_DOMEX</field>
         <field name="parent_id" ref="gdomex_report_line_cloc"/>
         <field name="sequence">121</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_cloc_domex_balance" model="account.report.expression">
@@ -413,7 +419,8 @@
         <field name="code">CLOC_ALMEX</field>
         <field name="parent_id" ref="gdomex_report_line_cloc"/>
         <field name="sequence">122</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_cloc_almex_balance" model="account.report.expression">
@@ -430,7 +437,8 @@
         <field name="code">CLOC_APLYTEK</field>
         <field name="parent_id" ref="gdomex_report_line_cloc"/>
         <field name="sequence">123</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_cloc_aplytek_balance" model="account.report.expression">
@@ -447,7 +455,8 @@
         <field name="code">CLOC_ARMADILLO</field>
         <field name="parent_id" ref="gdomex_report_line_cloc"/>
         <field name="sequence">124</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_cloc_armadillo_balance" model="account.report.expression">
@@ -464,7 +473,8 @@
         <field name="code">CLOC_ARMADILLO_Z</field>
         <field name="parent_id" ref="gdomex_report_line_cloc"/>
         <field name="sequence">125</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_cloc_armadillo_z_balance" model="account.report.expression">
@@ -482,7 +492,8 @@
         <field name="code">GSC_DOMEX</field>
         <field name="parent_id" ref="gdomex_report_line_gsc"/>
         <field name="sequence">131</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_gsc_domex_balance" model="account.report.expression">
@@ -499,7 +510,8 @@
         <field name="code">GSC_ALMEX</field>
         <field name="parent_id" ref="gdomex_report_line_gsc"/>
         <field name="sequence">132</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_gsc_almex_balance" model="account.report.expression">
@@ -516,7 +528,8 @@
         <field name="code">GSC_APLYTEK</field>
         <field name="parent_id" ref="gdomex_report_line_gsc"/>
         <field name="sequence">133</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_gsc_aplytek_balance" model="account.report.expression">
@@ -533,7 +546,8 @@
         <field name="code">GSC_ARMADILLO</field>
         <field name="parent_id" ref="gdomex_report_line_gsc"/>
         <field name="sequence">134</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_gsc_armadillo_balance" model="account.report.expression">
@@ -550,7 +564,8 @@
         <field name="code">GSC_ARMADILLO_Z</field>
         <field name="parent_id" ref="gdomex_report_line_gsc"/>
         <field name="sequence">135</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_gsc_armadillo_z_balance" model="account.report.expression">
@@ -568,7 +583,8 @@
         <field name="code">DRC_DOMEX</field>
         <field name="parent_id" ref="gdomex_report_line_drc"/>
         <field name="sequence">151</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_drc_domex_balance" model="account.report.expression">
@@ -585,7 +601,8 @@
         <field name="code">DRC_ALMEX</field>
         <field name="parent_id" ref="gdomex_report_line_drc"/>
         <field name="sequence">152</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_drc_almex_balance" model="account.report.expression">
@@ -602,7 +619,8 @@
         <field name="code">DRC_APLYTEK</field>
         <field name="parent_id" ref="gdomex_report_line_drc"/>
         <field name="sequence">153</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_drc_aplytek_balance" model="account.report.expression">
@@ -619,7 +637,8 @@
         <field name="code">DRC_ARMADILLO</field>
         <field name="parent_id" ref="gdomex_report_line_drc"/>
         <field name="sequence">154</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_drc_armadillo_balance" model="account.report.expression">
@@ -636,7 +655,8 @@
         <field name="code">DRC_ARMADILLO_Z</field>
         <field name="parent_id" ref="gdomex_report_line_drc"/>
         <field name="sequence">155</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_drc_armadillo_z_balance" model="account.report.expression">
@@ -654,7 +674,8 @@
         <field name="code">IMP_DOMEX</field>
         <field name="parent_id" ref="gdomex_report_line_imp"/>
         <field name="sequence">161</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_imp_domex_balance" model="account.report.expression">
@@ -671,7 +692,8 @@
         <field name="code">IMP_ALMEX</field>
         <field name="parent_id" ref="gdomex_report_line_imp"/>
         <field name="sequence">162</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_imp_almex_balance" model="account.report.expression">
@@ -688,7 +710,8 @@
         <field name="code">IMP_APLYTEK</field>
         <field name="parent_id" ref="gdomex_report_line_imp"/>
         <field name="sequence">163</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_imp_aplytek_balance" model="account.report.expression">
@@ -705,7 +728,8 @@
         <field name="code">IMP_ARMADILLO</field>
         <field name="parent_id" ref="gdomex_report_line_imp"/>
         <field name="sequence">164</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_imp_armadillo_balance" model="account.report.expression">
@@ -722,7 +746,8 @@
         <field name="code">IMP_ARMADILLO_Z</field>
         <field name="parent_id" ref="gdomex_report_line_imp"/>
         <field name="sequence">165</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_imp_armadillo_z_balance" model="account.report.expression">
@@ -740,7 +765,8 @@
         <field name="code">DAI_DOMEX</field>
         <field name="parent_id" ref="gdomex_report_line_dai"/>
         <field name="sequence">171</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_dai_domex_balance" model="account.report.expression">
@@ -757,7 +783,8 @@
         <field name="code">DAI_ALMEX</field>
         <field name="parent_id" ref="gdomex_report_line_dai"/>
         <field name="sequence">172</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_dai_almex_balance" model="account.report.expression">
@@ -774,7 +801,8 @@
         <field name="code">DAI_APLYTEK</field>
         <field name="parent_id" ref="gdomex_report_line_dai"/>
         <field name="sequence">173</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_dai_aplytek_balance" model="account.report.expression">
@@ -791,7 +819,8 @@
         <field name="code">DAI_ARMADILLO</field>
         <field name="parent_id" ref="gdomex_report_line_dai"/>
         <field name="sequence">174</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_dai_armadillo_balance" model="account.report.expression">
@@ -808,7 +837,8 @@
         <field name="code">DAI_ARMADILLO_Z</field>
         <field name="parent_id" ref="gdomex_report_line_dai"/>
         <field name="sequence">175</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_dai_armadillo_z_balance" model="account.report.expression">
@@ -826,7 +856,8 @@
         <field name="code">FYT_DOMEX</field>
         <field name="parent_id" ref="gdomex_report_line_fyt"/>
         <field name="sequence">181</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_fyt_domex_balance" model="account.report.expression">
@@ -843,7 +874,8 @@
         <field name="code">FYT_ALMEX</field>
         <field name="parent_id" ref="gdomex_report_line_fyt"/>
         <field name="sequence">182</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_fyt_almex_balance" model="account.report.expression">
@@ -860,7 +892,8 @@
         <field name="code">FYT_APLYTEK</field>
         <field name="parent_id" ref="gdomex_report_line_fyt"/>
         <field name="sequence">183</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_fyt_aplytek_balance" model="account.report.expression">
@@ -877,7 +910,8 @@
         <field name="code">FYT_ARMADILLO</field>
         <field name="parent_id" ref="gdomex_report_line_fyt"/>
         <field name="sequence">184</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_fyt_armadillo_balance" model="account.report.expression">
@@ -894,7 +928,8 @@
         <field name="code">FYT_ARMADILLO_Z</field>
         <field name="parent_id" ref="gdomex_report_line_fyt"/>
         <field name="sequence">185</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_fyt_armadillo_z_balance" model="account.report.expression">
@@ -912,7 +947,8 @@
         <field name="code">GA_DOMEX</field>
         <field name="parent_id" ref="gdomex_report_line_ga"/>
         <field name="sequence">191</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_ga_domex_balance" model="account.report.expression">
@@ -929,7 +965,8 @@
         <field name="code">GA_ALMEX</field>
         <field name="parent_id" ref="gdomex_report_line_ga"/>
         <field name="sequence">192</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_ga_almex_balance" model="account.report.expression">
@@ -946,7 +983,8 @@
         <field name="code">GA_APLYTEK</field>
         <field name="parent_id" ref="gdomex_report_line_ga"/>
         <field name="sequence">193</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_ga_aplytek_balance" model="account.report.expression">
@@ -963,7 +1001,8 @@
         <field name="code">GA_ARMADILLO</field>
         <field name="parent_id" ref="gdomex_report_line_ga"/>
         <field name="sequence">194</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_ga_armadillo_balance" model="account.report.expression">
@@ -980,7 +1019,8 @@
         <field name="code">GA_ARMADILLO_Z</field>
         <field name="parent_id" ref="gdomex_report_line_ga"/>
         <field name="sequence">195</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_ga_armadillo_z_balance" model="account.report.expression">
@@ -998,7 +1038,8 @@
         <field name="code">SM_DOMEX</field>
         <field name="parent_id" ref="gdomex_report_line_sm"/>
         <field name="sequence">201</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_sm_domex_balance" model="account.report.expression">
@@ -1015,7 +1056,8 @@
         <field name="code">SM_ALMEX</field>
         <field name="parent_id" ref="gdomex_report_line_sm"/>
         <field name="sequence">202</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_sm_almex_balance" model="account.report.expression">
@@ -1032,7 +1074,8 @@
         <field name="code">SM_APLYTEK</field>
         <field name="parent_id" ref="gdomex_report_line_sm"/>
         <field name="sequence">203</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_sm_aplytek_balance" model="account.report.expression">
@@ -1049,7 +1092,8 @@
         <field name="code">SM_ARMADILLO</field>
         <field name="parent_id" ref="gdomex_report_line_sm"/>
         <field name="sequence">204</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_sm_armadillo_balance" model="account.report.expression">
@@ -1066,7 +1110,8 @@
         <field name="code">SM_ARMADILLO_Z</field>
         <field name="parent_id" ref="gdomex_report_line_sm"/>
         <field name="sequence">205</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_sm_armadillo_z_balance" model="account.report.expression">
@@ -1084,7 +1129,8 @@
         <field name="code">II_DOMEX</field>
         <field name="parent_id" ref="gdomex_report_line_ii"/>
         <field name="sequence">311</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_ii_domex_balance" model="account.report.expression">
@@ -1101,7 +1147,8 @@
         <field name="code">II_ALMEX</field>
         <field name="parent_id" ref="gdomex_report_line_ii"/>
         <field name="sequence">312</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_ii_almex_balance" model="account.report.expression">
@@ -1118,7 +1165,8 @@
         <field name="code">II_APLYTEK</field>
         <field name="parent_id" ref="gdomex_report_line_ii"/>
         <field name="sequence">313</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_ii_aplytek_balance" model="account.report.expression">
@@ -1135,7 +1183,8 @@
         <field name="code">II_ARMADILLO</field>
         <field name="parent_id" ref="gdomex_report_line_ii"/>
         <field name="sequence">314</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_ii_armadillo_balance" model="account.report.expression">
@@ -1152,7 +1201,8 @@
         <field name="code">II_ARMADILLO_Z</field>
         <field name="parent_id" ref="gdomex_report_line_ii"/>
         <field name="sequence">315</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_ii_armadillo_z_balance" model="account.report.expression">
@@ -1170,7 +1220,8 @@
         <field name="code">IFA_DOMEX</field>
         <field name="parent_id" ref="gdomex_report_line_ifa"/>
         <field name="sequence">501</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_ifa_domex_balance" model="account.report.expression">
@@ -1187,7 +1238,8 @@
         <field name="code">IFA_ALMEX</field>
         <field name="parent_id" ref="gdomex_report_line_ifa"/>
         <field name="sequence">502</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_ifa_almex_balance" model="account.report.expression">
@@ -1204,7 +1256,8 @@
         <field name="code">IFA_APLYTEK</field>
         <field name="parent_id" ref="gdomex_report_line_ifa"/>
         <field name="sequence">503</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_ifa_aplytek_balance" model="account.report.expression">
@@ -1221,7 +1274,8 @@
         <field name="code">IFA_ARMADILLO</field>
         <field name="parent_id" ref="gdomex_report_line_ifa"/>
         <field name="sequence">504</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_ifa_armadillo_balance" model="account.report.expression">
@@ -1238,7 +1292,8 @@
         <field name="code">IFA_ARMADILLO_Z</field>
         <field name="parent_id" ref="gdomex_report_line_ifa"/>
         <field name="sequence">505</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_ifa_armadillo_z_balance" model="account.report.expression">
@@ -1256,7 +1311,8 @@
         <field name="code">IFD_DOMEX</field>
         <field name="parent_id" ref="gdomex_report_line_ifd"/>
         <field name="sequence">601</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_ifd_domex_balance" model="account.report.expression">
@@ -1273,7 +1329,8 @@
         <field name="code">IFD_ALMEX</field>
         <field name="parent_id" ref="gdomex_report_line_ifd"/>
         <field name="sequence">602</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_ifd_almex_balance" model="account.report.expression">
@@ -1290,7 +1347,8 @@
         <field name="code">IFD_APLYTEK</field>
         <field name="parent_id" ref="gdomex_report_line_ifd"/>
         <field name="sequence">603</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_ifd_aplytek_balance" model="account.report.expression">
@@ -1307,7 +1365,8 @@
         <field name="code">IFD_ARMADILLO</field>
         <field name="parent_id" ref="gdomex_report_line_ifd"/>
         <field name="sequence">604</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_ifd_armadillo_balance" model="account.report.expression">
@@ -1324,7 +1383,8 @@
         <field name="code">IFD_ARMADILLO_Z</field>
         <field name="parent_id" ref="gdomex_report_line_ifd"/>
         <field name="sequence">605</field>
-        <field name="groupby">account_id</field>
+        <field name="groupby">partner_id</field>
+        <field name="user_groupby">partner_id</field>
         <field name="foldable" eval="True"/>
         <field name="expression_ids">
             <record id="gdomex_report_line_ifd_armadillo_z_balance" model="account.report.expression">
