@@ -5,17 +5,17 @@
         <field name="default" eval="False"/>
         <field name="format">Letter</field>
         <field name="orientation">Portrait</field>
-        <field name="margin_top">45</field>
+        <field name="margin_top">0</field>
         <field name="margin_bottom">12</field>
         <field name="margin_left">0</field>
         <field name="margin_right">0</field>
         <field name="header_line" eval="False"/>
-        <field name="header_spacing">10</field>
+        <field name="header_spacing">0</field>
         <field name="css_margins" eval="False"/>
         <field name="dpi">90</field>
     </record>
 
-    <!-- Kept inside each PDF fragment: Odoo renders the body, header and footer separately. -->
+    <!-- Keep styles in the document and footer, which Odoo renders separately. -->
     <template id="report_traslado_interno_styles">
         <style>
             body.o_body_html, body.o_body_pdf {
@@ -30,7 +30,14 @@
                 print-color-adjust: exact;
             }
             .gdomex_traslado_interno {
+                padding: 0;
+            }
+            .gdomex_traslado_interno_content {
                 padding: 4mm 14.5mm 0;
+            }
+            .gdomex_traslado_interno_header {
+                page-break-inside: avoid;
+                page-break-after: avoid;
             }
             .gdomex_traslado_interno h2 {
                 color: #222247;
@@ -43,7 +50,8 @@
     </template>
 
     <template id="report_traslado_interno_header">
-        <div class="header gdomex_traslado_interno_header"
+        <!-- Deliberately no "header" class: the letterhead stays inside the PDF body. -->
+        <div class="gdomex_traslado_interno_header"
              style="position: relative; min-height: 34mm; padding: 0; font-family: Arial, sans-serif; color: #222247;">
             <t t-call="gdomex.report_traslado_interno_styles"/>
             <div style="position: absolute; top: 0; right: 0; width: 59mm; height: 5.6mm; background-color: #e65b1c;">
@@ -72,6 +80,13 @@
         </div>
     </template>
 
+    <template id="report_traslado_interno_layout">
+        <div class="page gdomex_traslado_interno_document">
+            <t t-call="gdomex.report_traslado_interno_header"/>
+            <t t-out="0"/>
+        </div>
+    </template>
+
     <template id="report_traslado_interno_footer">
         <div class="footer gdomex_traslado_interno_footer" style="position: relative; height: 12mm; padding: 0;">
             <t t-call="gdomex.report_traslado_interno_styles"/>
@@ -83,20 +98,28 @@
 
     <!-- Primary inheritance creates a separate report, leaving Picking Operations unchanged. -->
     <template id="report_traslado_interno" inherit_id="stock.report_picking" primary="True">
+        <xpath expr="//t[@t-call='web.report_layout']" position="attributes">
+            <attribute name="t-call">web.html_container</attribute>
+        </xpath>
         <xpath expr="//div[hasclass('article')]" position="before">
-            <!-- Explicit arguments also protect the header space when called from another report. -->
-            <t t-set="data_report_margin_top" t-value="45"/>
-            <t t-set="data_report_header_spacing" t-value="10"/>
-            <t t-call="gdomex.report_traslado_interno_header"/>
+            <t t-set="data_report_margin_top" t-value="0"/>
+            <t t-set="data_report_header_spacing" t-value="0"/>
         </xpath>
         <xpath expr="//div[hasclass('article')]" position="after">
             <t t-call="gdomex.report_traslado_interno_footer"/>
         </xpath>
         <xpath expr="//div[hasclass('article')]" position="attributes">
-            <attribute name="class" add="gdomex_traslado_interno" separator=" "/>
+            <attribute name="class">article gdomex_traslado_interno</attribute>
         </xpath>
         <xpath expr="//div[hasclass('article')]" position="inside">
             <t t-call="gdomex.report_traslado_interno_styles"/>
+        </xpath>
+        <!-- Wrap each picking in our own layout, keeping all native operations in $0. -->
+        <xpath expr="//div[hasclass('page')]" position="attributes">
+            <attribute name="class">gdomex_traslado_interno_content</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('gdomex_traslado_interno_content')]" position="replace">
+            <t t-call="gdomex.report_traslado_interno_layout">$0</t>
         </xpath>
         <xpath expr="//h3[@t-field='o.picking_type_id.code']" position="replace"/>
         <xpath expr="//div[@name='right_box']" position="replace"/>
