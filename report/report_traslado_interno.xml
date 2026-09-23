@@ -5,12 +5,12 @@
         <field name="default" eval="False"/>
         <field name="format">Letter</field>
         <field name="orientation">Portrait</field>
-        <field name="margin_top">36</field>
+        <field name="margin_top">45</field>
         <field name="margin_bottom">12</field>
         <field name="margin_left">0</field>
         <field name="margin_right">0</field>
         <field name="header_line" eval="False"/>
-        <field name="header_spacing">5</field>
+        <field name="header_spacing">10</field>
         <field name="css_margins" eval="False"/>
         <field name="dpi">90</field>
     </record>
@@ -30,7 +30,7 @@
                 print-color-adjust: exact;
             }
             .gdomex_traslado_interno {
-                padding: 0 14.5mm;
+                padding: 4mm 14.5mm 0;
             }
             .gdomex_traslado_interno h2 {
                 color: #222247;
@@ -44,20 +44,30 @@
 
     <template id="report_traslado_interno_header">
         <div class="header gdomex_traslado_interno_header"
-             style="position: relative; height: 31mm; padding: 0; font-family: Arial, sans-serif; color: #222247;">
+             style="position: relative; min-height: 34mm; padding: 0; font-family: Arial, sans-serif; color: #222247;">
             <t t-call="gdomex.report_traslado_interno_styles"/>
             <div style="position: absolute; top: 0; right: 0; width: 59mm; height: 5.6mm; background-color: #e65b1c;">
                 <div style="width: 23.6mm; height: 5.6mm; background-color: #222247;"/>
             </div>
-            <img src="/gdomex/static/src/img/grupo_domex_nuevo.png" alt="Grupo Domex"
-                 style="position: absolute; top: 6mm; left: 18mm; width: 52mm; height: auto;"/>
-            <div style="position: absolute; top: 24.5mm; left: 14.5mm; width: 59mm; height: 2.8mm; background-color: #e65b1c;">
-                <div style="width: 23.6mm; height: 2.8mm; background-color: #222247;"/>
-            </div>
-            <div style="position: absolute; top: 8mm; left: 78mm; height: 19.3mm; border-left: 0.35mm solid #e65b1c;"/>
-            <div style="position: absolute; top: 10mm; left: 82mm; font-size: 11.5pt; font-weight: bold; line-height: 1.2;">
-                <div style="color: #e65b1c; margin-bottom: 0.6mm;">TRASLADO INTERNO</div>
-                <div>Departamento de<br/>Bodega y Almacén</div>
+            <!-- Keep the logo and title in normal flow so their height is reserved in HTML and PDF. -->
+            <div style="padding: 6mm 14.5mm 0;">
+                <table class="table-borderless" role="presentation"
+                       style="width: 100%; table-layout: fixed; border-collapse: collapse; margin: 0;">
+                    <tr>
+                        <td style="width: 59mm; padding: 0; border: 0; vertical-align: middle;">
+                            <img src="/gdomex/static/src/img/grupo_domex_nuevo.png" alt="Grupo Domex"
+                                 style="display: block; width: 52mm; height: auto; margin-left: 3.5mm;"/>
+                            <div style="margin-top: 0.8mm; height: 2.8mm; background-color: #e65b1c;">
+                                <div style="width: 23.6mm; height: 2.8mm; background-color: #222247;"/>
+                            </div>
+                        </td>
+                        <td style="width: 9mm; padding: 0; border: 0; border-right: 0.35mm solid #e65b1c;"/>
+                        <td style="padding: 0 0 0 4mm; border: 0; vertical-align: middle; font-size: 11.5pt; font-weight: bold; line-height: 1.2;">
+                            <div style="color: #e65b1c; margin-bottom: 0.6mm; white-space: nowrap;">TRASLADO INTERNO</div>
+                            <div>Departamento de<br/>Bodega y Almacén</div>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
     </template>
@@ -74,7 +84,12 @@
     <!-- Primary inheritance creates a separate report, leaving Picking Operations unchanged. -->
     <template id="report_traslado_interno" inherit_id="stock.report_picking" primary="True">
         <xpath expr="//div[hasclass('article')]" position="before">
+            <!-- Explicit arguments also protect the header space when called from another report. -->
+            <t t-set="data_report_margin_top" t-value="45"/>
+            <t t-set="data_report_header_spacing" t-value="10"/>
             <t t-call="gdomex.report_traslado_interno_header"/>
+        </xpath>
+        <xpath expr="//div[hasclass('article')]" position="after">
             <t t-call="gdomex.report_traslado_interno_footer"/>
         </xpath>
         <xpath expr="//div[hasclass('article')]" position="attributes">
@@ -84,6 +99,24 @@
             <t t-call="gdomex.report_traslado_interno_styles"/>
         </xpath>
         <xpath expr="//h3[@t-field='o.picking_type_id.code']" position="replace"/>
+        <xpath expr="//div[@name='right_box']" position="replace"/>
+        <xpath expr="//h2[@t-field='o.name']/parent::div" position="attributes">
+            <attribute name="class">col-12</attribute>
+        </xpath>
+        <!-- Hide the complete product/lot barcode column, including its heading and cells. -->
+        <xpath expr="//t[@t-set='barcode_col_exists']" position="attributes">
+            <attribute name="t-value">False</attribute>
+        </xpath>
+        <xpath expr="//span[@t-out='line.lot_id.name']" position="attributes">
+            <attribute name="t-out">line.lot_id.name or line.lot_name</attribute>
+        </xpath>
+        <!-- Package identifiers remain readable in both reserved and completed transfers. -->
+        <xpath expr="//tr[@t-as='package']//div[@t-field='package.name']" position="replace">
+            <span t-field="package.name"/>
+        </xpath>
+        <xpath expr="//tr[@t-as='package_history']//div[@t-field='package.name']" position="replace">
+            <span t-field="package.name"/>
+        </xpath>
     </template>
 
     <record id="action_report_traslado_interno" model="ir.actions.report">
