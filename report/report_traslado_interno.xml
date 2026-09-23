@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_traslado_interno" model="report.paperformat">
+        <field name="name">Traslado interno - Carta</field>
+        <field name="default" eval="False"/>
+        <field name="format">Letter</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">36</field>
+        <field name="margin_bottom">12</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">5</field>
+        <field name="css_margins" eval="False"/>
+        <field name="dpi">90</field>
+    </record>
+
+    <!-- Kept inside each PDF fragment: Odoo renders the body, header and footer separately. -->
+    <template id="report_traslado_interno_styles">
+        <style>
+            body.o_body_html, body.o_body_pdf {
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100%;
+                max-width: none;
+            }
+            .gdomex_traslado_interno_header,
+            .gdomex_traslado_interno_footer {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .gdomex_traslado_interno {
+                padding: 0 14.5mm;
+            }
+            .gdomex_traslado_interno h2 {
+                color: #222247;
+            }
+            .gdomex_traslado_interno .o_main_table thead {
+                color: #222247;
+                border-bottom: 1px solid #e65b1c;
+            }
+        </style>
+    </template>
+
+    <template id="report_traslado_interno_header">
+        <div class="header gdomex_traslado_interno_header"
+             style="position: relative; height: 31mm; padding: 0; font-family: Arial, sans-serif; color: #222247;">
+            <t t-call="gdomex.report_traslado_interno_styles"/>
+            <div style="position: absolute; top: 0; right: 0; width: 59mm; height: 5.6mm; background-color: #e65b1c;">
+                <div style="width: 23.6mm; height: 5.6mm; background-color: #222247;"/>
+            </div>
+            <img src="/gdomex/static/src/img/grupo_domex_nuevo.png" alt="Grupo Domex"
+                 style="position: absolute; top: 6mm; left: 18mm; width: 52mm; height: auto;"/>
+            <div style="position: absolute; top: 24.5mm; left: 14.5mm; width: 59mm; height: 2.8mm; background-color: #e65b1c;">
+                <div style="width: 23.6mm; height: 2.8mm; background-color: #222247;"/>
+            </div>
+            <div style="position: absolute; top: 8mm; left: 78mm; height: 19.3mm; border-left: 0.35mm solid #e65b1c;"/>
+            <div style="position: absolute; top: 10mm; left: 82mm; font-size: 11.5pt; font-weight: bold; line-height: 1.2;">
+                <div style="color: #e65b1c; margin-bottom: 0.6mm;">TRASLADO INTERNO</div>
+                <div>Departamento de<br/>Bodega y Almacén</div>
+            </div>
+        </div>
+    </template>
+
+    <template id="report_traslado_interno_footer">
+        <div class="footer gdomex_traslado_interno_footer" style="position: relative; height: 12mm; padding: 0;">
+            <t t-call="gdomex.report_traslado_interno_styles"/>
+            <div style="position: absolute; bottom: 0; left: 0; width: 59mm; height: 5.6mm; background-color: #e65b1c;">
+                <div style="width: 23.6mm; height: 5.6mm; background-color: #222247;"/>
+            </div>
+        </div>
+    </template>
+
+    <!-- Primary inheritance creates a separate report, leaving Picking Operations unchanged. -->
+    <template id="report_traslado_interno" inherit_id="stock.report_picking" primary="True">
+        <xpath expr="//div[hasclass('article')]" position="before">
+            <t t-call="gdomex.report_traslado_interno_header"/>
+            <t t-call="gdomex.report_traslado_interno_footer"/>
+        </xpath>
+        <xpath expr="//div[hasclass('article')]" position="attributes">
+            <attribute name="class" add="gdomex_traslado_interno" separator=" "/>
+        </xpath>
+        <xpath expr="//div[hasclass('article')]" position="inside">
+            <t t-call="gdomex.report_traslado_interno_styles"/>
+        </xpath>
+        <xpath expr="//h3[@t-field='o.picking_type_id.code']" position="replace"/>
+    </template>
+
+    <record id="action_report_traslado_interno" model="ir.actions.report">
+        <field name="name">Traslado interno</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gdomex.report_traslado_interno</field>
+        <field name="report_file">gdomex.report_traslado_interno</field>
+        <field name="print_report_name">'Traslado interno - %s' % object.name</field>
+        <field name="paperformat_id" ref="paperformat_traslado_interno"/>
+        <field name="binding_model_id" ref="stock.model_stock_picking"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

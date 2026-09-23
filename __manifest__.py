@@ -6,7 +6,7 @@
     'author': 'Silva technologies',
     'website': '',
     'category': 'Inventory',
-    'version': '19.0.1.0.7',
+    'version': '19.0.1.0.8',
     'license': 'LGPL-3',
     'depends': [
         'stock',
@@ -61,6 +61,7 @@
         'report/report_envio_domex.xml',
         'report/report_envio_aplytek.xml',
         'report/report_stockpicking_domex.xml',
+        'report/report_traslado_interno.xml',
         'report/report_envio_almex.xml',
         'views/mrp_production_views.xml',
         'wizard/project_orden_trabajo.xml',
