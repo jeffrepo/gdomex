@@ -1,3 +1,12 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_domex_color,access.domex.color,gdomex.model_domex_color,project.group_project_manager,1,1,1,1
 access_sync_purchase_order,access.sync.purchase.order,model_sync_purchase_order,project.group_project_manager,1,1,1,1
+access_liquidacion_operator,Liquidaciones,account_gt.model_account_gt_liquidacion,group_liquidacion_user,1,1,1,0
+access_liquidacion_move,Facturas de liquidaciones,account.model_account_move,group_liquidacion_user,1,1,1,0
+access_liquidacion_move_line,Lineas de facturas de liquidaciones,account.model_account_move_line,group_liquidacion_user,1,1,1,1
+access_liquidacion_journal,Consulta de diarios,account.model_account_journal,group_liquidacion_user,1,0,0,0
+access_liquidacion_cash_rounding,Consulta de redondeos,account.model_account_cash_rounding,group_liquidacion_user,1,0,0,0
+access_liquidacion_analytic_plan,Consulta de planes analiticos,analytic.model_account_analytic_plan,group_liquidacion_user,1,0,0,0
+access_liquidacion_analytic_applicability,Consulta de aplicabilidad analitica,analytic.model_account_analytic_applicability,group_liquidacion_user,1,0,0,0
+access_liquidacion_analytic_distribution,Consulta de distribuciones analiticas,analytic.model_account_analytic_distribution_model,group_liquidacion_user,1,0,0,0
+access_liquidacion_payment,Consulta de pagos de liquidaciones,account.model_account_payment,group_liquidacion_user,1,0,0,0

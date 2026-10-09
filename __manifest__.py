@@ -6,7 +6,7 @@
     'author': 'Silva technologies',
     'website': '',
     'category': 'Inventory',
-    'version': '19.0.1.0.10',
+    'version': '19.0.1.0.11',
     'license': 'LGPL-3',
     'depends': [
         'stock',
@@ -43,6 +43,8 @@
         'report/reporte_voucher_aplytek_antiguo.xml',
         'report/reporte_inter_continuo.xml',
         'security/ir.model.access.csv',
+        'security/liquidacion_rules.xml',
+        'views/liquidacion_views.xml',
         'views/account_payments_views.xml',
         'views/project_project_views.xml',
         'views/stock_picking_views.xml',

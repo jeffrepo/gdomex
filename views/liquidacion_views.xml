@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- A focused form avoids exposing payment, reversal, reconciliation and
+         Accounting-only widgets to users without the Accounting groups. -->
+    <record id="view_liquidacion_vendor_bill_form" model="ir.ui.view">
+        <field name="name">account.move.liquidacion.form</field>
+        <field name="model">account.move</field>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <form string="Factura de proveedor" delete="0" duplicate="0">
+                <header>
+                    <button name="action_post" type="object" string="Validar"
+                            class="oe_highlight" invisible="state != 'draft'"
+                            groups="gdomex.group_liquidacion_user"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,posted"/>
+                </header>
+                <sheet>
+                    <field name="move_type" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="commercial_partner_id" invisible="1"/>
+                    <div class="oe_title"><h1><field name="name" readonly="1"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="liquidacion_id" readonly="1" options="{'no_open': True}"/>
+                            <field name="partner_id" string="Proveedor" required="1"
+                                   readonly="state != 'draft'"
+                                   context="{'res_partner_search_mode': 'supplier'}"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="ref" string="Referencia del proveedor" readonly="state != 'draft'"/>
+                            <field name="tipo_factura" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="invoice_date" required="1" readonly="state != 'draft'"/>
+                            <field name="date" readonly="state != 'draft'"/>
+                            <field name="journal_id" readonly="state != 'draft'"
+                                   domain="[('type', '=', 'purchase'), ('company_id', 'parent_of', company_id)]"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="currency_id" readonly="state != 'draft'"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="invoice_payment_term_id" readonly="state != 'draft'"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="fiscal_position_id" readonly="state != 'draft'"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                    </group>
+                    <field name="invoice_line_ids" readonly="state != 'draft'"
+                           context="{'default_move_type': 'in_invoice', 'default_display_type': 'product', 'default_partner_id': commercial_partner_id, 'default_currency_id': currency_id}">
+                        <list editable="bottom">
+                            <field name="company_id" column_invisible="True"/>
+                            <field name="currency_id" column_invisible="True"/>
+                            <field name="display_type" column_invisible="True"/>
+                            <field name="product_id" domain="[('purchase_ok', '=', True)]"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="name"/>
+                            <field name="account_id" required="1"
+                                   domain="[('company_ids', 'parent_of', parent.company_id), ('account_type', 'not in', ('asset_receivable', 'liability_payable', 'off_balance'))]"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="quantity"/>
+                            <field name="product_uom_id" optional="hide" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="price_unit"/>
+                            <field name="discount" optional="hide"/>
+                            <field name="tax_ids" widget="many2many_tags"
+                                   domain="[('type_tax_use', '=', 'purchase'), ('company_id', 'parent_of', parent.company_id)]"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="analytic_distribution" widget="analytic_distribution" optional="hide"
+                                   business_domain_compute="'bill'"
+                                   options="{'product_field': 'product_id', 'account_field': 'account_id', 'amount_field': 'price_subtotal'}"/>
+                            <field name="price_subtotal" readonly="1"/>
+                        </list>
+                    </field>
+                    <group class="oe_subtotal_footer">
+                        <field name="amount_untaxed"/>
+                        <field name="amount_tax"/>
+                        <field name="amount_total"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Primary inheritance confines this form to the independent app. -->
+    <record id="view_liquidacion_operator_form" model="ir.ui.view">
+        <field name="name">account_gt.liquidacion.operator.form</field>
+        <field name="model">account_gt.liquidacion</field>
+        <field name="inherit_id" ref="account_gt.view_account_gt_liquidacion_form"/>
+        <field name="mode">primary</field>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_create_vendor_bill" type="object"
+                        string="Crear factura de proveedor" class="oe_highlight"
+                        invisible="state != 'borrador'" groups="gdomex.group_liquidacion_user"/>
+            </xpath>
+            <xpath expr="//button[@name='conciliar_liquidacion']" position="attributes">
+                <attribute name="groups">account.group_account_invoice</attribute>
+            </xpath>
+            <xpath expr="//button[@name='cancelar_liquidacion']" position="attributes">
+                <attribute name="groups">account.group_account_invoice</attribute>
+            </xpath>
+            <xpath expr="//field[@name='move_id']" position="attributes">
+                <attribute name="groups">account.group_account_invoice</attribute>
+            </xpath>
+            <xpath expr="//field[@name='descripcion']" position="before">
+                <field name="company_id" readonly="state != 'borrador'" options="{'no_create': True, 'no_open': True}"/>
+            </xpath>
+            <xpath expr="//field[@name='descripcion']" position="attributes">
+                <attribute name="readonly">state != 'borrador'</attribute>
+            </xpath>
+            <xpath expr="//field[@name='fecha']" position="attributes">
+                <attribute name="readonly">state != 'borrador'</attribute>
+            </xpath>
+            <xpath expr="//field[@name='diario_id']" position="attributes">
+                <attribute name="domain">[('type', '=', 'general'), ('company_id', 'parent_of', company_id)]</attribute>
+                <attribute name="options">{'no_create': True, 'no_open': True}</attribute>
+                <attribute name="readonly">state != 'borrador'</attribute>
+            </xpath>
+            <xpath expr="//field[@name='cuenta_id']" position="attributes">
+                <attribute name="options">{'no_create': True, 'no_open': True}</attribute>
+                <attribute name="readonly">state != 'borrador'</attribute>
+            </xpath>
+            <xpath expr="//field[@name='factura_relacion_ids']" position="replace">
+                <field name="factura_relacion_ids" readonly="state != 'borrador'"
+                       domain="[('move_type', '=', 'in_invoice')]"
+                       context="{'default_move_type': 'in_invoice', 'default_tipo_factura': 'compra', 'default_company_id': company_id, 'default_liquidacion_id': id, 'form_view_ref': 'gdomex.view_liquidacion_vendor_bill_form'}">
+                    <list delete="0">
+                        <field name="name"/>
+                        <field name="partner_id"/>
+                        <field name="ref"/>
+                        <field name="invoice_date"/>
+                        <field name="currency_id" column_invisible="True"/>
+                        <field name="amount_total" sum="Total"/>
+                        <field name="state"/>
+                    </list>
+                </field>
+            </xpath>
+            <xpath expr="//field[@name='pago_relacion_ids']" position="replace">
+                <field name="pago_relacion_ids" readonly="1" options="{'no_open': True}">
+                    <list create="0" edit="0" delete="0">
+                        <field name="name"/>
+                        <field name="date"/>
+                        <field name="partner_id" options="{'no_open': True}"/>
+                        <field name="currency_id" column_invisible="True"/>
+                        <field name="amount" sum="Total"/>
+                        <field name="state"/>
+                    </list>
+                    <form string="Pago de la liquidación" create="0" edit="0" delete="0">
+                        <group>
+                            <field name="name"/>
+                            <field name="date"/>
+                            <field name="partner_id" options="{'no_open': True}"/>
+                            <field name="currency_id" options="{'no_open': True}"/>
+                            <field name="amount"/>
+                            <field name="state"/>
+                        </group>
+                    </form>
+                </field>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_liquidacion_operator" model="ir.actions.act_window">
+        <field name="name">Liquidaciones</field>
+        <field name="res_model">account_gt.liquidacion</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="account_gt.account_gt_liquidacion_view_search"/>
+        <field name="view_ids" eval="[Command.clear(), Command.create({'view_mode': 'list', 'view_id': ref('account_gt.view_account_gt_liquidacion_tree')}), Command.create({'view_mode': 'form', 'view_id': ref('view_liquidacion_operator_form')})]"/>
+    </record>
+    <menuitem id="menu_liquidaciones_root" name="Liquidaciones"
+              action="action_liquidacion_operator" sequence="35"
+              groups="gdomex.group_liquidacion_user"/>
+</odoo>
