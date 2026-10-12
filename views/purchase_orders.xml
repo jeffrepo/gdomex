@@ -10,7 +10,7 @@
                             <t t-if="o.picking_type_id.warehouse_id.name in ['Almex','Grupo Domex - almex']">
                                 <img src='/gdomex/static/src/img/almex_logo_reporte.png' style="max-width: 837px;"/>
                             </t>
-                            <t t-elif="o.company_id.name == 'APLYTEK S.A.' or o.picking_type_id.warehouse_id.name in ['APLYTEK']">
+                            <t t-elif="o.company_id.name == 'APLYTEK S.A.'">
                                 <img src='/gdomex/static/src/img/aplytek_logo_reporte.png' style="max-width: 875px;"/>
                             </t>
 
@@ -20,7 +20,7 @@
                             <t t-elif="o.company_id.name == 'CAPEX, S.A.'">
                                 <img src='/domex/static/src/img/capex_logo.png' style="max-width: 837px;"/>
                             </t>
-                            <t t-elif="o.picking_type_id.warehouse_id.name in ['Grupo Domex','DOMEX']">
+                            <t t-elif="o.picking_type_id.warehouse_id.name in ['Grupo Domex','DOMEX','APLYTEK']">
                                 <!-- entregar a  -->
                                 <img src='/gdomex/static/src/img/domexl.png' style="max-width: 200px;"/>
                             </t>
@@ -47,7 +47,7 @@
                                         <br/>PBX <span t-esc="o.company_id.phone"/>
                                         <br/>NIT <span t-esc="o.company_id.vat"/>
                                     </td>
-                                    <t t-if="o.picking_type_id.warehouse_id.name in ['Grupo Domex','DOMEX']">
+                                    <t t-if="o.picking_type_id.warehouse_id.name in ['Grupo Domex','DOMEX','APLYTEK']">
                                         <td style="border-left: 2px solid grey;border-top: 3px solid #e36d2d;">
                                             <h4>ORDEN DE COMPRA</h4>
                                             <br/>PO: <span t-field="o.name"/>
