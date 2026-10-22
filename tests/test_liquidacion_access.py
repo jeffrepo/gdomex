@@ -171,10 +171,59 @@ class TestLiquidacionAccess(AccountTestInvoicingCommon):
     def test_other_groups_do_not_widen_the_restricted_bill_scope(self):
         self.operator.group_ids = [Command.link(self.env.ref("sales_team.group_sale_salesman").id)]
         self.assertFalse(self.operator.has_group("account.group_account_invoice"))
+        # A global restriction alone does not grant access when Sales adds a
+        # group rule limited to customer invoices. Exercise the allowed path
+        # too: previously this failed on read while creating the vendor bill.
+        bill = self._create_bill()
+        bill.read(["name", "company_id", "liquidacion_id"])
+        bill.line_ids.read(["name", "balance"])
+        bill.invoice_line_ids.write({"price_unit": 125})
+        bill.action_post()
+        self.assertEqual(bill.state, "posted")
         unrelated = self.env["account.move"].create(self._bill_values(liquidacion_id=False))
         self.assertFalse(self.env["account.move"].with_user(self.operator).search([
             ("id", "=", unrelated.id),
         ]))
+
+    def test_sales_operator_saves_bill_with_existing_liquidation(self):
+        self.operator.group_ids = [Command.link(self.env.ref("sales_team.group_sale_salesman").id)]
+        with Form(self.liquidation, view="gdomex.view_liquidacion_operator_form") as form:
+            with form.factura_relacion_ids.new() as bill:
+                bill.partner_id = self.partner_a
+                bill.invoice_date = fields.Date.today()
+                with bill.invoice_line_ids.new() as line:
+                    line.product_id = self.product_a
+                    line.quantity = 1
+                    line.price_unit = 100
+        invoice = self.liquidation.factura_relacion_ids
+        self.assertEqual(len(invoice), 1)
+        self.assertEqual(invoice.company_id, self.liquidation.company_id)
+        self.assertEqual(invoice.move_type, "in_invoice")
+        self.assertEqual(invoice.state, "draft")
+        invoice.line_ids.read(["balance"])
+
+    def test_sales_operator_saves_bill_with_new_liquidation(self):
+        self.operator.group_ids = [Command.link(self.env.ref("sales_team.group_sale_salesman").id)]
+        model = self.env["account_gt.liquidacion"].with_user(self.operator)
+        with Form(model, view="gdomex.view_liquidacion_operator_form") as form:
+            form.descripcion = "Liquidación nueva con factura y permiso de Ventas"
+            form.fecha = fields.Date.today()
+            form.diario_id = self.company_data["default_journal_misc"]
+            with form.factura_relacion_ids.new() as bill:
+                bill.partner_id = self.partner_a
+                bill.invoice_date = fields.Date.today()
+                with bill.invoice_line_ids.new() as line:
+                    line.product_id = self.product_a
+                    line.quantity = 1
+                    line.price_unit = 100
+        liquidation = form.record
+        invoice = liquidation.factura_relacion_ids
+        self.assertEqual(len(invoice), 1)
+        self.assertEqual(invoice.liquidacion_id, liquidation)
+        self.assertEqual(invoice.company_id, liquidation.company_id)
+        self.assertEqual(invoice.move_type, "in_invoice")
+        invoice.action_post()
+        self.assertEqual(invoice.state, "posted")
 
     def test_native_bill_date_validation_is_preserved(self):
         bill = self._create_bill(invoice_date=False)
