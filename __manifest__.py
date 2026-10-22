@@ -6,7 +6,7 @@
     'author': 'Silva technologies',
     'website': '',
     'category': 'Inventory',
-    'version': '19.0.1.0.12',
+    'version': '19.0.1.0.13',
     'license': 'LGPL-3',
     'depends': [
         'stock',

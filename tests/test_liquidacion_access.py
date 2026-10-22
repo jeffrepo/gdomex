@@ -59,6 +59,15 @@ class TestLiquidacionAccess(AccountTestInvoicingCommon):
             self._bill_values(**overrides)
         )
 
+    def _assert_inline_bill_type_is_sent(self, form):
+        # Readonly fields are omitted from nested commands unless force_save
+        # is set. A child's default_move_type context does not reach the
+        # parent save RPC, so its CREATE command must carry the type itself.
+        commands = form._get_save_values()["factura_relacion_ids"]
+        created = [command[2] for command in commands if command[0] == Command.CREATE]
+        self.assertEqual(len(created), 1)
+        self.assertEqual(created[0].get("move_type"), "in_invoice")
+
     def test_menu_and_groups(self):
         root = self.env.ref("gdomex.menu_liquidaciones_root")
         finance = self.env.ref("account.menu_finance")
@@ -110,6 +119,7 @@ class TestLiquidacionAccess(AccountTestInvoicingCommon):
                     line.product_id = self.product_a
                     line.quantity = 1
                     line.price_unit = 100
+            self._assert_inline_bill_type_is_sent(form)
         invoice = self.liquidation.factura_relacion_ids
         self.assertEqual(len(invoice), 1)
         self.assertEqual(invoice.move_type, "in_invoice")
@@ -195,6 +205,7 @@ class TestLiquidacionAccess(AccountTestInvoicingCommon):
                     line.product_id = self.product_a
                     line.quantity = 1
                     line.price_unit = 100
+            self._assert_inline_bill_type_is_sent(form)
         invoice = self.liquidation.factura_relacion_ids
         self.assertEqual(len(invoice), 1)
         self.assertEqual(invoice.company_id, self.liquidation.company_id)
@@ -216,6 +227,7 @@ class TestLiquidacionAccess(AccountTestInvoicingCommon):
                     line.product_id = self.product_a
                     line.quantity = 1
                     line.price_unit = 100
+            self._assert_inline_bill_type_is_sent(form)
         liquidation = form.record
         invoice = liquidation.factura_relacion_ids
         self.assertEqual(len(invoice), 1)

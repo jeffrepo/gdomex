@@ -2,7 +2,7 @@
 
 ## Liquidaciones sin acceso a Contabilidad
 
-Actualizar `gdomex` a `19.0.1.0.12` y asignar al usuario el grupo
+Actualizar `gdomex` a `19.0.1.0.13` y asignar al usuario el grupo
 **Liquidaciones / Gestionar liquidaciones y facturas de proveedor**
 (`gdomex.group_liquidacion_user`). Para un usuario dedicado a este flujo,
 dejar sin asignar los permisos de Contabilidad/Facturación. El grupo nuevo
@@ -37,6 +37,13 @@ globales, Liquidaciones declara reglas de grupo para permitir sus facturas de
 proveedor y sus apuntes junto con las reglas de Ventas. Se mantienen los límites
 por compañía y por liquidación. Es necesario actualizar el módulo para cargar
 estas reglas; reiniciar el servidor por sí solo no las instala.
+
+La versión `19.0.1.0.13` también conserva `move_type=in_invoice` al guardar una
+factura nueva dentro de la liquidación. El formulario fuerza el envío de ese
+campo de sólo lectura, igual que el formulario nativo de Odoo. Sin ese atributo,
+el guardado del padre puede omitir el tipo y usar `entry` (asiento), que las reglas
+de Liquidaciones rechazan. Actualizar el módulo carga la vista corregida;
+después hay que recargar la página y volver a abrir el formulario.
 
 Las reglas y comprobaciones del servidor también limitan las llamadas RPC.
 Odoo 19 exige `account.group_account_invoice` dentro de `_post`; para este
