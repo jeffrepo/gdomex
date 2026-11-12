@@ -73,7 +73,7 @@
                             <record id="gdomex_report_line_cloc_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
-                                <field name="formula" eval="[('analytic_distribution', 'in', ['70', '71', '72', '150', '159']), ('debit', '&gt;', 0)]"/>
+                                <field name="formula" eval="[('analytic_distribution', 'in', ['70', '71', '72', '150', '159', '144']), ('debit', '&gt;', 0)]"/>
                                 <field name="subformula">sum</field>
                             </record>
                         </field>
@@ -90,7 +90,7 @@
                             <record id="gdomex_report_line_gsc_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
-                                <field name="formula" eval="[('product_id', 'in', [8775, 11670]), ('analytic_distribution', 'in', ['65', '64', '66', '152', '161']), ('debit', '&gt;', 0)]"/>
+                                <field name="formula" eval="[('product_id', 'in', [8775, 11670]), ('analytic_distribution', 'in', ['65', '64', '66', '152', '161', '149']), ('debit', '&gt;', 0)]"/>
                                 <field name="subformula">sum</field>
                             </record>
                         </field>
@@ -138,7 +138,7 @@
                             <record id="gdomex_report_line_imp_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
-                                <field name="formula" eval="[('journal_id', 'in', [1650, 2315]), ('analytic_distribution', 'in', ['74', '73', '75', '153', '162']), ('debit', '&gt;', 0)]"/>
+                                <field name="formula" eval="[('journal_id', 'in', [1650, 2315]), ('analytic_distribution', 'in', ['74', '73', '75', '153', '162', '145']), ('debit', '&gt;', 0)]"/>
                                 <field name="subformula">sum</field>
                             </record>
                         </field>
@@ -155,7 +155,7 @@
                             <record id="gdomex_report_line_dai_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
-                                <field name="formula" eval="[('analytic_distribution', 'in', ['213', '214', '212', '211', '215']), ('debit', '&gt;', 0)]"/>
+                                <field name="formula" eval="[('analytic_distribution', 'in', ['213', '214', '212', '211', '215', '147']), ('debit', '&gt;', 0)]"/>
                                 <field name="subformula">sum</field>
                             </record>
                         </field>
@@ -172,7 +172,7 @@
                             <record id="gdomex_report_line_fyt_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
-                                <field name="formula" eval="[('analytic_distribution', 'in', ['62', '61', '63', '151', '160']), ('debit', '&gt;', 0)]"/>
+                                <field name="formula" eval="[('analytic_distribution', 'in', ['62', '61', '63', '151', '160', '146']), ('debit', '&gt;', 0)]"/>
                                 <field name="subformula">sum</field>
                             </record>
                         </field>
@@ -196,7 +196,7 @@
                     </record>
 
                     <record id="gdomex_report_line_sm" model="account.report.line">
-                        <field name="name">Seguros Mercadria</field>
+                        <field name="name">Seguros Mercaderia</field>
                         <field name="code">SM</field>
                         <field name="sequence">200</field>
                         <field name="groupby" eval="False"/>
@@ -206,7 +206,7 @@
                             <record id="gdomex_report_line_sm_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
-                                <field name="formula" eval="[('analytic_distribution', 'in', ['68', '67', '69', '154', '163']), ('debit', '&gt;', 0)]"/>
+                                <field name="formula" eval="[('analytic_distribution', 'in', ['68', '67', '69', '154', '163', '148']), ('debit', '&gt;', 0)]"/>
                                 <field name="subformula">sum</field>
                             </record>
                         </field>
