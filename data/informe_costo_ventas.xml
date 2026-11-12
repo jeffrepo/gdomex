@@ -13,7 +13,7 @@
     -->
 
     <record id="gdomex_report_informe_costo_ventas" model="account.report">
-        <field name="name">Informe de costo de ventas</field>
+        <field name="name">Informe de costo de ventas Domex</field>
         <field name="filter_date_range" eval="True"/>
         <field name="filter_period_comparison" eval="True"/>
         <field name="filter_journals" eval="True"/>
@@ -1398,7 +1398,7 @@
 
     <!-- Accion cliente para abrir el reporte desde Contabilidad > Informes -->
     <record id="gdomex_action_informe_costo_ventas" model="ir.actions.client">
-        <field name="name">Informe de costo de ventas</field>
+        <field name="name">Informe de costo de ventas Domex</field>
         <field name="tag">account_report</field>
         <field name="context" eval="{'report_id': ref('gdomex_report_informe_costo_ventas')}"/>
     </record>
@@ -1406,9 +1406,9 @@
     <!-- Menu visible en Contabilidad > Informes -->
     <menuitem
         id="gdomex_menu_informe_costo_ventas"
-        name="Informe de costo de ventas"
+        name="Informe de costo de ventas Domex"
         parent="account.menu_finance_reports"
         action="gdomex_action_informe_costo_ventas"
-        sequence="95"/>
+        sequence="96"/>
 
 </odoo>
