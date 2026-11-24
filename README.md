@@ -1,5 +1,56 @@
 # gdomex
 
+## Tipo de cambio de facturas de proveedor (19.0.1.0.16)
+
+Las facturas y notas de crédito de proveedor (`in_invoice`, `in_refund`)
+consultan la tasa de su fecha contable (`date`). Si todavía no tienen esa
+fecha, se conserva la selección estándar de Odoo. Se reutiliza el cálculo
+nativo, incluida la dirección compañía → moneda del documento, las tasas por
+compañía y el redondeo de los apuntes. No cambia la fecha utilizada por clientes,
+recibos ni la valuación de compras/inventario.
+
+Al cambiar la fecha contable o el tipo de documento se actualizan únicamente
+los proveedores en borrador, tanto en el formulario como mediante `write`
+(importaciones/RPC). Una tasa enviada explícitamente en la misma escritura
+conserva la prioridad estándar. No se agrega `date` como dependencia global
+de la tasa almacenada: eso reiniciaría también tasas manuales de clientes.
+Las dependencias originales de ambos cálculos se conservan mediante la
+resolución de herencias de Odoo 19; sólo el cálculo de la tasa esperada agrega
+`date` y `move_type`.
+
+El cálculo automático de `invoice_currency_rate` excluye proveedores publicados
+o cancelados, incluso ante una recomputación explícita del ORM. La tasa esperada
+(no almacenada) puede mostrar el valor de la fecha contable, mientras la tasa
+aplicada y los importes históricos se conservan. Esto no sustituye los permisos
+de Odoo ni impide una escritura explícita de la tasa por otro desarrollo.
+No se incluye migración, hook ni actualización masiva de documentos. Los
+borradores existentes no se corrigen masivamente: revisar y refrescar la tasa
+individualmente antes de publicar. No volver a borrador documentos históricos
+como parte de la instalación de este cambio.
+
+Regresión: USD 41,131.20 × 7.64187 = Q314,319.28; con 7.62060 resulta
+Q313,444.42. La diferencia es Q874.86. En una nota de crédito se invierte
+el signo del apunte.
+
+Pruebas de integración (sólo en una base desechable, con las dependencias
+completas del módulo):
+
+```sh
+odoo-bin -d BASE_DE_PRUEBAS -u gdomex --test-enable --test-tags /gdomex:TestVendorCurrencyRate --stop-after-init
+```
+
+La suite cubre importes y balance del asiento, publicación, cambio de fecha
+en formulario y RPC, prioridad manual, clientes/recibos, moneda de compañía,
+fallback, lotes, tasas por compañía, herencia de dependencias y recomputación
+forzada de documentos publicados con tasa histórica. La revisión de código
+se contrastó con Odoo 19 Enterprise `19.0+e-20260928` (core
+`4e7b84db9455086754164db5e404987c34d48eb7`) y la rama pública `odoo/odoo:19.0`.
+Se revisaron las herencias locales de `gdomex`, `account_gt` e `infilefel`;
+la lista y revisión exacta de módulos instalados en producción no se verificó.
+Esta suite requiere ejecución en Odoo; la validación aislada de Python no
+sustituye la integración con ORM, impuestos, cierres contables y módulos
+instalados. No desplegar este cambio en producción sin esa validación.
+
 ## Liquidaciones sin acceso a Contabilidad
 
 Actualizar `gdomex` a `19.0.1.0.13` y asignar al usuario el grupo

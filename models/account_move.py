@@ -35,6 +35,53 @@ class AccountMove(models.Model):
         help="ID de la orden de compra en Odoo 10",
     )
 
+    def _get_invoice_currency_rate_date(self):
+        self.ensure_one()
+        if self.move_type in ("in_invoice", "in_refund") and self.date:
+            return self.date
+        return super()._get_invoice_currency_rate_date()
+
+    @api.depends("date", "move_type")
+    def _compute_expected_currency_rate(self):
+        # Odoo 19 combines @depends from every implementation in the MRO,
+        # including the core currency/company/invoice/taxable-supply fields.
+        super()._compute_expected_currency_rate()
+
+    def _compute_invoice_currency_rate(self):
+        # Keep the stored rate of posted/cancelled vendor documents even if
+        # another dependency or an explicit ORM recompute invalidates it.
+        moves = self.filtered(lambda move: not (
+            move.move_type in ("in_invoice", "in_refund")
+            and move.state in ("posted", "cancel")
+        ))
+        super(AccountMove, moves)._compute_invoice_currency_rate()
+
+    @api.onchange("date", "move_type")
+    def _onchange_vendor_currency_rate_date(self):
+        self.filtered(lambda move:
+            move.move_type in ("in_invoice", "in_refund")
+            and move.state == "draft"
+        )._compute_invoice_currency_rate()
+
+    def write(self, vals):
+        # A global @depends('date') on invoice_currency_rate would also reset
+        # manually entered customer rates. Refresh only changed vendor drafts,
+        # through the normal ORM write/synchronization of invoice amounts.
+        # An explicitly supplied rate (e.g. an import) keeps standard priority.
+        previous_dates = {}
+        if {"date", "move_type"} & vals.keys() and "invoice_currency_rate" not in vals:
+            previous_dates = {
+                move.id: (move.date, move.move_type) for move in self
+            }
+        result = super().write(vals)
+        if previous_dates:
+            self.filtered(lambda move:
+                move.move_type in ("in_invoice", "in_refund")
+                and move.state == "draft"
+                and previous_dates[move.id] != (move.date, move.move_type)
+            )._compute_invoice_currency_rate()
+        return result
+
     def _get_invoice_delivery_datetime(self):
         """Convert the invoice date into a timezone-safe UTC datetime."""
         self.ensure_one()
