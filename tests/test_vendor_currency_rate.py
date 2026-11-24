@@ -175,4 +175,3 @@ class TestVendorCurrencyRate(AccountTestInvoicingCommon):
         stored_deps, _ = model._fields["invoice_currency_rate"].get_depends(model)
         self.assertTrue((native | {"date", "move_type"}).issubset(expected_deps))
         self.assertTrue(native.issubset(stored_deps))
-
